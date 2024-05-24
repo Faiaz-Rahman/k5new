@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Head() {
     return (
-        <div
+        <header
             className="h-28 w-screen bg-red-500
             "
         >
             <div
-                className="h-5/6 w-[100%] bg-blue-200 flex 
+                className="h-5/6 w-screen bg-blue-200 flex 
                 items-end justify-between
             "
             >
@@ -24,10 +24,10 @@ export default function Head() {
 
                 {/* Input Container */}
                 <div
-                    className="h-5/6 bg-pink-300 
+                    className="h-5/6 bg-violet-400 
                 flex items-center justify-center"
                     style={{
-                        width: 'calc(60% - 130px)',
+                        width: 'calc(65% - 130px)',
                     }}
                 >
                     <div
@@ -67,18 +67,15 @@ export default function Head() {
                     </div>
                 </div>
                 <div
-                    className="h-5/6 bg-cyan-700
-                    flex justify-center items-center
+                    className="h-5/6 w-[25%] bg-cyan-700
                     flex-col 
+                    flex justify-between items-center
                 "
-                    style={{
-                        width: '30%',
-                    }}
                 >
                     <div
-                        className="h-2/6 w-5/6 bg-yellow-400 mb-[7px]
-            rounded-sm flex justify-center items-center
-            cursor-pointer
+                        className="h-[35px] w-5/6 bg-yellow-400
+                        rounded-sm flex justify-center items-center
+                        cursor-pointer
           "
                     >
                         <p className="text-black text-xs">
@@ -86,7 +83,7 @@ export default function Head() {
                         </p>
                     </div>
                     <div
-                        className="h-2/6 w-5/6 bg-yellow-400
+                        className="h-[35px] w-5/6 bg-yellow-400
             rounded-sm flex justify-center items-center
             cursor-pointer
 
@@ -98,6 +95,6 @@ export default function Head() {
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }
