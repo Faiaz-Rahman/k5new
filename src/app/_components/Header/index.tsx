@@ -97,25 +97,25 @@ export default function Head() {
                             }}
                         />
                         <div
-                            className="absolute top-full bg-white h-16 
-                            w-full hidden transition-all group-hover:flex
-                            shadow-md
+                            className="h-0 w-full absolute top-full bg-white 
+                            hidden transition-all group-hover:flex
+                            shadow-md group-hover:h-16 duration-500
                         "
                         >
                             <ul className="h-full w-full">
                                 <li
-                                    className="w-full pl-2 text-[9px] 
-                                text-slate-400 h-1/2 flex items-center
+                                    className="w-full h-1/2 pl-2 text-[9px] 
+                                text-slate-400 flex items-center
                                 hover:bg-slate-200 hover:text-black
                                 "
                                 >
                                     Sign Up
                                 </li>
                                 <li
-                                    className="w-full pl-2 text-[9px]
-                                text-slate-400 h-1/2 flex items-center 
+                                    className="h-1/2 w-full pl-2 text-[9px]
+                                text-slate-400 flex items-center 
                                 hover:bg-slate-200 hover:text-black
-                            "
+                                "
                                 >
                                     Already a member? Sign In
                                 </li>
