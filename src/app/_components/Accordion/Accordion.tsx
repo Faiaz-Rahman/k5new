@@ -66,7 +66,7 @@ export function AccordionItem({
             <header
                 role="button"
                 className="bg-red-200 flex justify-between 
-                items-center py-2 pl-2 w-2/6"
+                items-center py-2 pl-2 w-[200px]"
                 onClick={() => {
                     setSelected(open ? null : value)
                 }}
@@ -81,8 +81,8 @@ export function AccordionItem({
                 />
             </header>
             <div
-                className="overflow-y-hidden transition-all w-2/6
-
+                className="overflow-y-hidden 
+                transition-all w-[200px] duration-300
                 "
                 style={{
                     height: open ? divRef.current?.offsetHeight : 0,
