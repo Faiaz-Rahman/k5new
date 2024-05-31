@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AccordionContext } from '../_components/Accordion/Accordion'
 
 import { AccordionContextType } from '../_components/Accordion/Accordion'
@@ -15,8 +15,8 @@ export default function page1() {
     // }, [selected])
 
     const data = [1, 2, 3, 4, 5]
-    const [focusedInd, setfocusedInd] = useState<number>(2)
-    const [style, setStyle] = useState('')
+    const [focusedInd, setfocusedInd] = useState<number>(1)
+    const [style, setStyle] = useState<number>(0)
 
     return (
         <>
@@ -32,47 +32,93 @@ export default function page1() {
             </div>
 
             <div
-                className="flex bg-orange-100 items-center pt-3
-                justify-between relative h-[400px] w-[calc(100% - 200px)] gap-[10px] overflow-hidden
+                className="flex items-center
+                justify-between relative h-[400px] w-[660px]
+                overflow-x-hidden
             "
             >
-                {data.map((item, ind) => {
-                    if (ind === focusedInd) {
-                        return (
-                            <div
-                                key={item}
-                                className={`h-[300px] w-[300px] bg-blue-200 flex items-center justify-center transition-all duration-500`}
-                            >
-                                {item}
-                            </div>
-                        )
-                    } else if (ind === focusedInd - 1) {
-                        return (
-                            <div
-                                key={item}
-                                className={`h-[200px] w-[200px] bg-blue-200 flex items-center justify-center transition-all duration-500`}
-                            >
-                                {item}
-                            </div>
-                        )
-                    } else if (ind === focusedInd + 1) {
-                        return (
-                            <div
-                                key={item}
-                                className={`h-[200px] w-[200px] bg-blue-200 flex items-center justify-center transition-all duration-500`}
-                            >
-                                {item}
-                            </div>
-                        )
-                    }
-                })}
+                <div
+                    className="flex justify-center
+                    h-full items-center gap-1 
+                    flex-row
+                "
+                >
+                    {data.map((item, ind) => {
+                        if (ind === focusedInd) {
+                            return (
+                                <div
+                                    key={item}
+                                    className={`h-[300px] w-[220px] 
+                                bg-blue-200 flex items-center 
+                                justify-center transition-all
+                                duration-500`}
+                                    style={{
+                                        transform: `translateX(${style}px)`,
+                                    }}
+                                >
+                                    {item}
+                                </div>
+                            )
+                        } else if (ind === focusedInd - 1) {
+                            return (
+                                <div
+                                    key={item}
+                                    className={`h-[200px] w-[220px]
+                                bg-blue-200 flex transform 
+                                items-center justify-center 
+                                transition-all duration-500
+                            `}
+                                    style={{
+                                        transform: `translateX(${style}px)`,
+                                    }}
+                                >
+                                    {item}
+                                </div>
+                            )
+                        } else if (ind === focusedInd + 1) {
+                            return (
+                                <div
+                                    key={item}
+                                    className={`h-[200px] w-[220px] 
+                                bg-blue-200 flex items-center
+                                justify-center transition-all
+                                duration-500 
+                                
+                                `}
+                                    style={{
+                                        transform: `translateX(${style}px)`,
+                                    }}
+                                >
+                                    {item}
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <div
+                                    key={item}
+                                    className={`h-[200px] w-[180px]
+                                bg-blue-200 flex items-center 
+                                justify-center transition-all
+                                duration-500
+
+                                `}
+                                    style={{
+                                        transform: `translateX(${style}px)`,
+                                    }}
+                                >
+                                    {item}
+                                </div>
+                            )
+                        }
+                    })}
+                </div>
 
                 <div
                     role="button"
                     onClick={() => {
                         if (focusedInd > 1) {
                             setfocusedInd((prev) => prev - 1)
-                            setStyle('transform -translate-x-[200px]')
+                            setStyle((prev) => prev + 180)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
@@ -91,7 +137,7 @@ export default function page1() {
                     onClick={() => {
                         if (focusedInd < 3) {
                             setfocusedInd((prev) => prev + 1)
-                            setStyle('transform translate-x-[200px]')
+                            setStyle((prev) => prev - 180)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
