@@ -49,22 +49,6 @@ export default function Home() {
                     <p>This is a paragraph</p>
                 </div>
             </button> */}
-
-            <Accordion value="Topic 1">
-                <AccordionItem trigger="Topic 1" value={'1'}>
-                    Kindergarden
-                </AccordionItem>
-
-                <AccordionItem
-                    trigger="Topic 2"
-                    value={'2'}
-                ></AccordionItem>
-
-                <AccordionItem
-                    trigger="Topic 3"
-                    value={'3'}
-                ></AccordionItem>
-            </Accordion>
         </main>
     )
 }

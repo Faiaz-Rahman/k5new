@@ -4,6 +4,7 @@ import React, {
     LegacyRef,
     ReactNode,
     useContext,
+    useEffect,
     useRef,
     useState,
 } from 'react'
@@ -21,12 +22,12 @@ interface AccordionItem {
     trigger: string
 }
 
-type AccordionContext = [
+export type AccordionContextType = [
     selected: string | null,
     setSelected: React.Dispatch<React.SetStateAction<string | null>>
 ]
 
-const AccordionContext = createContext<AccordionContext>([
+export const AccordionContext = createContext<AccordionContextType>([
     '',
     () => '',
 ])
@@ -60,6 +61,10 @@ export function AccordionItem({
     const open = selected === value
 
     const divRef = useRef<HTMLDivElement>(null)
+
+    // useEffect(() => {
+    //     console.log('value of selected from Accordion =>', selected)
+    // }, [selected])
 
     return (
         <li {...props}>

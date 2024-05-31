@@ -44,7 +44,6 @@ export default function Head() {
                         rounded-full flex pr-[2px]
                         items-center overflow-hidden
                         border-gray-400 border-[1px]
-
                         "
                     >
                         <input
