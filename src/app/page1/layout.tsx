@@ -11,7 +11,7 @@ export default function Page1Layout({
     return (
         <>
             <div className="flex">
-                <Accordion value="1">
+                <Accordion value="en">
                     <AccordionItem
                         trigger="Topic 1"
                         value={'1'}

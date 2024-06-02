@@ -1,6 +1,5 @@
 import {
     faChevronDown,
-    faChevronUp,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,7 +9,7 @@ import './index.css'
 export default function Head() {
     return (
         <header
-            className="h-32 w-screen 
+            className="h-32 w-screen mb-10
             "
             // bg-red-500
         >
@@ -79,20 +78,21 @@ export default function Head() {
                     // bg-cyan-700
                 >
                     <div
-                        className="h-[35px] w-5/6 bg-green-400
+                        className="h-[35px] w-5/6 bg-red-600
                         rounded-sm flex justify-center items-center
                         cursor-pointer relative group
                     "
                     >
-                        <p className="text-black text-xs">
+                        <p className="text-white text-xs font-semibold">
                             Become a member
                         </p>
                         <FontAwesomeIcon
                             icon={faChevronDown}
-                            className="rotate-180 transition-all duration-300 group-hover:rotate-0"
+                            className="rotate-180 transition-all duration-300 
+                            group-hover:rotate-0 text-white"
                             style={{
-                                fontSize: 8,
-                                marginLeft: 3,
+                                fontSize: 12,
+                                marginLeft: 5,
                             }}
                         />
                         <div
@@ -103,17 +103,17 @@ export default function Head() {
                         >
                             <ul className="h-full w-full">
                                 <li
-                                    className="w-full h-1/2 pl-2 text-[9px] 
+                                    className="w-full h-1/2 pl-2 text-[10px] 
                                 text-slate-400 flex items-center
-                                hover:bg-slate-200 hover:text-black
+                                hover:bg-slate-200 hover:text-black hover:font-semibold
                                 "
                                 >
                                     Sign Up
                                 </li>
                                 <li
-                                    className="h-1/2 w-full pl-2 text-[9px]
+                                    className="h-1/2 w-full pl-2 text-[10px]
                                 text-slate-400 flex items-center 
-                                hover:bg-slate-200 hover:text-black
+                                hover:bg-slate-200 hover:text-black hover:font-semibold
                                 "
                                 >
                                     Already a member? Sign In
@@ -122,16 +122,77 @@ export default function Head() {
                         </div>
                     </div>
                     <div
-                        className="h-[35px] w-5/6 bg-green-400
+                        className="h-[35px] w-5/6 bg-red-600
                         rounded-sm flex justify-center items-center
                         cursor-pointer
                     "
                     >
-                        <p className="text-black text-xs">
+                        <p className="text-white text-xs font-semibold">
                             Workbook Store
                         </p>
                     </div>
                 </div>
+            </div>
+
+            <div className="w-screen h-10 bg-red-100 flex items-center">
+                <ul className="flex pl-3">
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Kindergarden
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Grade-1
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Grade-2
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Grade-3
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Grade-4
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Grade-5
+                    </li>
+                    <li
+                        className="px-3 h-10 hover:bg-red-600 flex
+                        items-center justify-center text-xs hover:text-white 
+                        rounded-sm font-semibold
+                    "
+                    >
+                        Browse By Topic
+                    </li>
+                </ul>
             </div>
         </header>
     )
