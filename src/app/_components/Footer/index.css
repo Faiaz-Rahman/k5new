@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+.icons {
+    box-shadow: none;
+    transition: 400ms all ease-out;
+}
+
+.icons:hover {
+    transition: 400ms all ease-in;
+    box-shadow: 0 0 1.5rem rgb(97, 255, 255);
+    cursor: pointer;
+}
