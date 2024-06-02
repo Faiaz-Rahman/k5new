@@ -26,7 +26,7 @@ export default function SliderItem({
         <div
             key={item}
             className={`
-                 flex items-center 
+                bg-white flex items-center 
                 justify-center transition-all
                 duration-500
                 border border-gray-400 border-solid
@@ -41,10 +41,10 @@ export default function SliderItem({
                 src={image_assets_arr[item - 1]}
                 alt=""
                 className="object-contain transition-all
-                    duration-500
+                    duration-300
                 "
                 style={{
-                    height: height * 0.99,
+                    height: height * 0.98,
                     width,
                 }}
             />
