@@ -1,5 +1,7 @@
 import React from 'react'
 import './index.css'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface SliderItemProps {
     item: number
@@ -53,11 +55,27 @@ export default function SliderItem({
             />
 
             <div
-                className="w-full h-0 bg-red-100
-                absolute bottom-0 left-0 transition-all opacity-30
-                group-hover:h-full duration-300
+                className="w-full h-0 bg-red-100 opacity-0
+                absolute bottom-0 left-0 transition-all 
+                hover:opacity-40 group-hover:h-full 
+                duration-500 flex items-center
+                justify-center flex-col 
             "
-            ></div>
+            >
+                <FontAwesomeIcon
+                    icon={faLock}
+                    className="text-red-700 font-bold text-[20px]"
+                />
+                <p
+                    className="text-red-700 font-bold text-[14px]
+                text-center
+                "
+                >
+                    Subscribe
+                    <br />
+                    to unlock!
+                </p>
+            </div>
         </div>
     )
 }
