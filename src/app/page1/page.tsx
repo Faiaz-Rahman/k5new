@@ -1,33 +1,43 @@
 'use client'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { AccordionContext } from '../_components/Accordion/Accordion'
 
-import { AccordionContextType } from '../_components/Accordion/Accordion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faChevronLeft,
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
+import SliderItem from '../_components/SliderItem'
+import { Metadata } from 'next'
 
-export default function page1() {
+const metadata: Metadata = {
+    title: 'Page1',
+    description: 'This is the description of Page1',
+}
+
+export default function Page1() {
     // useEffect(() => {
     //     console.log('The selected item is: ', selected)
     // }, [selected])
 
-    const data = [1, 2, 3, 4, 5]
+    const data: number[] = [1, 2, 3, 4, 5, 6]
     const [focusedInd, setfocusedInd] = useState<number>(1)
     const [style, setStyle] = useState<number>(0)
 
     return (
         <>
             <div
-                className="bg-red-200 py-2 pl-2 mb-10 w-[40%]
+                className="bg-red-200 py-2 pl-3 mb-10 
+                w-[40%] text-[14px]
             "
             >
                 List of Grade 1 Worksheets
             </div>
 
-            <div className="bg-red-200 py-2 px-2 w-[40%]">
+            <div
+                className="bg-red-200 py-2 pl-3 
+                text-[14px]
+            w-[40%]"
+            >
                 List of Grade 2 Worksheets
             </div>
 
@@ -39,75 +49,50 @@ export default function page1() {
             >
                 <div
                     className="flex justify-center
-                    h-full items-center gap-1 
-                    flex-row
+                    h-full items-center
+                    flex-row gap-1
                 "
                 >
                     {data.map((item, ind) => {
                         if (ind === focusedInd) {
                             return (
-                                <div
-                                    key={item}
-                                    className={`h-[300px] w-[220px] 
-                                bg-blue-200 flex items-center 
-                                justify-center transition-all
-                                duration-500`}
-                                    style={{
-                                        transform: `translateX(${style}px)`,
-                                    }}
-                                >
-                                    {item}
-                                </div>
+                                <SliderItem
+                                    item={item}
+                                    key={ind}
+                                    transform={style}
+                                    height={300}
+                                    width={220}
+                                />
                             )
                         } else if (ind === focusedInd - 1) {
                             return (
-                                <div
-                                    key={item}
-                                    className={`h-[200px] w-[220px]
-                                bg-blue-200 flex transform 
-                                items-center justify-center 
-                                transition-all duration-500
-                            `}
-                                    style={{
-                                        transform: `translateX(${style}px)`,
-                                    }}
-                                >
-                                    {item}
-                                </div>
+                                <SliderItem
+                                    item={item}
+                                    key={ind}
+                                    transform={style}
+                                    height={200}
+                                    width={220}
+                                />
                             )
                         } else if (ind === focusedInd + 1) {
                             return (
-                                <div
-                                    key={item}
-                                    className={`h-[200px] w-[220px] 
-                                bg-blue-200 flex items-center
-                                justify-center transition-all
-                                duration-500 
-                                
-                                `}
-                                    style={{
-                                        transform: `translateX(${style}px)`,
-                                    }}
-                                >
-                                    {item}
-                                </div>
+                                <SliderItem
+                                    item={item}
+                                    key={ind}
+                                    transform={style}
+                                    height={200}
+                                    width={220}
+                                />
                             )
                         } else {
                             return (
-                                <div
-                                    key={item}
-                                    className={`h-[200px] w-[180px]
-                                bg-blue-200 flex items-center 
-                                justify-center transition-all
-                                duration-500
-
-                                `}
-                                    style={{
-                                        transform: `translateX(${style}px)`,
-                                    }}
-                                >
-                                    {item}
-                                </div>
+                                <SliderItem
+                                    item={item}
+                                    key={ind}
+                                    transform={style}
+                                    height={200}
+                                    width={170}
+                                />
                             )
                         }
                     })}
@@ -116,9 +101,9 @@ export default function page1() {
                 <div
                     role="button"
                     onClick={() => {
-                        if (focusedInd > 1) {
+                        if (focusedInd >= 1) {
                             setfocusedInd((prev) => prev - 1)
-                            setStyle((prev) => prev + 180)
+                            setStyle((prev) => prev + 170)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
@@ -135,14 +120,14 @@ export default function page1() {
                 <div
                     role="button"
                     onClick={() => {
-                        if (focusedInd < 3) {
+                        if (focusedInd < data.length - 1) {
                             setfocusedInd((prev) => prev + 1)
-                            setStyle((prev) => prev - 180)
+                            setStyle((prev) => prev - 170)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
                         rounded-full right-0 flex justify-center items-center
-                        shadow-md 
+                        shadow-md
                     "
                 >
                     <FontAwesomeIcon
