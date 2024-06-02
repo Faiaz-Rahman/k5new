@@ -1,0 +1,25 @@
+.slider_cover {
+    top: 100%;
+}
+
+.slider_cover:hover {
+    animation: slider-animation 400ms ease-in forwards;
+}
+
+@keyframes slider-animation {
+    0% {
+        top: 100%;
+    }
+    25% {
+        top: 75%;
+    }
+    50% {
+        top: 50%;
+    }
+    75% {
+        top: 25%;
+    }
+    100% {
+        top: 0px;
+    }
+}

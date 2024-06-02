@@ -1,4 +1,5 @@
 import React from 'react'
+import './index.css'
 
 interface SliderItemProps {
     item: number
@@ -30,6 +31,8 @@ export default function SliderItem({
                 justify-center transition-all
                 duration-500
                 border border-gray-400 border-solid
+                overflow-hidden
+                group 
                 `}
             style={{
                 transform: `translateX(${transform}px)`,
@@ -41,13 +44,20 @@ export default function SliderItem({
                 src={image_assets_arr[item - 1]}
                 alt=""
                 className="object-contain transition-all
-                    duration-300
+                    duration-300 
                 "
                 style={{
                     height: height * 0.98,
                     width,
                 }}
             />
+
+            <div
+                className="w-full h-0 bg-red-100
+                absolute bottom-0 left-0 transition-all opacity-30
+                group-hover:h-full duration-300
+            "
+            ></div>
         </div>
     )
 }

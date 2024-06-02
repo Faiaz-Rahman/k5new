@@ -18,6 +18,7 @@ const config: Config = {
                 height: 'height',
                 spacing: 'margin, padding',
             },
+            transform: ['hover', 'focus'],
         },
     },
     plugins: [],

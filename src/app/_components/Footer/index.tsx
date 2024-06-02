@@ -154,7 +154,7 @@ export default function Footer() {
             bg-red-100 flex items-center justify-center
             "
             >
-                Copyright © 2023 K5 Learning
+                Copyright © 2023 Company Name
             </div>
         </div>
     )
