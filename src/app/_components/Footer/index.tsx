@@ -1,6 +1,8 @@
 import {
     faFacebook,
+    faLinkedin,
     faPinterest,
+    faSquareInstagram,
     faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,50 +23,39 @@ export default function Footer() {
                 <div
                     className="h-[100%] bg-white
                     flex justify-center pl-10 font-bold
-                    text-sm flex-col gap-4 pb-3
+                    text-sm flex-col gap-1 pb-3
                 "
                 >
                     Join Us
                     <div
                         className="h-10
-                        flex items-center
+                        flex items-cente
                     "
                     >
-                        <div
-                            className="h-10 w-10
-                        flex items-center justify-center 
-                        rounded-full mr-3 border 
-                        border-cyan-500 icons
-                        "
-                        >
-                            <FontAwesomeIcon
-                                icon={faTwitter}
-                                className="text-[15px] text-cyan-500"
-                            />
-                        </div>
-
-                        <div
-                            className="h-10 w-10
-                        flex items-center justify-center 
-                        rounded-full mr-3 border-cyan-500
-                        border icons
-                        "
-                        >
-                            <FontAwesomeIcon
-                                icon={faPinterest}
-                                className="text-[15px] text-cyan-500"
-                            />
-                        </div>
-
-                        <div
-                            className="h-10 w-10
-                            flex items-center justify-center rounded-full
-                            border border-cyan-500 icons
-                        "
-                        >
+                        <div className="icons mr-3">
                             <FontAwesomeIcon
                                 icon={faFacebook}
-                                className="text-[15px] text-cyan-500"
+                                className="text-[20px] text-black"
+                            />
+                        </div>
+                        <div className="mr-3 icons">
+                            <FontAwesomeIcon
+                                icon={faSquareInstagram}
+                                className="text-[20px] text-black"
+                            />
+                        </div>
+
+                        <div className=" mr-3 icons">
+                            <FontAwesomeIcon
+                                icon={faPinterest}
+                                className="text-[20px] text-black"
+                            />
+                        </div>
+
+                        <div className=" mr-3 icons">
+                            <FontAwesomeIcon
+                                icon={faLinkedin}
+                                className="text-[20px] text-black"
                             />
                         </div>
                     </div>

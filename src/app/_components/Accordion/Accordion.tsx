@@ -62,6 +62,9 @@ export function AccordionItem({
 
     const divRef = useRef<HTMLDivElement>(null)
 
+    const accordion_dropdown_style: string =
+        'py-2 pl-2 cursor-pointer text-sm hover:bg-slate-100'
+
     // useEffect(() => {
     //     console.log('value of selected from Accordion =>', selected)
     // }, [selected])
@@ -94,47 +97,22 @@ export function AccordionItem({
                 }}
             >
                 <div ref={divRef}>
-                    <div
-                        className="py-2 pl-2 text-sm 
-                        hover:bg-slate-100
-                        cursor-pointer
-                    "
-                    >
+                    <div className={accordion_dropdown_style}>
                         Kindergarden
                     </div>
-                    <div
-                        className="py-2 pl-2 
-                    cursor-pointer
-                    text-sm hover:bg-slate-100"
-                    >
+                    <div className={accordion_dropdown_style}>
                         Grade-1
                     </div>
-                    <div
-                        className="py-2 pl-2 
-                    cursor-pointer
-                    text-sm hover:bg-slate-100"
-                    >
+                    <div className={accordion_dropdown_style}>
                         Grade-2
                     </div>
-                    <div
-                        className="py-2 pl-2 
-                    cursor-pointer
-                    text-sm hover:bg-slate-100"
-                    >
+                    <div className={accordion_dropdown_style}>
                         Grade-3
                     </div>
-                    <div
-                        className="py-2  pl-2 
-                    cursor-pointer
-                    text-sm hover:bg-slate-100"
-                    >
+                    <div className={accordion_dropdown_style}>
                         Grade-4
                     </div>
-                    <div
-                        className="py-2 pl-2 
-                        cursor-pointer
-                    text-sm hover:bg-slate-100"
-                    >
+                    <div className={accordion_dropdown_style}>
                         Grade-5
                     </div>
                 </div>
