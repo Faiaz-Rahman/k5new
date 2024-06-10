@@ -9,6 +9,6 @@
 
 .icons:hover {
     transition: 400ms all ease-in;
-    box-shadow: 0 0 1.5rem rgb(126, 245, 245);
+    box-shadow: 0 0 1rem rgb(83, 247, 247);
     cursor: pointer;
 }

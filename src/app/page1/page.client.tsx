@@ -97,7 +97,7 @@ export default function PageClient() {
                     }}
                     className="absolute h-10 w-10 bg-red-400
                         rounded-full left-0 flex justify-center items-center
-                        shadow-md 
+                        shadow-md opacity-80
                      "
                 >
                     <FontAwesomeIcon
@@ -116,7 +116,7 @@ export default function PageClient() {
                     }}
                     className="absolute h-10 w-10 bg-red-400
                         rounded-full right-0 flex justify-center items-center
-                        shadow-md
+                        shadow-md opacity-80
                     "
                 >
                     <FontAwesomeIcon

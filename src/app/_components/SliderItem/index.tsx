@@ -33,7 +33,7 @@ export default function SliderItem({
                 justify-center transition-all
                 duration-500
                 border border-gray-400 border-solid
-                overflow-hidden
+                overflow-hidden rounded-xl
                 group 
                 `}
             style={{

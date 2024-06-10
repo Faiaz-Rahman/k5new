@@ -16,19 +16,19 @@ export default function Footer() {
         <div>
             <div
                 className="h-48 w-screen grid 
-                grid-cols-[28%_auto_auto] gap-2
+                grid-cols-[45%_auto_auto] gap-2
                 "
                 // bg-green-100
             >
                 <div
                     className="h-[100%] bg-white
                     flex justify-center pl-10 font-bold
-                    text-sm flex-col gap-1 pb-3
+                    text-sm flex-col gap-[1rem] pb-3
                 "
                 >
                     Join Us
                     <div
-                        className="h-10
+                        className="h-5
                         flex items-cente
                     "
                     >
@@ -145,7 +145,7 @@ export default function Footer() {
             bg-red-100 flex items-center justify-center
             "
             >
-                Copyright © 2023 Company Name
+                Copyright © 2024 WittyWorkbooks
             </div>
         </div>
     )

@@ -20,21 +20,24 @@ export default function Head() {
 
     return (
         <header
-            className="h-40 w-screen mb-10
+            className="h-40 w-screen
             flex justify-center items-center flex-col
-            gap-3 bg-red-200
+            gap-3 
             "
         >
             {/* Header Top UI*/}
             <div
-                className="h-12 bg-red-100 w-full flex 
+                className="h-12 
+                w-full flex 
                 items-center"
+                // bg-red-100
             >
                 {/* Logo Container */}
                 <div
-                    className="h-full w-[150px] bg-green-200
+                    className="h-full w-[150px] 
                     flex items-center pl-[60px] 
-                "
+                    "
+                    // bg-green-200
                 >
                     <p
                         className="text-black font-bold
@@ -48,8 +51,9 @@ export default function Head() {
                 {/* Search Bar */}
                 <div
                     className="h-full w-[calc(100%_-_340px)] flex items-center
-                    bg-red-300 justify-center
-                "
+                    justify-center
+                    "
+                    // bg-red-300
                 >
                     <div
                         className="h-[80%]
@@ -85,7 +89,7 @@ export default function Head() {
 
                 <div
                     className="h-full w-[230px]
-                bg-green-500 flex items-center pr-[60px]
+                flex items-center pr-[60px]
                 "
                 >
                     <div
@@ -103,12 +107,12 @@ export default function Head() {
 
             {/* Header Bottom UI */}
             <div
-                className="h-10 bg-red-100 w-full pl-[52px]
+                className="h-10 w-full pl-[52px]
                  flex
             "
             >
                 <ul
-                    className="h-full bg-violet-200 flex
+                    className="h-full flex
                     items-center gap-3 w-full mr-7 border-r border-r-slate-400
                 "
                 >
@@ -118,7 +122,7 @@ export default function Head() {
                                 key={ind}
                                 className="h-full flex items-center
                                 hover:bg-red-500 hover:text-white
-                                px-[8px]
+                                px-[8px] transition-all duration-300
                                 "
                             >
                                 <Link
@@ -135,7 +139,7 @@ export default function Head() {
                 </ul>
 
                 <div
-                    className="h-full w-[240px] bg-green-400
+                    className="h-full w-[240px]
                     flex items-center justify-center pr-[60px]
                 "
                 >
