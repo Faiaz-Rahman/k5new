@@ -10,7 +10,7 @@ export default function Page1Layout({
 }) {
     return (
         <>
-            <div className="flex">
+            <div className="flex w-screen pl-[60px]">
                 <Accordion value="en">
                     <AccordionItem
                         trigger="Topic 1"

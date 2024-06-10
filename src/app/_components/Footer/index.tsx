@@ -22,7 +22,7 @@ export default function Footer() {
             >
                 <div
                     className="h-[100%] bg-white
-                    flex justify-center pl-10 font-bold
+                    flex justify-center pl-[60px] font-bold
                     text-sm flex-col gap-[1rem] pb-3
                 "
                 >

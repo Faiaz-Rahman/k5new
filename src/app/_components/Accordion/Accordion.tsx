@@ -1,7 +1,7 @@
+import { bottom_navbar_items } from '@/app/_constants'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {
-    LegacyRef,
     ReactNode,
     useContext,
     useEffect,
@@ -41,13 +41,23 @@ export default function Accordion({
     const [selected, setSelected] = useState<string | null>(value)
 
     return (
-        <ul {...props} className="mx-5">
-            <AccordionContext.Provider
-                value={[selected, setSelected]}
+        <div>
+            <div
+                className="w-[200px] py-2 
+            bg-[--accordion-header] pl-2
+            text-white font-sm rounded-t-md
+            "
             >
-                {children}
-            </AccordionContext.Provider>
-        </ul>
+                Math By Topic
+            </div>
+            <ul {...props} className="mr-5">
+                <AccordionContext.Provider
+                    value={[selected, setSelected]}
+                >
+                    {children}
+                </AccordionContext.Provider>
+            </ul>
+        </div>
     )
 }
 
@@ -63,7 +73,7 @@ export function AccordionItem({
     const divRef = useRef<HTMLDivElement>(null)
 
     const accordion_dropdown_style: string =
-        'py-2 pl-2 cursor-pointer text-sm hover:bg-slate-100'
+        'py-2 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
 
     // useEffect(() => {
     //     console.log('value of selected from Accordion =>', selected)
@@ -73,8 +83,8 @@ export function AccordionItem({
         <li {...props}>
             <header
                 role="button"
-                className="bg-red-200 flex justify-between 
-                items-center py-2 pl-2 w-[200px]"
+                className="bg-[--accordion-topic] flex justify-between 
+                items-center py-2 pl-2 w-[200px] text-white"
                 onClick={() => {
                     setSelected(open ? null : value)
                 }}
@@ -82,7 +92,7 @@ export function AccordionItem({
                 {trigger}
                 <FontAwesomeIcon
                     icon={faChevronUp}
-                    className={`text-[10px] text-black
+                    className={`text-[10px] text-white
                         mr-3 transition-all ${
                             open ? 'rotate-180' : '0'
                         } duration-300`}
@@ -97,24 +107,22 @@ export function AccordionItem({
                 }}
             >
                 <div ref={divRef}>
-                    <div className={accordion_dropdown_style}>
-                        Kindergarden
-                    </div>
-                    <div className={accordion_dropdown_style}>
-                        Grade-1
-                    </div>
-                    <div className={accordion_dropdown_style}>
-                        Grade-2
-                    </div>
-                    <div className={accordion_dropdown_style}>
-                        Grade-3
-                    </div>
-                    <div className={accordion_dropdown_style}>
-                        Grade-4
-                    </div>
-                    <div className={accordion_dropdown_style}>
-                        Grade-5
-                    </div>
+                    {bottom_navbar_items.map((item, ind) => {
+                        return (
+                            <div
+                                key={ind}
+                                className={accordion_dropdown_style}
+                            >
+                                {item}
+
+                                <FontAwesomeIcon
+                                    icon={faChevronUp}
+                                    className={`text-[10px] text-black
+                        mr-3 transition-all`}
+                                />
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </li>

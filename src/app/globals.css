@@ -8,6 +8,9 @@
     --background-end-rgb: 255, 255, 255;
 
     --button-primary: #cef3fc;
+    --accordion-topic: #6e74dc;
+    --accordion-grade-color: #cff4fe;
+    --accordion-header: #474e7f;
 }
 
 * {

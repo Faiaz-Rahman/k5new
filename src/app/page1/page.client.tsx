@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import SliderItem from '../_components/SliderItem'
+import Slider from '../_components/Slider'
 
 export default function PageClient() {
     const data: number[] = [1, 2, 3, 4, 5, 6]
@@ -14,25 +15,46 @@ export default function PageClient() {
 
     return (
         <>
+            {/* Breadcrumb*/}
+            <div className="py-2">
+                <p className="font-semibold text-[10px]">
+                    Math By Topic {' > '} Topic 1 {' > '} Grade 1{' '}
+                    {' > '}
+                    Number Patterns
+                </p>
+            </div>
             <div
-                className="bg-red-200 py-2 pl-3 mb-10 
-                w-[40%] text-[14px]
+                className="py-2  mb-3 w-full
             "
             >
-                List of Grade 1 Worksheets
+                <p className="font-bold text-2xl">
+                    Grade 1 Number Pattern Worksheets
+                </p>
             </div>
 
             <div
-                className="bg-red-200 py-2 pl-3 
-                text-[14px]
-            w-[40%]"
+                className="
+                text-[14px] w-full pr-40"
             >
-                List of Grade 2 Worksheets
+                <p className="font-semibold text-md">
+                    Number and counting pattern worksheets
+                </p>
+
+                <p className="mt-5 font-normal text-[12px]">
+                    Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Maxime animi, rem tempore necessitatibus
+                    similique delectus vel corporis omnis repellat
+                    numquam vitae cumque voluptas non porro itaque
+                    placeat et. Dolorem at dolorum doloremque neque
+                    vel sed, magni numquam impedit libero debitis
+                    animi, dolores placeat quibusdam. Fuga debitis
+                    earum iure in fugit.
+                </p>
             </div>
 
             <div
                 className="flex items-center
-                justify-between relative h-[400px] w-[660px]
+                justify-between relative h-[400px] w-[670px]
                 overflow-x-hidden
             "
             >
@@ -42,49 +64,13 @@ export default function PageClient() {
                     flex-row gap-1
                 "
                 >
-                    {data.map((item, ind) => {
-                        if (ind === focusedInd) {
-                            return (
-                                <SliderItem
-                                    item={item}
-                                    key={ind}
-                                    transform={style}
-                                    height={300}
-                                    width={220}
-                                />
-                            )
-                        } else if (ind === focusedInd - 1) {
-                            return (
-                                <SliderItem
-                                    item={item}
-                                    key={ind}
-                                    transform={style}
-                                    height={200}
-                                    width={220}
-                                />
-                            )
-                        } else if (ind === focusedInd + 1) {
-                            return (
-                                <SliderItem
-                                    item={item}
-                                    key={ind}
-                                    transform={style}
-                                    height={200}
-                                    width={220}
-                                />
-                            )
-                        } else {
-                            return (
-                                <SliderItem
-                                    item={item}
-                                    key={ind}
-                                    transform={style}
-                                    height={200}
-                                    width={170}
-                                />
-                            )
-                        }
-                    })}
+                    <Slider
+                        data={data}
+                        focusedInd={focusedInd}
+                        setFocusedInd={setfocusedInd}
+                        style={style}
+                        setStyle={setStyle}
+                    />
                 </div>
 
                 <div
@@ -92,7 +78,7 @@ export default function PageClient() {
                     onClick={() => {
                         if (focusedInd >= 1) {
                             setfocusedInd((prev) => prev - 1)
-                            setStyle((prev) => prev + 170)
+                            setStyle((prev) => prev + 230)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
@@ -111,7 +97,7 @@ export default function PageClient() {
                     onClick={() => {
                         if (focusedInd < data.length - 1) {
                             setfocusedInd((prev) => prev + 1)
-                            setStyle((prev) => prev - 170)
+                            setStyle((prev) => prev - 230)
                         }
                     }}
                     className="absolute h-10 w-10 bg-red-400
@@ -124,6 +110,38 @@ export default function PageClient() {
                         className="text-white"
                     />
                 </div>
+            </div>
+
+            <div className="w-full pr-40">
+                <p className="font-semibold text-[16px]">
+                    More Numbers Worksheets
+                </p>
+                <p className="font-normal text-[12px] mt-3">
+                    Lorem ipsum dolor sit, amet consectetur
+                    adipisicing elit. Consequatur natus distinctio
+                    voluptatum provident veritatis saepe, sit eligendi
+                    nisi beatae, ipsa expedita, mollitia dolorum culpa
+                    quidem? Aspernatur laudantium itaque recusandae
+                    quod iste accusantium illum possimus non harum
+                    suscipit. Soluta officia possimus aliquid
+                    laboriosam, necessitatibus alias! Ipsum nihil
+                    repudiandae iure saepe quidem?
+                </p>
+
+                <p className="font-semibold text-[16px] mt-10">
+                    What is WittyWorkbooks?
+                </p>
+                <p className="font-normal text-[12px] mt-3">
+                    Lorem ipsum dolor sit, amet consectetur
+                    adipisicing elit. Consequatur natus distinctio
+                    voluptatum provident veritatis saepe, sit eligendi
+                    nisi beatae, ipsa expedita, mollitia dolorum culpa
+                    quidem? Aspernatur laudantium itaque recusandae
+                    quod iste accusantium illum possimus non harum
+                    suscipit. Soluta officia possimus aliquid
+                    laboriosam, necessitatibus alias! Ipsum nihil
+                    repudiandae iure saepe quidem?
+                </p>
             </div>
         </>
     )

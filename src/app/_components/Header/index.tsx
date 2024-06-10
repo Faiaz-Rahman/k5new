@@ -7,17 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './index.css'
 import Link from 'next/link'
 
-export default function Head() {
-    const bottom_navbar_items: string[] = [
-        'Kindergarden',
-        'Grade-1',
-        'Grade-2',
-        'Grade-3',
-        'Grade-4',
-        'Grade-5',
-        'Browse by topic',
-    ]
+import { bottom_navbar_items } from '@/app/_constants'
 
+export default function Head() {
     return (
         <header
             className="h-40 w-screen
@@ -121,13 +113,14 @@ export default function Head() {
                             <li
                                 key={ind}
                                 className="h-full flex items-center
-                                hover:bg-red-500 hover:text-white
+                                hover:bg-[--button-primary]
                                 px-[8px] transition-all duration-300
+                                rounded-sm
                                 "
                             >
                                 <Link
                                     href="#"
-                                    className="text-xs
+                                    className="text-xs font-medium
                                     h-full w-full flex items-center
                                 "
                                 >
