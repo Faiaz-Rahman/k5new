@@ -1,4 +1,4 @@
-import { bottom_navbar_items } from '@/app/_constants'
+import { bottom_navbar_items, topic_name } from '@/app/_constants'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {
@@ -68,16 +68,24 @@ export function AccordionItem({
     ...props
 }: AccordionItem) {
     const [selected, setSelected] = useContext(AccordionContext)
-    const open = selected === value
+    const open: boolean = selected === value
 
     const divRef = useRef<HTMLDivElement>(null)
+    const divRefInner = useRef<HTMLDivElement>(null)
+    const [selectedInner, setSelectedInner] = useState<string>('')
+    const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string =
         'py-2 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
 
-    // useEffect(() => {
-    //     console.log('value of selected from Accordion =>', selected)
-    // }, [selected])
+    useEffect(() => {
+        console.log('likee =>', selectedInner)
+        if (selectedInner !== '') {
+            setOpenInner(true)
+        } else {
+            setOpenInner(false)
+        }
+    }, [selectedInner])
 
     return (
         <li {...props}>
@@ -108,20 +116,26 @@ export function AccordionItem({
             >
                 <div ref={divRef}>
                     {bottom_navbar_items.map((item, ind) => {
-                        return (
-                            <div
-                                key={ind}
-                                className={accordion_dropdown_style}
-                            >
-                                {item}
-
-                                <FontAwesomeIcon
-                                    icon={faChevronUp}
-                                    className={`text-[10px] text-black
-                        mr-3 transition-all`}
-                                />
-                            </div>
-                        )
+                        if (ind < bottom_navbar_items.length - 1) {
+                            return (
+                                <div
+                                    key={ind}
+                                    className={
+                                        accordion_dropdown_style
+                                    }
+                                    onClick={() => {
+                                        console.log('open')
+                                    }}
+                                >
+                                    {item}
+                                    <FontAwesomeIcon
+                                        icon={faChevronUp}
+                                        className={`text-[10px] text-black
+                                        mr-3 transition-all`}
+                                    />
+                                </div>
+                            )
+                        }
                     })}
                 </div>
             </div>

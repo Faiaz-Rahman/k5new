@@ -3,6 +3,8 @@ import './index.css'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { image_assets_arr } from '@/app/_constants'
+
 interface SliderItemProps {
     item: number
     transform: number
@@ -16,15 +18,6 @@ export default function SliderItem({
     height,
     width,
 }: SliderItemProps) {
-    const image_assets_arr: string[] = [
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/addition/graphics-upto10-preview.png',
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/patterns/repeating-circle-preview.png',
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/counting/read-write-1to25-preview.png',
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/measurement/long-short-ordering-preview.png',
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/time/telling-hourly-increment-preview.png',
-        'https://www.mathworksheets4kids.com/worksheets/1st-grade/geometry/2d-shapes-mcq-preview.png',
-    ]
-
     return (
         <div
             key={item}

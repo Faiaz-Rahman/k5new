@@ -8,8 +8,13 @@ import React, { useState } from 'react'
 import SliderItem from '../_components/SliderItem'
 import Slider from '../_components/Slider'
 
+import { image_assets_arr } from '../_constants'
+
 export default function PageClient() {
     const data: number[] = [1, 2, 3, 4, 5, 6]
+
+    const data_for_worksheet: number[] = [1, 2, 3, 4, 5]
+
     const [focusedInd, setfocusedInd] = useState<number>(1)
     const [style, setStyle] = useState<number>(0)
 
@@ -24,7 +29,7 @@ export default function PageClient() {
                 </p>
             </div>
             <div
-                className="py-2  mb-3 w-full
+                className="py-2 mb-3 w-full
             "
             >
                 <p className="font-bold text-2xl">
@@ -53,11 +58,50 @@ export default function PageClient() {
             </div>
 
             <div
+                className="flex flex-col w-[80%] 
+            py-3 gap-1"
+            >
+                {data_for_worksheet.map((item, index) => {
+                    return (
+                        <div
+                            className="flex w-[80%]
+                            border-b border-b-gray-400
+                            items-center justify-between py-1
+                        "
+                        >
+                            <div
+                                className="flex flex-col h-full w-[100%]
+                "
+                            >
+                                <p className="font-normal text-sm">
+                                    Patterns of object
+                                </p>
+                                <p className="font-normal text-sm">
+                                    What comes next?
+                                </p>
+                            </div>
+
+                            <img
+                                src={image_assets_arr[index]}
+                                alt=""
+                                style={{
+                                    height: 60,
+                                    width: 50,
+                                    objectFit: 'contain',
+                                }}
+                            />
+                        </div>
+                    )
+                })}
+            </div>
+
+            <div
                 className="flex items-center
                 justify-between relative h-[400px] w-[670px]
                 overflow-x-hidden
             "
             >
+                {/* slider */}
                 <div
                     className="flex justify-center
                     h-full items-center
@@ -73,6 +117,7 @@ export default function PageClient() {
                     />
                 </div>
 
+                {/* left button */}
                 <div
                     role="button"
                     onClick={() => {
@@ -91,7 +136,7 @@ export default function PageClient() {
                         className="text-white"
                     />
                 </div>
-
+                {/* right button */}
                 <div
                     role="button"
                     onClick={() => {

@@ -142,7 +142,7 @@ export default function Footer() {
 
             <div
                 className="h-7 w-screen text-xs font-medium
-            bg-red-100 flex items-center justify-center
+            bg-[--button-primary] flex items-center justify-center
             "
             >
                 Copyright © 2024 WittyWorkbooks
