@@ -2,12 +2,16 @@
 import Accordion, {
     AccordionItem,
 } from '../_components/Accordion/Accordion'
+import { topic_name } from '../_constants'
 
 export default function Page1Layout({
     children,
 }: {
     children: React.ReactNode
 }) {
+    const accordion_dropdown_style: string =
+        'py-2 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
+
     return (
         <>
             <div className="flex w-screen pl-[60px]">

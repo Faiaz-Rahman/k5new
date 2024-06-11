@@ -87,6 +87,8 @@ export function AccordionItem({
         }
     }, [selectedInner])
 
+    // console.log(typeof divRef.current?.offsetHeight)
+
     return (
         <li {...props}>
             <header
@@ -118,26 +120,72 @@ export function AccordionItem({
                     {bottom_navbar_items.map((item, ind) => {
                         if (ind < bottom_navbar_items.length - 1) {
                             return (
-                                <div
-                                    key={ind}
-                                    className={
-                                        accordion_dropdown_style
-                                    }
-                                    onClick={() => {
-                                        console.log('open')
-                                    }}
-                                >
-                                    {item}
-                                    <FontAwesomeIcon
-                                        icon={faChevronUp}
-                                        className={`text-[10px] text-black
+                                <div>
+                                    <div
+                                        key={ind}
+                                        className={
+                                            accordion_dropdown_style
+                                        }
+                                        onClick={() => {
+                                            console.log(
+                                                'data =>',
+                                                selected,
+                                                item
+                                            )
+
+                                            if (
+                                                selectedInner === item
+                                            ) {
+                                                setSelectedInner(
+                                                    'Kindergarden'
+                                                )
+                                            } else {
+                                                setSelectedInner(item)
+                                            }
+                                        }}
+                                    >
+                                        {item}
+                                        <FontAwesomeIcon
+                                            icon={faChevronUp}
+                                            className={`text-[10px] text-black
                                         mr-3 transition-all`}
-                                    />
+                                        />
+                                    </div>
+
+                                    <div
+                                        className="transition-all
+                                        duration-300 overflow-y-hidden
+                                    "
+                                        style={{
+                                            height:
+                                                selectedInner === item
+                                                    ? divRefInner
+                                                          .current
+                                                          ?.offsetHeight
+                                                    : 0,
+                                        }}
+                                    >
+                                        <div ref={divRefInner}>
+                                            {topic_name.map(
+                                                (item, ind) => {
+                                                    return (
+                                                        <div
+                                                            className={`${accordion_dropdown_style} bg-white`}
+                                                        >
+                                                            {item}
+                                                        </div>
+                                                    )
+                                                }
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         }
                     })}
                 </div>
+
+                {children}
             </div>
         </li>
     )
