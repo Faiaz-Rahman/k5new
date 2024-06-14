@@ -151,7 +151,11 @@ export function AccordionItem({
                                         <FontAwesomeIcon
                                             icon={faChevronUp}
                                             className={`text-[10px] text-black
-                                        mr-3 transition-all`}
+                                        mr-3 transition-all duration-300 ${
+                                            selectedInner === item
+                                                ? 'rotate-180'
+                                                : '0'
+                                        }`}
                                         />
                                     </div>
 
