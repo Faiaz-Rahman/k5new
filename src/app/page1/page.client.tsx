@@ -9,6 +9,7 @@ import SliderItem from '../_components/SliderItem'
 import Slider from '../_components/Slider'
 
 import { image_assets_arr } from '../_constants'
+import Image from 'next/image'
 
 export default function PageClient() {
     const data: number[] = [1, 2, 3, 4, 5, 6]
@@ -64,6 +65,7 @@ export default function PageClient() {
                 {data_for_worksheet.map((item, index) => {
                     return (
                         <div
+                            key={index}
                             className="flex w-[80%]
                             border-b border-b-gray-400
                             items-center justify-between py-1
@@ -81,12 +83,14 @@ export default function PageClient() {
                                 </p>
                             </div>
 
-                            <img
+                            <Image
+                                height={60}
+                                width={50}
+                                loader={() => image_assets_arr[index]}
                                 src={image_assets_arr[index]}
                                 alt=""
+                                objectFit="contain"
                                 style={{
-                                    height: 60,
-                                    width: 50,
                                     objectFit: 'contain',
                                 }}
                             />

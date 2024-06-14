@@ -76,7 +76,7 @@ export function AccordionItem({
     const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string =
-        'py-2 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
+        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
 
     useEffect(() => {
         console.log('likee =>', selectedInner)
@@ -93,7 +93,7 @@ export function AccordionItem({
         <li {...props}>
             <header
                 role="button"
-                className="bg-[--accordion-topic] flex justify-between 
+                className="bg-[--accordion-topic] flex justify-between
                 items-center py-2 pl-2 w-[200px] text-white"
                 onClick={() => {
                     setSelected(open ? null : value)
@@ -113,14 +113,19 @@ export function AccordionItem({
                 transition-all w-[200px] duration-300
                 "
                 style={{
-                    height: open ? divRef.current?.offsetHeight : 0,
+                    height: open
+                        ? selectedInner
+                            ? 40 * (bottom_navbar_items.length - 1) +
+                              40 * topic_name.length
+                            : 40 * (bottom_navbar_items.length - 1)
+                        : 0,
                 }}
             >
                 <div ref={divRef}>
                     {bottom_navbar_items.map((item, ind) => {
                         if (ind < bottom_navbar_items.length - 1) {
                             return (
-                                <div>
+                                <div key={ind}>
                                     <div
                                         key={ind}
                                         className={
@@ -136,9 +141,7 @@ export function AccordionItem({
                                             if (
                                                 selectedInner === item
                                             ) {
-                                                setSelectedInner(
-                                                    'Kindergarden'
-                                                )
+                                                setSelectedInner('')
                                             } else {
                                                 setSelectedInner(item)
                                             }
@@ -159,9 +162,8 @@ export function AccordionItem({
                                         style={{
                                             height:
                                                 selectedInner === item
-                                                    ? divRefInner
-                                                          .current
-                                                          ?.offsetHeight
+                                                    ? 40 *
+                                                      topic_name.length
                                                     : 0,
                                         }}
                                     >
@@ -170,6 +172,7 @@ export function AccordionItem({
                                                 (item, ind) => {
                                                     return (
                                                         <div
+                                                            key={ind}
                                                             className={`${accordion_dropdown_style} bg-white`}
                                                         >
                                                             {item}
