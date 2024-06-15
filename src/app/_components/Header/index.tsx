@@ -14,7 +14,7 @@ export default function Head() {
         <header
             className="h-40 w-screen
             flex justify-center items-center flex-col
-            gap-3 
+            gap-3 fixed bg-white opacity-90
             "
         >
             {/* Header Top UI*/}

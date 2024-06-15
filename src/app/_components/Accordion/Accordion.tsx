@@ -177,7 +177,9 @@ export function AccordionItem({
                                                     return (
                                                         <div
                                                             key={ind}
-                                                            className={`${accordion_dropdown_style} bg-white`}
+                                                            className={`${accordion_dropdown_style} bg-white
+                                                                hover:bg-[--accordion-hover]
+                                                            `}
                                                         >
                                                             {item}
                                                         </div>
