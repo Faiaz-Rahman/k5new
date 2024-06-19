@@ -180,7 +180,7 @@ export default function PageClient() {
                 <p className="font-semibold text-[16px] mt-10">
                     What is WittyWorkbooks?
                 </p>
-                <p className="font-normal text-[12px] mt-3">
+                <p className="font-normal text-[12px] mt-3 mb-10">
                     Lorem ipsum dolor sit, amet consectetur
                     adipisicing elit. Consequatur natus distinctio
                     voluptatum provident veritatis saepe, sit eligendi

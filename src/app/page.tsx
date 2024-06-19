@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Button from './_components/Button'
 
 import Graduation from '../assets/graduation.png'
+import Card from './_components/Card'
 
 export default function Home() {
     return (
@@ -51,54 +52,91 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* about section */}
-                <div className="w-screen pt-16">
-                    <p className="font-medium text-[40px] text-black text-center">
-                        About
-                    </p>
+                {/* cards section */}
+                <div
+                    className="grid grid-cols-2 pl-24 pr-24
+                    gap-9
+                "
+                >
+                    <Card title="Worksheet Tab" />
+                    <Card title="Workbook Tab" />
+                    <Card title="Math Flashcards" />
+                    <Card title="Color by Number" />
+                    <Card title="Coloring Pages" />
+                    <Card title="Online Worksheets/Planner" />
+                </div>
 
-                    <div className="w-screen flex h-[550px] items-center">
-                        <div
-                            className="w-[50%] h-[100%] flex flex-col 
-                        pl-24 gap-8 justify-center"
+                {/* latest/top selling section */}
+                <div
+                    className="w-full pl-24 pr-24 flex
+                    gap-9 mb-24
+                "
+                >
+                    <div className="h-full w-1/2">
+                        <p
+                            className="text-black text-[18px] font-semibold
+                            mb-7
+                        "
                         >
-                            <p className="font-medium text-[30px] text-black">
-                                Explore Limitless Our Worksheets{'\n'}
-                                And Expand Your Knowledge
-                            </p>
-                            <p className="text-[13px]">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore voluptatum
-                                eveniet eius perspiciatis magnam quo,
-                                quia, vel temporibus facilis porro
-                                ipsam impedit alias esse adipisci
-                                reprehenderit! Dolore laudantium sed
-                                corporis.
-                            </p>
-
-                            <Button
-                                title="Explore Now"
-                                onPress={() => {}}
-                                width={
-                                    String('Explore Now').length * 15
-                                }
-                            />
-                        </div>
-
-                        <div
-                            className="w-[50%] h-[100%] flex items-center bg-white
-                        justify-center                        
-                    "
+                            Latest From WittyWorksheets
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
                         >
-                            <Image
-                                src={Graduation}
-                                alt="Graduation"
-                                style={{
-                                    height: '85%',
-                                    width: '80%',
-                                }}
-                            />
-                        </div>
+                            Numbers & Counting
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Number Patterns
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Comparing Numbers
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Base Ten Blocks
+                        </p>
+                    </div>
+                    <div className="h-full w-1/2">
+                        <p
+                            className="text-black text-[18px] font-semibold
+                            mb-7
+                        "
+                        >
+                            Our Top Selling Product
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Measurement
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Number Patterns
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            The Turtle
+                        </p>
+                        <p
+                            className="text-black text-[15px] font-normal mb-2
+                        "
+                        >
+                            Word Problems
+                        </p>
                     </div>
                 </div>
             </div>

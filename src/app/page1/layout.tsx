@@ -9,12 +9,9 @@ export default function Page1Layout({
 }: {
     children: React.ReactNode
 }) {
-    const accordion_dropdown_style: string =
-        'py-2 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
-
     return (
         <>
-            <div className="flex w-screen pl-[60px]">
+            <div className="flex w-screen pl-24 pt-40">
                 <Accordion value="en">
                     <AccordionItem
                         trigger="Topic 1"
