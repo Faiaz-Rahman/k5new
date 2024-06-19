@@ -19,15 +19,12 @@ export default function Head() {
         >
             {/* Header Top UI*/}
             <div
-                className="h-12 
-                w-full flex 
-                items-center"
+                className="h-12 w-full flex items-center pl-24"
                 // bg-red-100
             >
                 {/* Logo Container */}
                 <div
-                    className="h-full w-[150px] 
-                    flex items-center pl-[60px] 
+                    className="h-full w-[150px] flex items-center
                     "
                     // bg-green-200
                 >
@@ -42,14 +39,14 @@ export default function Head() {
 
                 {/* Search Bar */}
                 <div
-                    className="h-full w-[calc(100%_-_340px)] flex items-center
+                    className="h-full w-[calc(100%_-_440px)] flex items-center
                     justify-center
                     "
                     // bg-red-300
                 >
                     <div
                         className="h-[80%]
-                    bg-red-300 w-[90%] flex justify-center 
+                     w-[90%] flex justify-center 
                      rounded-full items-center  border-gray-300 
                      border
                 "
@@ -72,16 +69,15 @@ export default function Head() {
                             type="text"
                             placeholder="Search"
                             className="flex w-[100%] text-xs
-                            h-[100%]    
-                            pl-3 outline-none rounded-e-full
+                            h-[100%] pl-3 outline-none rounded-e-full
                             "
                         />
                     </div>
                 </div>
 
                 <div
-                    className="h-full w-[230px]
-                flex items-center pr-[60px]
+                    className="h-full w-[290px]
+                flex items-center pr-24
                 "
                 >
                     <div
@@ -99,8 +95,7 @@ export default function Head() {
 
             {/* Header Bottom UI */}
             <div
-                className="h-10 w-full pl-[52px]
-                 flex
+                className="h-10 w-full flex pl-20
             "
             >
                 <ul
@@ -114,7 +109,7 @@ export default function Head() {
                                 key={ind}
                                 className="h-full flex items-center
                                 hover:bg-[--button-primary]
-                                px-[8px] transition-all duration-300
+                                px-[15px] transition-all duration-300
                                 rounded-sm
                                 "
                             >
@@ -132,8 +127,8 @@ export default function Head() {
                 </ul>
 
                 <div
-                    className="h-full w-[240px]
-                    flex items-center justify-center pr-[60px]
+                    className="h-full w-[300px]
+                    flex items-center justify-center pr-24
                 "
                 >
                     <div

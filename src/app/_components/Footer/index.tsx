@@ -16,13 +16,13 @@ export default function Footer() {
         <div>
             <div
                 className="h-48 w-screen grid 
-                grid-cols-[45%_auto_auto] gap-2
+                grid-cols-[45%_auto_auto] gap-2 bg-[--card]
                 "
                 // bg-green-100
             >
                 <div
-                    className="h-[100%] bg-white
-                    flex justify-center pl-[60px] font-bold
+                    className="h-[100%]
+                    flex justify-center pl-24 font-bold
                     text-sm flex-col gap-[1rem] pb-3
                 "
                 >
