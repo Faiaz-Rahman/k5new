@@ -76,7 +76,7 @@ export function AccordionItem({
     const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string =
-        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-100'
+        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-50'
 
     useEffect(() => {
         console.log('likee =>', selectedInner)
@@ -177,8 +177,9 @@ export function AccordionItem({
                                                     return (
                                                         <div
                                                             key={ind}
-                                                            className={`${accordion_dropdown_style} bg-white
-                                                                hover:bg-[--accordion-hover]
+                                                            className={`h-10 pl-2 cursor-pointer flex items-center justify-between text-sm 
+                                                                bg-white
+                                                                 hover:bg-[--accordion-hover]
                                                             `}
                                                         >
                                                             {item}

@@ -86,7 +86,7 @@ export default function PageClient() {
                             <Image
                                 height={60}
                                 width={50}
-                                loader={() => image_assets_arr[index]}
+                                unoptimized
                                 src={image_assets_arr[index]}
                                 alt=""
                                 objectFit="contain"

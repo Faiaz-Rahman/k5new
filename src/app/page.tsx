@@ -42,6 +42,7 @@ export default function Home() {
                     "
                     >
                         <Image
+                            unoptimized
                             src={Graduation}
                             alt="Graduation"
                             style={{
