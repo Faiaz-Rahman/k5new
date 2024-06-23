@@ -23,7 +23,7 @@ export default function PageClient() {
         <>
             {/* Breadcrumb*/}
             <div className="py-2">
-                <p className="font-semibold text-[10px]">
+                <p className="font-medium text-[10px]">
                     Math By Topic {' > '} Topic 1 {' > '} Grade 1{' '}
                     {' > '}
                     Number Patterns

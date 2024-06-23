@@ -2,9 +2,8 @@
 import Accordion, {
     AccordionItem,
 } from '../_components/Accordion/Accordion'
-import { topic_name } from '../_constants'
 
-export default function Page1Layout({
+export default function BrowseByTopicsLayout({
     children,
 }: {
     children: React.ReactNode
