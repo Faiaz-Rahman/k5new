@@ -11,7 +11,7 @@ import Slider from '../_components/Slider'
 import { image_assets_arr } from '../_constants'
 import Image from 'next/image'
 
-export default function PageClient() {
+export default function MathByTopicPageClient() {
     const data: number[] = [1, 2, 3, 4, 5, 6]
 
     const data_for_worksheet: number[] = [1, 2, 3, 4, 5]
