@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface PrintableMathCardProps {
-    title?: string
-    worksheets?: string[]
+    title: string
+    worksheets: string[]
 }
 
 export default function PrintableMathCards({

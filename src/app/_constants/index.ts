@@ -33,3 +33,12 @@ export const topic_name = [
     'Date & Graphing',
     'Word Problems',
 ]
+
+export const topic_list: string[] = [
+    'Topic 1',
+    'Topic 2',
+    'Topic 3',
+    'Topic 4',
+    'Topic 5',
+    'Topic 6',
+]
