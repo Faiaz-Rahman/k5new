@@ -10,18 +10,23 @@ export default function PrintableMathCards({
     worksheets,
 }: PrintableMathCardProps) {
     return (
-        <div className="w-full h-72 bg-[--card] pt-8 rounded-lg">
+        <div className="w-full pb-10 bg-[--card] pt-8 rounded-lg">
             <div className="flex justify-center">
                 <p className="text-black text-[25px] font-medium">
                     {title}
                 </p>
             </div>
 
-            <div className="mt-6 pl-10 flex flex-col gap-3">
+            <div
+                className="mt-6 pl-[20px] flex flex-col gap-3 pr-[15px]
+                lg:pl-10
+            "
+            >
                 {worksheets?.map((item, index) => {
                     return (
                         <p
-                            className="text-black text-sm font-regular"
+                            className="text-black text-sm font-regular
+                            "
                             key={index}
                         >
                             {index + 1}. {item}

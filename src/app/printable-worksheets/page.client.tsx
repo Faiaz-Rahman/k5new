@@ -24,18 +24,21 @@ export default function PrintableWorksheetsPageClient() {
     // }, [selectedAccordion])
 
     return (
-        <div className="mt-5">
+        <div className="">
             <p
                 className="text-black 
-                text-[48px] font-semibold 
+                text-[24px] font-semibold 
+                lg:text-[48px]
             "
             >
                 Printable Math Worksheets
             </p>
 
             <p
-                className="text-black text-[32px] 
-            font-semibold mt-4"
+                className="text-black text-[16px] 
+                font-semibold mt-4 
+                lg:text-[32px]
+            "
             >
                 Math Worksheets by Grade
             </p>
@@ -47,8 +50,9 @@ export default function PrintableWorksheetsPageClient() {
                             <div
                                 key={`accordion${ind}`}
                                 className="flex h-16 w-full flex-col
-                                border-b border-b-slate-300 pl-5 hover:cursor-pointer
-                            "
+                                border-b border-b-slate-300 pl-[20px] hover:cursor-pointer
+                                lg:pl-4
+                                "
                                 onClick={() => {
                                     if (selectedAccordion === item) {
                                         setSelectedAccordion('')
@@ -59,7 +63,7 @@ export default function PrintableWorksheetsPageClient() {
                             >
                                 <div
                                     className="flex w-full h-7
-                                items-center justify-between
+                                    items-center justify-between
                             "
                                 >
                                     {item}
@@ -95,7 +99,7 @@ export default function PrintableWorksheetsPageClient() {
                                         <div
                                             key={`topic_list${ind}`}
                                             className={`flex w-full bg-[--button-primary] 
-                                                h-10 pl-5 rounded-md
+                                                h-10 pl-5 rounded-md cursor-pointer
                                                 items-center ${
                                                     ind ===
                                                     topic_list.length -
@@ -114,7 +118,11 @@ export default function PrintableWorksheetsPageClient() {
                 })}
             </div>
 
-            <div className="grid grid-cols-2 w-full gap-3 mb-10">
+            <div
+                className="grid grid-cols-1 w-full gap-3 mb-10
+                md:grid-cols-2
+            "
+            >
                 {tmp_arr.map((item, ind) => {
                     return (
                         <PrintableMathCards
