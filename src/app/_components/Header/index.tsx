@@ -25,7 +25,7 @@ export default function Head() {
         >
             <div
                 className="h-full w-2/5 items-center flex
-                        pl-10 lg:hidden
+                        pl-[20px] lg:hidden
                     "
             >
                 <p
@@ -50,7 +50,7 @@ export default function Head() {
                     icon={faBars}
                     style={{
                         fontSize: 15,
-                        color: 'gray',
+                        color: '#000',
                         marginLeft: 16,
                     }}
                 />
