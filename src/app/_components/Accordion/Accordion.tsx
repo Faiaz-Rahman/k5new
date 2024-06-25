@@ -124,23 +124,17 @@ export function AccordionItem({
                         : 0,
                 }}
             >
-                <div ref={divRef}>
+                <div ref={divRef} className="">
                     {bottom_navbar_items.map((item, ind) => {
                         if (ind < bottom_navbar_items.length - 1) {
                             return (
-                                <div key={ind}>
+                                <div key={ind} className="">
                                     <div
                                         key={ind}
                                         className={`
                                             ${accordion_dropdown_style}
                                         }`}
                                         onClick={() => {
-                                            console.log(
-                                                'data =>',
-                                                selected,
-                                                item
-                                            )
-
                                             if (
                                                 selectedInner === item
                                             ) {
@@ -180,9 +174,9 @@ export function AccordionItem({
                                                     return (
                                                         <div
                                                             key={ind}
-                                                            className={`h-10 pl-2 cursor-pointer flex items-center justify-between text-sm 
-                                                                bg-white
-                                                                 hover:bg-[--accordion-hover]
+                                                            className={`h-10 pl-2 cursor-pointer flex items-center 
+                                                                justify-between text-sm bg-white
+                                                                hover:bg-[--accordion-hover]
                                                             `}
                                                         >
                                                             {item}

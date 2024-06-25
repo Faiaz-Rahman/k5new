@@ -25,8 +25,8 @@ export default function Head() {
         >
             <div
                 className="h-full w-2/5 items-center flex
-                        pl-[20px] lg:hidden
-                    "
+                    pl-[20px] lg:hidden
+                "
             >
                 <p
                     className="text-black font-bold
@@ -116,7 +116,7 @@ export default function Head() {
 
                 <div
                     className="h-full w-[290px]
-                flex items-center pr-24
+                    flex items-center pr-24
                 "
                 >
                     <div
@@ -126,7 +126,7 @@ export default function Head() {
                     "
                     >
                         <p className="text-xs font-semibold">
-                            Become a member
+                            Workbook Store
                         </p>
                     </div>
                 </div>
@@ -139,7 +139,8 @@ export default function Head() {
             >
                 <ul
                     className="h-full flex
-                    items-center gap-3 w-full mr-7 border-r border-r-slate-400
+                    items-center gap-3 w-full mr-7 border-r 
+                    border-r-slate-400
                 "
                 >
                     {bottom_navbar_items.map((item, ind) => {
@@ -147,9 +148,9 @@ export default function Head() {
                             <li
                                 key={ind}
                                 className="h-full flex items-center
-                                hover:bg-[--button-primary]
-                                px-[15px] transition-all duration-300
-                                rounded-sm
+                                    hover:bg-[--button-primary]
+                                    px-[15px] transition-all duration-300
+                                    rounded-full
                                 "
                             >
                                 <Link
@@ -172,13 +173,39 @@ export default function Head() {
                 >
                     <div
                         className="h-5/6 w-full flex justify-center
-                        bg-[--button-primary] rounded-full
-                        items-center cursor-pointer
+                        bg-[--button-primary] rounded-full transition-all duration-500
+                        items-center cursor-pointer relative group/member
                     "
                     >
                         <p className="text-xs font-semibold">
-                            Workbook Store
+                            Become a Member
                         </p>
+
+                        <div
+                            className="w-40 h-0 bg-white shadow-md 
+                            absolute top-[calc(100%_+_10px)] pt-3 pl-3 opacity-0
+                            group-hover/member:h-20 transition-all duration-300 
+                            group-hover/member:opacity-100                           
+                        "
+                        >
+                            <p
+                                className="font-medium text-black
+                                    text-[12px]
+                                "
+                            >
+                                1. Already a Member?
+                                <br />
+                                <Link href={'#'}>Login</Link>
+                            </p>
+
+                            <p
+                                className="font-medium text-black
+                                    text-[12px]
+                                "
+                            >
+                                2. Sign up
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

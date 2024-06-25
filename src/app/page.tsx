@@ -20,10 +20,11 @@ export default function Home() {
                     > */}
                     <div
                         className="w-full h-full flex flex-col justify-center
-                        pl-[39px] pr-[39px] gap-5
+                        pl-[39px] pr-[39px] gap-5 items-center
 
                         lg:w-[50%] lg:h-[100%] lg:flex lg:flex-col 
-                        lg:pl-24 lg:gap-8 lg:justify-center"
+                        lg:pl-24 lg:gap-8 lg:justify-center lg:items-start
+                    "
                     >
                         {/* <p className="font-medium text-[40px] text-black ">
                             Explore Limitless Our{'\n'}Worksheets And
@@ -41,8 +42,9 @@ export default function Home() {
                             Expand Your Knowledge
                         </p>
                         <p
-                            className="text-[12px] font-normal text-black
-                            lg:text-[16px]
+                            className="text-[12px] font-normal text-black 
+                            text-center
+                            lg:text-[16px] lg:text-left
                         "
                         >
                             Lorem ipsum dolor sit amet consectetur,
