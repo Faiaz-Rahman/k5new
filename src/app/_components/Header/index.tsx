@@ -1,5 +1,5 @@
 import {
-    faChevronDown,
+    faBars,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,14 +12,51 @@ import { bottom_navbar_items } from '@/app/_constants'
 export default function Head() {
     return (
         <header
-            className="h-40 w-screen
-            flex justify-center items-center flex-col
-            gap-3 fixed bg-white opacity-90 z-10
+            className="
+            h-24 w-screen flex items-center justify-between
+
+            sm:h-full sm:w-full sm:flex sm:items-center sm:bg-red-50 sm:pl-10
+
+            md:h-40 md:w-screen
+            md:flex md:justify-center md:items-center md:flex-col
+            md:gap-3 md:fixed md:bg-white md:opacity-90 md:z-10
             "
         >
+            <div
+                className="h-full w-2/5 items-center flex
+                        bg-red-100 pl-10 md:hidden
+                    "
+            >
+                <p
+                    className="text-black font-bold
+                        text-[17px]
+                    "
+                >
+                    Logo
+                </p>
+            </div>
+
+            <div className="pr-[20px] flex items-center md:hidden">
+                <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    style={{
+                        fontSize: 15,
+                        color: 'gray',
+                    }}
+                />
+
+                <FontAwesomeIcon
+                    icon={faBars}
+                    style={{
+                        fontSize: 15,
+                        color: 'gray',
+                        marginLeft: 16,
+                    }}
+                />
+            </div>
             {/* Header Top UI*/}
             <div
-                className="h-12 w-full flex items-center pl-24"
+                className="hidden md:h-12 md:w-full md:flex md:items-center md:pl-24"
                 // bg-red-100
             >
                 {/* Logo Container */}
@@ -46,8 +83,8 @@ export default function Head() {
                 >
                     <div
                         className="h-[80%]
-                     w-[90%] flex justify-center 
-                     rounded-full items-center  border-gray-300 
+                     w-[90%] flex justify-center
+                     rounded-full items-center  border-gray-300
                      border
                 "
                     >
@@ -82,7 +119,7 @@ export default function Head() {
                 >
                     <div
                         className="h-[80%] w-full flex justify-center
-                        bg-[--button-primary] rounded-full 
+                        bg-[--button-primary] rounded-full
                         items-center cursor-pointer
                     "
                     >
@@ -95,7 +132,7 @@ export default function Head() {
 
             {/* Header Bottom UI */}
             <div
-                className="h-10 w-full flex pl-20
+                className="hidden md:h-10 md:w-full md:flex md:pl-20
             "
             >
                 <ul
@@ -133,7 +170,7 @@ export default function Head() {
                 >
                     <div
                         className="h-5/6 w-full flex justify-center
-                        bg-[--button-primary] rounded-full 
+                        bg-[--button-primary] rounded-full
                         items-center cursor-pointer
                     "
                     >
@@ -144,5 +181,39 @@ export default function Head() {
                 </div>
             </div>
         </header>
+        // <header className="h-24 w-screen flex items-center justify-between">
+        //     <div
+        //         className="h-full w-2/5 flex items-center
+        //                 bg-red-50 pl-10
+        //             "
+        //     >
+        //         <p
+        //             className="text-black font-bold
+        //                 text-[17px]
+        //             "
+        //         >
+        //             Logo
+        //         </p>
+        //     </div>
+
+        //     <div className="pr-[20px]">
+        //         <FontAwesomeIcon
+        //             icon={faMagnifyingGlass}
+        //             style={{
+        //                 fontSize: 15,
+        //                 color: 'gray',
+        //             }}
+        //         />
+
+        //         <FontAwesomeIcon
+        //             icon={faBars}
+        //             style={{
+        //                 fontSize: 15,
+        //                 color: 'gray',
+        //                 marginLeft: 16,
+        //             }}
+        //         />
+        //     </div>
+        // </header>
     )
 }

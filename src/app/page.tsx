@@ -1,24 +1,38 @@
 import Image from 'next/image'
 import Button from './_components/Button'
 
-import Graduation from '../assets/graduation.png'
+import Education from '../assets/education.png'
 import Card from './_components/Card'
 
 export default function Home() {
     return (
         <main className="flex min-h-screen w-screen flex-col">
-            <div className="w-screen bg-white mt-28">
+            <div className="w-screen bg-white mt-[50px]">
                 {/* hero section */}
-                <div className="w-screen flex h-[550px]">
-                    <div
+                {/* <div className="w-screen flex h-[550px]"> */}
+                <div className="w-screen flex flex-col justify-center">
+                    {/* <div
                         className="w-[50%] h-[100%] flex flex-col 
                         pl-24 gap-8 justify-center"
+                    > */}
+                    <div
+                        className="w-full h-full flex flex-col justify-center
+                        pl-[39px] pr-[39px] gap-5
+                    "
                     >
-                        <p className="font-medium text-[40px] text-black ">
+                        {/* <p className="font-medium text-[40px] text-black ">
                             Explore Limitless Our{'\n'}Worksheets And
                             {'\n'} Expand Your Knowledge
+                        </p> */}
+                        <p
+                            className="font-medium text-[24px] text-black
+                            text-center
+                        "
+                        >
+                            Explore Limitless Our Worksheets And
+                            Expand Your Knowledge
                         </p>
-                        <p className="text-[13px]">
+                        <p className="text-[12px] font-normal text-black">
                             Lorem ipsum dolor sit amet consectetur,
                             adipisicing elit. Temporibus esse alias
                             deserunt pariatur, accusamus perferendis
@@ -36,14 +50,18 @@ export default function Home() {
                         />
                     </div>
 
-                    <div
+                    {/* <div
                         className="w-[50%] h-[100%] flex items-center bg-white
                         justify-center                        
                     "
+                    > */}
+                    <div
+                        className="w-full flex items-center bg-white
+                        justify-center"
                     >
                         <Image
                             unoptimized
-                            src={Graduation}
+                            src={Education}
                             alt="Graduation"
                             style={{
                                 height: '85%',
@@ -55,8 +73,8 @@ export default function Home() {
 
                 {/* cards section */}
                 <div
-                    className="grid grid-cols-2 pl-24 pr-24
-                    gap-9
+                    className="grid grid-cols-2 pl-[20px] pr-[20px]
+                    gap-[20px]
                 "
                 >
                     <Card title="Worksheet Tab" />
@@ -69,11 +87,11 @@ export default function Home() {
 
                 {/* latest/top selling section */}
                 <div
-                    className="w-full pl-24 pr-24 flex
-                    gap-9 mb-24
+                    className="w-full pl-[20px] pr-[20px] flex
+                    gap-10 mb-24 flex-col
                 "
                 >
-                    <div className="h-full w-1/2">
+                    <div className="h-full w-full">
                         <p
                             className="text-black text-[18px] font-semibold
                             mb-7
@@ -106,7 +124,7 @@ export default function Home() {
                             Base Ten Blocks
                         </p>
                     </div>
-                    <div className="h-full w-1/2">
+                    <div className="h-full w-full">
                         <p
                             className="text-black text-[18px] font-semibold
                             mb-7
