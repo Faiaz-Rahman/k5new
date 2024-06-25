@@ -9,7 +9,7 @@ export default function Card({ title }: CardProps) {
         <div className="flex flex-col items-center">
             <p
                 className="text-[12px] font-medium text-black
-                mb-[20px]
+                mb-[20px] lg:text-[25px] lg:mb-[35px]
             "
             >
                 {title}
@@ -17,15 +17,15 @@ export default function Card({ title }: CardProps) {
             <div className="h-[292px] w-[100%] bg-[--card] mb-16">
                 <div
                     className="h-[50%] w-full flex items-center
-                justify-center bg-[--card-top] text-white
-                text-2xl
-            "
+                    justify-center bg-[--card-top] text-white
+                    text-2xl
+                "
                 >
                     By Grade
                 </div>
                 <div
-                    className="h-[50%] w-full flex items-center justify-center
-                text-2xl text-black
+                    className="h-[50%] w-full flex items-center 
+                    justify-center text-2xl text-black
             "
                 >
                     By Topic

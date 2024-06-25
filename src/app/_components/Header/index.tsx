@@ -13,18 +13,19 @@ export default function Head() {
     return (
         <header
             className="
-            h-24 w-screen flex items-center justify-between
+            h-24 w-screen flex items-center justify-between fixed z-10 bg-white opacity-90
 
-            sm:h-full sm:w-full sm:flex sm:items-center sm:bg-red-50 sm:pl-10
+            sm:max-lg:h-24 sm:max-lg:w-screen sm:max-lg:flex sm:max-lg:items-center sm:max-lg:justify-between sm:max-lg:fixed sm:max-lg:z-10 sm:max-lg:bg-white sm:max-lg:opacity-90
 
-            md:h-40 md:w-screen
-            md:flex md:justify-center md:items-center md:flex-col
-            md:gap-3 md:fixed md:bg-white md:opacity-90 md:z-10
+
+            lg:h-40 lg:w-screen
+            lg:flex lg:justify-center lg:items-center lg:flex-col
+            lg:gap-3 lg:fixed lg:bg-white lg:opacity-90 lg:z-10
             "
         >
             <div
                 className="h-full w-2/5 items-center flex
-                        bg-red-100 pl-10 md:hidden
+                        pl-10 lg:hidden
                     "
             >
                 <p
@@ -36,7 +37,7 @@ export default function Head() {
                 </p>
             </div>
 
-            <div className="pr-[20px] flex items-center md:hidden">
+            <div className="pr-[20px] flex items-center lg:hidden">
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     style={{
@@ -54,9 +55,10 @@ export default function Head() {
                     }}
                 />
             </div>
+
             {/* Header Top UI*/}
             <div
-                className="hidden md:h-12 md:w-full md:flex md:items-center md:pl-24"
+                className="hidden lg:h-12 lg:w-full lg:flex lg:items-center lg:pl-24"
                 // bg-red-100
             >
                 {/* Logo Container */}
@@ -132,7 +134,7 @@ export default function Head() {
 
             {/* Header Bottom UI */}
             <div
-                className="hidden md:h-10 md:w-full md:flex md:pl-20
+                className="hidden lg:h-10 lg:w-full lg:flex lg:pl-20
             "
             >
                 <ul
@@ -181,39 +183,5 @@ export default function Head() {
                 </div>
             </div>
         </header>
-        // <header className="h-24 w-screen flex items-center justify-between">
-        //     <div
-        //         className="h-full w-2/5 flex items-center
-        //                 bg-red-50 pl-10
-        //             "
-        //     >
-        //         <p
-        //             className="text-black font-bold
-        //                 text-[17px]
-        //             "
-        //         >
-        //             Logo
-        //         </p>
-        //     </div>
-
-        //     <div className="pr-[20px]">
-        //         <FontAwesomeIcon
-        //             icon={faMagnifyingGlass}
-        //             style={{
-        //                 fontSize: 15,
-        //                 color: 'gray',
-        //             }}
-        //         />
-
-        //         <FontAwesomeIcon
-        //             icon={faBars}
-        //             style={{
-        //                 fontSize: 15,
-        //                 color: 'gray',
-        //                 marginLeft: 16,
-        //             }}
-        //         />
-        //     </div>
-        // </header>
     )
 }

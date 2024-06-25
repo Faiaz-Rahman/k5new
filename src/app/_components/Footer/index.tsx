@@ -14,22 +14,28 @@ import Link from 'next/link'
 export default function Footer() {
     return (
         <div>
-            <div
+            {/* <div
                 className="h-48 w-screen grid 
                 grid-cols-[45%_auto_auto] gap-2 bg-[--card]
                 "
                 // bg-green-100
+            > */}
+            <div
+                className="h-56 w-screen grid 
+                grid-cols-1 gap-10 bg-[--card] 
+                lg:grid-cols-[45%_auto]    
+            "
             >
                 <div
-                    className="h-[100%]
-                    flex justify-center pl-24 font-bold
-                    text-sm flex-col gap-[1rem] pb-3
+                    className="h-[100%] flex justify-center pl-[20px] 
+                    font-bold text-sm flex-col gap-[1rem] mt-4
+                    lg:pl-24    
                 "
                 >
                     Join Us
                     <div
                         className="h-5
-                        flex items-cente
+                        flex items-center
                     "
                     >
                         <div className="icons mr-3">
@@ -60,89 +66,97 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div
-                    className="h-[85%] flex 
-                flex-col box-border
-                justify-center"
-                >
-                    <p className="text-sm font-bold ml-10">
-                        About Us
-                    </p>
+                <div className="flex items-center">
                     <div
-                        className="h-[40%] w-[70%]
-                        flex flex-col pt-3 ml-10 gap-1
-                        "
-                        // bg-red-800
+                        className="h-[90%] flex flex-col box-border
+                        justify-center pl-[20px] w-full
+                        lg:pt-9
+                    "
                     >
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
+                        <p className="text-sm font-bold">About Us</p>
+                        <div
+                            className="h-[45%] w-[80%]
+                            flex flex-col gap-1 mt-3
+                        "
+                            // bg-red-800
+                        >
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
                                 hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            About Us
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
-                            hover:underline
+                            >
+                                About Us
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
+                                hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            Membership
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
-                            hover:underline
+                            >
+                                Membership
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
+                                hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            Help & FAQs
-                        </Link>
+                            >
+                                Help & FAQs
+                            </Link>
+                        </div>
                     </div>
-                </div>
-                <div
-                    className="h-[85%] flex flex-col box-border
-                    justify-center
-                "
-                >
-                    <p className="text-sm font-bold ml-10">Others</p>
                     <div
-                        className="h-[40%] w-[70%]
-                        flex flex-col pt-3 ml-10 gap-1
+                        className="h-[90%] flex flex-col box-border
+                            justify-center pl-[20px] w-full
+                            lg:pt-9
                         "
-                        // bg-red-800
                     >
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
+                        <p className="text-sm font-bold ">Others</p>
+                        <div
+                            className="h-[45%] w-[100%]
+                           flex flex-col gap-1 mt-3
+                        "
+                            // bg-red-800
+                        >
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
                                 hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            Terms and Conditions
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
-                            hover:underline
+                            >
+                                Terms and Conditions
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
+                                hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            Privacy Policy
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-[14px] font-medium
-                            hover:underline
+                            >
+                                Privacy Policy
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-[12px] font-medium
+                                hover:underline
+                                lg:text-[15px]
                             "
-                        >
-                            Contact Us
-                        </Link>
+                            >
+                                Contact Us
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div
-                className="h-7 w-screen text-xs font-medium
-            bg-[--button-primary] flex items-center justify-center
+                className="w-screen text-xs font-medium
+            bg-[--button-primary] flex items-center justify-center pt-10 pb-3
             "
             >
                 Copyright © 2024 WittyWorkbooks
