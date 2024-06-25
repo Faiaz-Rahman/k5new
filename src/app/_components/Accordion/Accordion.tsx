@@ -41,16 +41,18 @@ export default function Accordion({
     const [selected, setSelected] = useState<string | null>(value)
 
     return (
-        <div>
+        <div className="w-full mb-10 lg:w-[200px] lg:mr-10">
             <div
-                className="w-[200px] py-2 
-            bg-[--accordion-header] pl-2
-            text-white font-sm rounded-t-md
+                className="w-full py-2 
+                bg-[--accordion-header] pl-2 
+              text-white font-sm rounded-t-md
+
+               lg:w-[200px]
             "
             >
                 Math By Topic
             </div>
-            <ul {...props} className="mr-5">
+            <ul {...props} className="w-full lg:w-[200px]">
                 <AccordionContext.Provider
                     value={[selected, setSelected]}
                 >
@@ -76,7 +78,7 @@ export function AccordionItem({
     const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string =
-        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-50'
+        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-50 w-full'
 
     useEffect(() => {
         console.log('likee =>', selectedInner)
@@ -90,11 +92,11 @@ export function AccordionItem({
     // console.log(typeof divRef.current?.offsetHeight)
 
     return (
-        <li {...props}>
+        <li {...props} className="">
             <header
                 role="button"
                 className="bg-[--accordion-topic] flex justify-between
-                items-center py-2 pl-2 w-[200px] text-white"
+                items-center py-2 pl-2 w-full text-white lg:w-[200px]"
                 onClick={() => {
                     setSelected(open ? null : value)
                 }}
@@ -110,7 +112,8 @@ export function AccordionItem({
             </header>
             <div
                 className="overflow-y-hidden 
-                transition-all w-[200px] duration-300
+                transition-all w-full duration-300
+                lg:w-[200px]
                 "
                 style={{
                     height: open
@@ -128,9 +131,9 @@ export function AccordionItem({
                                 <div key={ind}>
                                     <div
                                         key={ind}
-                                        className={
-                                            accordion_dropdown_style
-                                        }
+                                        className={`
+                                            ${accordion_dropdown_style}
+                                        }`}
                                         onClick={() => {
                                             console.log(
                                                 'data =>',
