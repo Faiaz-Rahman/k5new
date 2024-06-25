@@ -40,7 +40,7 @@ export default function MathByTopicPageClient() {
 
             <div
                 className="
-                text-[14px] w-full pr-40"
+                text-[14px] w-full pr-5 lg:pr-40"
             >
                 <p className="font-semibold text-md">
                     Number and counting pattern worksheets
@@ -59,17 +59,18 @@ export default function MathByTopicPageClient() {
             </div>
 
             <div
-                className="flex flex-col w-[80%] 
-            py-3 gap-1"
+                className="flex flex-col w-[100%] 
+                py-3 gap-1 lg:w-[80%]"
             >
                 {data_for_worksheet.map((item, index) => {
                     return (
                         <div
                             key={index}
-                            className="flex w-[80%]
+                            className="flex w-[100%]
                             border-b border-b-gray-400
                             items-center justify-between py-1
-                        "
+                            lg:w-[80%]
+                            "
                         >
                             <div
                                 className="flex flex-col h-full w-[100%]
@@ -100,9 +101,9 @@ export default function MathByTopicPageClient() {
             </div>
 
             <div
-                className="flex items-center
-                justify-between relative h-[400px] w-[670px]
-                overflow-x-hidden
+                className="hidden lg:flex lg:items-center
+                lg:justify-between lg:relative lg:h-[400px] lg:w-[670px]
+                lg:overflow-x-hidden
             "
             >
                 {/* slider */}
@@ -161,7 +162,10 @@ export default function MathByTopicPageClient() {
                 </div>
             </div>
 
-            <div className="w-full pr-40">
+            <div
+                className="w-full lg:pr-40
+            "
+            >
                 <p className="font-semibold text-[16px]">
                     More Numbers Worksheets
                 </p>

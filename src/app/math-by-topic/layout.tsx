@@ -10,7 +10,12 @@ export default function BrowseByTopicsLayout({
 }) {
     return (
         <>
-            <div className="flex w-screen pl-24 pt-40">
+            <div
+                className="flex flex-col-reverse w-screen pl-[20px] 
+                pt-24 pr-[20px]
+                lg:pl-24 lg:flex-row lg:pt-40 lg:pr-24
+            "
+            >
                 <Accordion value="en">
                     <AccordionItem
                         trigger="Topic 1"
@@ -42,7 +47,8 @@ export default function BrowseByTopicsLayout({
                         value={'Topic 6'}
                     ></AccordionItem>
                 </Accordion>
-                <div className="w-full">{children}</div>
+
+                <div className="flex flex-col w-full">{children}</div>
             </div>
         </>
     )
