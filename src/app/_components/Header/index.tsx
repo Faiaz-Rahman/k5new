@@ -1,3 +1,5 @@
+'use client'
+
 import {
     faBars,
     faMagnifyingGlass,
@@ -8,8 +10,16 @@ import './index.css'
 import Link from 'next/link'
 
 import { bottom_navbar_items } from '@/app/_constants'
+import { useEffect, useState } from 'react'
 
 export default function Head() {
+    const [showLoginDropdown, setShowLoginDropdown] =
+        useState<boolean>(false)
+
+    useEffect(() => {
+        console.log(showLoginDropdown)
+    }, [showLoginDropdown])
+
     return (
         <header
             className="
@@ -174,38 +184,54 @@ export default function Head() {
                     <div
                         className="h-5/6 w-full flex justify-center
                         bg-[--button-primary] rounded-full transition-all duration-500
-                        items-center cursor-pointer relative group/member
+                        items-center cursor-pointer relative
                     "
+                        onMouseEnter={() => {
+                            setShowLoginDropdown(true)
+                        }}
+                        onMouseLeave={() => {
+                            setShowLoginDropdown(false)
+                        }}
                     >
                         <p className="text-xs font-semibold">
                             Become a Member
                         </p>
 
-                        <div
-                            className="w-40 h-0 bg-white shadow-md 
-                            absolute top-[calc(100%_+_10px)] pt-3 pl-3 opacity-0
-                            group-hover/member:h-20 transition-all duration-300 
-                            group-hover/member:opacity-100                           
-                        "
-                        >
-                            <p
-                                className="font-medium text-black
-                                    text-[12px]
-                                "
+                        {showLoginDropdown && (
+                            <div
+                                className="bg-transparent h-24 w-40 flex flex-col
+                                justify-end absolute top-[100%]
+                            "
                             >
-                                1. Already a Member?
-                                <br />
-                                <Link href={'#'}>Login</Link>
-                            </p>
+                                <div
+                                    className="w-40 h-20
+                                    pt-3 pl-3 shadow-md shadow-slate-300           
+                                "
+                                    onMouseEnter={() => {
+                                        setShowLoginDropdown(true)
+                                    }}
+                                >
+                                    <p
+                                        className="font-medium text-black
+                                        text-[12px]
+                                    "
+                                    >
+                                        1. Already a Member?
+                                        <br />
+                                        <Link href={'#'}>Login</Link>
+                                    </p>
 
-                            <p
-                                className="font-medium text-black
+                                    <Link
+                                        href={'#'}
+                                        className="font-medium text-black
                                     text-[12px]
                                 "
-                            >
-                                2. Sign up
-                            </p>
-                        </div>
+                                    >
+                                        2. Sign up
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
