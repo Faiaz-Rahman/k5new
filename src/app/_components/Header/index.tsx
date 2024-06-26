@@ -6,6 +6,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { motion } from 'framer-motion'
+
 import './index.css'
 import Link from 'next/link'
 
@@ -16,9 +18,9 @@ export default function Head() {
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
 
-    useEffect(() => {
-        console.log(showLoginDropdown)
-    }, [showLoginDropdown])
+    // useEffect(() => {
+    //     console.log(showLoginDropdown)
+    // }, [showLoginDropdown])
 
     return (
         <header
@@ -198,18 +200,27 @@ export default function Head() {
                         </p>
 
                         {showLoginDropdown && (
-                            <div
+                            <motion.div
                                 className="bg-transparent h-24 w-40 flex flex-col
                                 justify-end absolute top-[100%]
                             "
+                                initial={{
+                                    opacity: 0,
+                                    y: 15,
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                }}
+                                exit={{
+                                    opacity: 0,
+                                    y: 15,
+                                }}
                             >
                                 <div
-                                    className="w-40 h-20
+                                    className="w-40 h-20 bg-white
                                     pt-3 pl-3 shadow-md shadow-slate-300           
                                 "
-                                    onMouseEnter={() => {
-                                        setShowLoginDropdown(true)
-                                    }}
                                 >
                                     <p
                                         className="font-medium text-black
@@ -230,7 +241,7 @@ export default function Head() {
                                         2. Sign up
                                     </Link>
                                 </div>
-                            </div>
+                            </motion.div>
                         )}
                     </div>
                 </div>
