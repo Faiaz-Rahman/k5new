@@ -11,30 +11,34 @@ import { motion } from 'framer-motion'
 import './index.css'
 import Link from 'next/link'
 
-import { bottom_navbar_items } from '@/app/_constants'
+import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
 import { useEffect, useState } from 'react'
 
 export default function Head() {
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
 
+    const [showMinimizedLinkDropdown, setShowMinimizedLinkDropdown] =
+        useState<string>('')
+
     // useEffect(() => {
-    //     console.log(showLoginDropdown)
-    // }, [showLoginDropdown])
+    //     console.log(showMinimizedLinkDropdown)
+    // }, [showMinimizedLinkDropdown])
 
     return (
         <header
             className="
-            h-24 w-screen flex items-center justify-between fixed z-10 bg-white opacity-90
+            h-24 w-screen flex items-center justify-between fixed z-10 bg-white opacity-100
 
-            sm:max-lg:h-24 sm:max-lg:w-screen sm:max-lg:flex sm:max-lg:items-center sm:max-lg:justify-between sm:max-lg:fixed sm:max-lg:z-10 sm:max-lg:bg-white sm:max-lg:opacity-90
+            sm:max-lg:h-24 sm:max-lg:w-screen sm:max-lg:flex sm:max-lg:items-center sm:max-lg:justify-between sm:max-lg:fixed sm:max-lg:z-10 sm:max-lg:bg-white sm:max-lg:opacity-100
 
 
             lg:h-40 lg:w-screen
             lg:flex lg:justify-center lg:items-center lg:flex-col
-            lg:gap-3 lg:fixed lg:bg-white lg:opacity-90 lg:z-10
+            lg:gap-3 lg:fixed lg:bg-white lg:opacity-100 lg:z-10
             "
         >
+            {/* mobile responsive navbar > logo container */}
             <div
                 className="h-full w-2/5 items-center flex
                     pl-[20px] lg:hidden
@@ -49,6 +53,7 @@ export default function Head() {
                 </p>
             </div>
 
+            {/* mobile responive navbar > icons container */}
             <div className="pr-[20px] flex items-center lg:hidden">
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
@@ -144,15 +149,16 @@ export default function Head() {
                 </div>
             </div>
 
-            {/* Header Bottom UI */}
+            {/* Header Bottom UI > nav links */}
             <div
                 className="hidden lg:h-10 lg:w-full lg:flex lg:pl-20
             "
             >
+                {/* nav links */}
                 <ul
                     className="h-full flex
                     items-center gap-3 w-full mr-7 border-r 
-                    border-r-slate-400
+                    border-r-slate-400 bg-white
                 "
                 >
                     {bottom_navbar_items.map((item, ind) => {
@@ -162,8 +168,14 @@ export default function Head() {
                                 className="h-full flex items-center
                                     hover:bg-[--button-primary]
                                     px-[15px] transition-all duration-300
-                                    rounded-full
+                                    rounded-full relative
                                 "
+                                onMouseEnter={() => {
+                                    setShowMinimizedLinkDropdown(item)
+                                }}
+                                onMouseLeave={() => {
+                                    setShowMinimizedLinkDropdown('')
+                                }}
                             >
                                 <Link
                                     href="#"
@@ -173,11 +185,60 @@ export default function Head() {
                                 >
                                     {item}
                                 </Link>
+
+                                {showMinimizedLinkDropdown ===
+                                    item && (
+                                    <motion.div
+                                        initial={{
+                                            scale: 0,
+                                            y: 15,
+                                        }}
+                                        animate={{
+                                            scale: 1,
+                                            y: 0,
+                                        }}
+                                        exit={{
+                                            scale: 0,
+                                            y: 15,
+                                        }}
+                                        className="bg-transparent flex pt-4 
+                                        absolute top-full"
+                                    >
+                                        <div
+                                            className="w-[170px] bg-white shadow-md
+                                                rounded-md overflow-hidden 
+                                            "
+                                        >
+                                            {nav_menu_list.map(
+                                                (
+                                                    nav_item,
+                                                    nav_ind
+                                                ) => {
+                                                    return (
+                                                        <div
+                                                            key={`nav_menu_list${nav_ind}`}
+                                                            className="flex items-center h-12 w-full 
+                                                            pl-3 border-b border-b-slate-200 
+                                                            cursor-pointer bg-white hover:bg-[--card]
+                                                        "
+                                                        >
+                                                            <p className="font-medium text-black text-[16px]">
+                                                                {
+                                                                    nav_item
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    )
+                                                }
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                )}
                             </li>
                         )
                     })}
                 </ul>
-
+                {/* become a member button container */}
                 <div
                     className="h-full w-[300px]
                     flex items-center justify-center pr-24
@@ -200,6 +261,7 @@ export default function Head() {
                         </p>
 
                         {showLoginDropdown && (
+                            // Login Dropdown
                             <motion.div
                                 className="bg-transparent h-24 w-40 flex flex-col
                                 justify-end absolute top-[100%]
@@ -214,7 +276,7 @@ export default function Head() {
                                 }}
                                 exit={{
                                     opacity: 0,
-                                    y: 15,
+                                    y: -15,
                                 }}
                             >
                                 <div
