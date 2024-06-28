@@ -95,14 +95,14 @@ export default function Head() {
 
                 {/* Search Bar */}
                 <div
-                    className="h-full w-[calc(100%_-_440px)] flex items-center
+                    className="h-full w-[calc(100%_-_300px)] flex items-center
                     justify-center
                     "
                     // bg-red-300
                 >
                     <div
                         className="h-[80%]
-                     w-[90%] flex justify-center
+                     w-[100%] flex justify-center
                      rounded-full items-center  border-gray-300
                      border
                 "
@@ -132,14 +132,14 @@ export default function Head() {
                 </div>
 
                 <div
-                    className="h-full w-[290px]
-                    flex items-center pr-24
+                    className="h-full w-[300px]
+                    flex items-center pr-24 pl-7
                 "
                 >
                     <div
                         className="h-[80%] w-full flex justify-center
                         bg-[--button-primary] rounded-full
-                        items-center cursor-pointer
+                        items-center cursor-pointer 
                     "
                     >
                         <p className="text-xs font-semibold">
@@ -157,8 +157,8 @@ export default function Head() {
                 {/* nav links */}
                 <ul
                     className="h-full flex
-                    items-center gap-3 w-full mr-7 border-r 
-                    border-r-slate-400 bg-white
+s                    items-center gap-3 w-full mr-7 border-r 
+                    border-r-slate-400 justify-between pr-5
                 "
                 >
                     {bottom_navbar_items.map((item, ind) => {
@@ -241,11 +241,11 @@ export default function Head() {
                 {/* become a member button container */}
                 <div
                     className="h-full w-[300px]
-                    flex items-center justify-center pr-24
+                    flex items-center justify-center pr-24 
                 "
                 >
                     <div
-                        className="h-5/6 w-full flex justify-center
+                        className="h-full w-full flex justify-center
                         bg-[--button-primary] rounded-full transition-all duration-500
                         items-center cursor-pointer relative
                     "
