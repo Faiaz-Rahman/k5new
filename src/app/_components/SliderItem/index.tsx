@@ -48,7 +48,7 @@ export default function SliderItem({
             />
 
             <div
-                className="w-full h-0 bg-red-100 opacity-0
+                className="w-full h-0 bg-[--card] opacity-0
                 absolute bottom-0 left-0 transition-all 
                 hover:opacity-40 group-hover:h-full 
                 duration-500 flex items-center
@@ -57,10 +57,10 @@ export default function SliderItem({
             >
                 <FontAwesomeIcon
                     icon={faLock}
-                    className="text-red-700 font-bold text-[20px]"
+                    className="text-cyan-950 font-bold text-[20px]"
                 />
                 <p
-                    className="text-red-700 font-bold text-[14px]
+                    className="text-cyan-950 font-bold text-[14px]
                 text-center
                 "
                 >

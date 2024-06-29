@@ -4,7 +4,7 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import SliderItem from '../_components/SliderItem'
 import Slider from '../_components/Slider'
 
@@ -13,6 +13,7 @@ import Image from 'next/image'
 
 export default function MathByTopicPageClient() {
     const data: number[] = [1, 2, 3, 4, 5, 6]
+    const divRef = useRef<HTMLDivElement>(null)
 
     const data_for_worksheet: number[] = [1, 2, 3, 4, 5]
 
@@ -73,7 +74,7 @@ export default function MathByTopicPageClient() {
                             "
                         >
                             <div
-                                className="flex flex-col h-full w-[100%]
+                                className="flex flex-col h-full w-[100%5
                 "
                             >
                                 <p className="font-normal text-sm">
@@ -101,10 +102,11 @@ export default function MathByTopicPageClient() {
             </div>
 
             <div
-                className="hidden lg:flex lg:items-center
-                lg:justify-between lg:relative lg:h-[400px] lg:w-[670px]
+                className={`hidden lg:flex lg:items-center
+                lg:justify-between lg:relative lg:h-[400px] lg:w-[675px]
                 lg:overflow-x-hidden
-            "
+            `}
+                ref={divRef}
             >
                 {/* slider */}
                 <div
@@ -131,9 +133,9 @@ export default function MathByTopicPageClient() {
                             setStyle((prev) => prev + 230)
                         }
                     }}
-                    className="absolute h-10 w-10 bg-red-400
+                    className="absolute h-10 w-10 bg-[--card]
                         rounded-full left-0 flex justify-center items-center
-                        shadow-md opacity-80
+                        shadow-md
                      "
                 >
                     <FontAwesomeIcon
@@ -150,9 +152,9 @@ export default function MathByTopicPageClient() {
                             setStyle((prev) => prev - 230)
                         }
                     }}
-                    className="absolute h-10 w-10 bg-red-400
+                    className="absolute h-10 w-10 bg-[--card]
                         rounded-full right-0 flex justify-center items-center
-                        shadow-md opacity-80
+                        shadow-md
                     "
                 >
                     <FontAwesomeIcon
