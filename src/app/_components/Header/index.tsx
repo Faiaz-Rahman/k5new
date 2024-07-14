@@ -113,10 +113,10 @@ export default function Head() {
             <AnimatePresence>
                 {menuPressed && (
                     <motion.div
-                        className="h-screen w-full bg-white absolute
-                    top-full lg:hidden 
-                    transition-all duration-75
-                    opacity-70
+                        className="h-[100vh] w-full bg-white absolute
+                        top-full lg:hidden 
+                        transition-all duration-75
+                        flex flex-col gap-2
                     "
                         initial={{
                             x: '100%',
@@ -126,11 +126,33 @@ export default function Head() {
                         }}
                         exit={{ x: '100%' }}
                         transition={{
-                            bounce: 0.5,
+                            bounce: 0.7,
                             type: 'spring',
-                            stiffness: 70,
+                            stiffness: 100,
                         }}
-                    ></motion.div>
+                    >
+                        {bottom_navbar_items.map(
+                            (navbar_item, nav_index) => {
+                                return (
+                                    <div
+                                        className="h-[60px] 
+                                    w-2/3 bg-[--button-primary] self-center
+                                    rounded-lg cursor-pointer flex items-center
+                                    justify-center
+                                "
+                                    >
+                                        <p
+                                            className="text-black 
+                                            text-md font-medium
+                                        "
+                                        >
+                                            {navbar_item}
+                                        </p>
+                                    </div>
+                                )
+                            }
+                        )}
+                    </motion.div>
                 )}
             </AnimatePresence>
 
