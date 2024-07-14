@@ -2,11 +2,13 @@
 
 import {
     faBars,
+    faCircleXmark,
     faMagnifyingGlass,
+    faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import './index.css'
 import Link from 'next/link'
@@ -21,15 +23,21 @@ export default function Head() {
     const [showMinimizedLinkDropdown, setShowMinimizedLinkDropdown] =
         useState<string>('')
 
+    const [menuPressed, setMenuPressed] = useState<boolean>(false)
+
+    const toggleMenuPress = (): void => {
+        setMenuPressed((prev) => !prev)
+    }
+
     // useEffect(() => {
-    //     console.log(showMinimizedLinkDropdown)
-    // }, [showMinimizedLinkDropdown])
+    //     console.log(menuPressed)
+    // }, [menuPressed])
 
     return (
         <header
             className="
             h-24 w-screen flex items-center justify-between fixed z-10 bg-white opacity-100
-
+        
             sm:max-lg:h-24 sm:max-lg:w-screen sm:max-lg:flex sm:max-lg:items-center sm:max-lg:justify-between sm:max-lg:fixed sm:max-lg:z-10 sm:max-lg:bg-white sm:max-lg:opacity-100
 
 
@@ -54,7 +62,11 @@ export default function Head() {
             </div>
 
             {/* mobile responive navbar > icons container */}
-            <div className="pr-[20px] flex items-center lg:hidden">
+            <div
+                className="pr-[20px] flex items-center lg:hidden
+                w-20
+            "
+            >
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     style={{
@@ -63,15 +75,64 @@ export default function Head() {
                     }}
                 />
 
-                <FontAwesomeIcon
-                    icon={faBars}
-                    style={{
-                        fontSize: 15,
-                        color: '#000',
-                        marginLeft: 16,
-                    }}
-                />
+                <div
+                    onClick={toggleMenuPress}
+                    className="transition-all duration-150"
+                >
+                    {menuPressed ? (
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            className="transition-all duration-300"
+                            style={{
+                                fontSize: 18,
+                                color: '#000',
+                                marginLeft: 16,
+                                transform: menuPressed
+                                    ? 'rotate(90deg)'
+                                    : 'rotate(0deg)',
+                            }}
+                        />
+                    ) : (
+                        <FontAwesomeIcon
+                            icon={faBars}
+                            className="transition-all duration-300"
+                            style={{
+                                fontSize: 14,
+                                color: '#000',
+                                marginLeft: 16,
+                                transform: menuPressed
+                                    ? 'rotate(0deg)'
+                                    : 'rotate(180deg)',
+                            }}
+                        />
+                    )}
+                </div>
             </div>
+
+            {/* to animate it while it being removed from DOM */}
+            <AnimatePresence>
+                {menuPressed && (
+                    <motion.div
+                        className="h-screen w-full bg-white absolute
+                    top-full lg:hidden 
+                    transition-all duration-75
+                    opacity-70
+                    "
+                        initial={{
+                            x: '100%',
+                        }}
+                        animate={{
+                            x: '0%',
+                        }}
+                        exit={{ x: '100%' }}
+                        transition={{
+                            bounce: 0.5,
+                            type: 'spring',
+                            stiffness: 70,
+                        }}
+                    ></motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Header Top UI*/}
             <div
