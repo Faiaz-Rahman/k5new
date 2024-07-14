@@ -135,7 +135,7 @@ export default function Head() {
                             (navbar_item, nav_index) => {
                                 return (
                                     <div
-                                        className="h-[60px] 
+                                        className="h-[55px] 
                                     w-2/3 bg-[--button-primary] self-center
                                     rounded-lg cursor-pointer flex items-center
                                     justify-center
@@ -152,6 +152,37 @@ export default function Head() {
                                 )
                             }
                         )}
+
+                        <div
+                            className="h-[55px] w-2/3 flex 
+                            items-center bg-red-50
+                            justify-between self-center px-10
+                        "
+                        >
+                            <div className="">
+                                <Link
+                                    className="hover:underline"
+                                    href="/login"
+                                    onClick={() => {
+                                        setMenuPressed(false)
+                                    }}
+                                >
+                                    Login
+                                </Link>
+                            </div>
+
+                            <div className="">
+                                <Link
+                                    className="hover:underline"
+                                    onClick={() => {
+                                        setMenuPressed(false)
+                                    }}
+                                    href="/login"
+                                >
+                                    New here? Register
+                                </Link>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
