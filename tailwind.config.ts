@@ -7,6 +7,13 @@ const config: Config = {
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
+        screens: {
+            sm: '640px',
+            md: '768px',
+            lg: '1062px',
+            xl: '1280px',
+            '2xl': '1536px',
+        },
         extend: {
             backgroundImage: {
                 'gradient-radial':
@@ -21,6 +28,7 @@ const config: Config = {
             transform: ['hover', 'focus'],
         },
     },
+
     plugins: [],
 }
 export default config
