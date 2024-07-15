@@ -2,6 +2,8 @@
 
 import {
     faBars,
+    faChevronLeft,
+    faChevronRight,
     faCircleXmark,
     faMagnifyingGlass,
     faXmark,
@@ -155,32 +157,73 @@ export default function Head() {
 
                         <div
                             className="h-[55px] w-2/3 flex 
-                            items-center bg-red-50
-                            justify-between self-center px-10
+                            items-center bg-red-50 rounded-md
+                            justify-between self-center px-7
                         "
                         >
-                            <div className="">
+                            <div
+                                className="
+                                flex items-center h-full pr-3"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faChevronLeft}
+                                    className="text-xs mr-1"
+                                />
                                 <Link
-                                    className="hover:underline"
+                                    className="hover:underline 
+                                        h-full flex items-center
+
+                                        sm:max-lg:text-[.9rem] sm:max-lg:text-black
+                                        sm:max-lg:font-semibold
+                                    "
                                     href="/login"
                                     onClick={() => {
                                         setMenuPressed(false)
                                     }}
                                 >
-                                    Login
+                                    <p
+                                        className="text-[.8rem] text-black
+
+                                        sm:max-lg:text-[.9rem] sm:max-lg:text-black
+                                        sm:max-lg:font-semibold
+                                    "
+                                    >
+                                        Login
+                                    </p>
                                 </Link>
                             </div>
 
-                            <div className="">
+                            <div
+                                className="
+                                flex items-center h-full pl-3
+                            "
+                            >
                                 <Link
-                                    className="hover:underline"
+                                    className="
+                                        text-right h-full flex items-center
+                                    
+                                        sm:max-lg:text-[.9rem] sm:max-lg:text-black
+                                        sm:max-lg:font-semibold
+                                        "
                                     onClick={() => {
                                         setMenuPressed(false)
                                     }}
                                     href="/login"
                                 >
-                                    New here? Register
+                                    <p
+                                        className="text-[.8rem] text-black hover:underline
+
+                                        sm:max-lg:text-[.9rem] sm:max-lg:text-black
+                                        sm:max-lg:font-semibold
+                                    "
+                                    >
+                                        Register
+                                    </p>
                                 </Link>
+                                <FontAwesomeIcon
+                                    icon={faChevronRight}
+                                    className="text-xs ml-1"
+                                />
                             </div>
                         </div>
                     </motion.div>

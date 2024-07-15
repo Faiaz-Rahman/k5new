@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { ChangeEventHandler, useState } from 'react'
 
 interface InputProps {
     label: string
@@ -8,7 +8,7 @@ interface InputProps {
     labelStyle?: string
     inputStyle?: string
     children?: React.ReactNode
-    onChange?: () => void
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function Input({
@@ -22,26 +22,19 @@ export default function Input({
     children,
 }: InputProps) {
     return (
-        <div className={wrapperStyle}>
+        <div className={`${wrapperStyle}`}>
             <p className={labelStyle}>{label}</p>
-            <div
-                className={`flex items-center mt-2
-                    rounded-md h-10 overflow-hidden
-                ${
-                    children
-                        ? 'border border-gray-200'
-                        : 'border-none'
-                }    
-            `}
-            >
-                <input
-                    type={type}
-                    className={inputStyle}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                />
-                {children}
-            </div>
+
+            <input
+                type={type}
+                className={`${inputStyle} 
+                    focus:border-[--button-primary]
+                    focus:border-2
+                `}
+                placeholder={placeholder}
+                onChange={onChange}
+            />
+            {children}
         </div>
     )
 }
