@@ -83,7 +83,7 @@ export default function Register() {
                     key={`google_login_button`}
                     wrapperTStyle={`flex justify-center
                     items-center border-2 border-[--button-primary]
-                    bg-white w-3/6 mt-6 
+                    bg-white w-4/6 mt-6 
 
                     lg:w-[75%]
                 `}
@@ -229,7 +229,7 @@ export default function Register() {
                 <Button
                     key={`register_button`}
                     // passing tailwind styles
-                    wrapperTStyle={`rounded-md w-4/6
+                    wrapperTStyle={`rounded-md w-4/6 mb-10
                       lg:w-[75%]
                 `}
                     wrapperStyle={{
