@@ -112,6 +112,8 @@ export default function Head() {
             </div>
 
             {/* to animate it while it being removed from DOM */}
+
+            {/* side menu bar */}
             <AnimatePresence>
                 {menuPressed && (
                     <motion.div
@@ -154,7 +156,7 @@ export default function Head() {
                                 )
                             }
                         )}
-
+                        {/* auth (login/register) Wrapper */}
                         <div
                             className="h-[55px] w-2/3 flex 
                             items-center bg-red-50 rounded-md
@@ -208,7 +210,7 @@ export default function Head() {
                                     onClick={() => {
                                         setMenuPressed(false)
                                     }}
-                                    href="/login"
+                                    href="/register"
                                 >
                                     <p
                                         className="text-[.8rem] text-black hover:underline

@@ -63,6 +63,7 @@ export default function Login() {
             </motion.div>
 
             <Input
+                key={'login_input_email'}
                 label="Email"
                 type="email"
                 placeholder="Email"
@@ -77,6 +78,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
             />
             <Input
+                key={'login_input_pass'}
                 label="Password"
                 type={showPass ? 'text' : 'password'}
                 placeholder="Password"

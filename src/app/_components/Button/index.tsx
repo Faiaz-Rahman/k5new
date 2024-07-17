@@ -6,6 +6,7 @@ interface ButtonProps {
     width?: number
     wrapperStyle?: Object
     wrapperTStyle?: string
+    leftIcon?: React.ReactNode
 }
 
 export default function Button({
@@ -14,6 +15,7 @@ export default function Button({
     width,
     wrapperStyle,
     wrapperTStyle,
+    leftIcon,
 }: ButtonProps) {
     return (
         <button
@@ -22,6 +24,16 @@ export default function Button({
         `}
             style={{ width, ...wrapperStyle }}
         >
+            {leftIcon ? (
+                <div
+                    className="h-6 w-6 bg-white
+                rounded-full flex justify-center 
+                items-center mr-2       
+            "
+                >
+                    {leftIcon}
+                </div>
+            ) : null}
             {title}
         </button>
     )
