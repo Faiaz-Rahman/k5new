@@ -139,6 +139,7 @@ export default function Head() {
                             (navbar_item, nav_index) => {
                                 return (
                                     <div
+                                        key={`side_menu_${nav_index}`}
                                         className="h-[55px] 
                                     w-2/3 bg-[--button-primary] self-center
                                     rounded-lg cursor-pointer flex items-center
@@ -323,7 +324,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                     {bottom_navbar_items.map((item, ind) => {
                         return (
                             <li
-                                key={ind}
+                                key={`${ind}`}
                                 className="h-full flex items-center
                                     hover:bg-[--button-primary]
                                     px-[15px] transition-all duration-300
@@ -450,17 +451,30 @@ s                    items-center gap-3 w-full mr-7 border-r
                                     >
                                         1. Already a Member?
                                         <br />
-                                        <Link href={'#'}>Login</Link>
+                                        <Link
+                                            href={'/login'}
+                                            className="hover:underline text-black
+                                                font-medium
+                                            "
+                                        >
+                                            Login
+                                        </Link>
                                     </p>
-
-                                    <Link
-                                        href={'#'}
-                                        className="font-medium text-black
-                                    text-[12px]
-                                "
+                                    <span
+                                        className="no-underline
+                                        font-medium text-black text-[12px]
+                                    "
                                     >
-                                        2. Sign up
-                                    </Link>
+                                        2.
+                                        <Link
+                                            href={'/register'}
+                                            className="font-medium text-black
+                                    text-[12px] hover:underline
+                                "
+                                        >
+                                            Sign up
+                                        </Link>
+                                    </span>
                                 </div>
                             </motion.div>
                         )}
