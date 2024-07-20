@@ -3,16 +3,16 @@
 import React, { useState } from 'react'
 
 import { motion } from 'framer-motion'
-import Button from '../_components/Button'
+import Button from '../../_components/Button'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 import Image from 'next/image'
-import Input from '../_components/Input'
+import Input from '../../_components/Input'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-import Education from '../../assets/education.png'
+import Education from '../../../assets/education.png'
 
 export default function Register() {
     const [email, setEmail] = useState<string>('')
@@ -41,7 +41,8 @@ export default function Register() {
             >
                 <motion.div
                     className="text-black font-semibold 
-                text-[1.5rem] duration-50"
+                        text-[1.5rem] duration-50
+                    "
                     initial={{
                         x: -20,
                         opacity: 0,
@@ -60,8 +61,8 @@ export default function Register() {
                 </motion.div>
                 <motion.div
                     className="text-[--login-text-color] font-normal
-                text-[.8rem] 
-            "
+                        text-[.8rem] 
+                    "
                     initial={{
                         x: -20,
                         opacity: 0,
@@ -90,11 +91,13 @@ export default function Register() {
                     title="Login with Google"
                     leftIcon={
                         <Image
-                            src={require('../../assets/google_logo.png')}
+                            src={require('../../../assets/google_logo.png')}
                             height={18}
                             width={18}
                             alt="google logo"
-                            objectFit="contain"
+                            style={{
+                                objectFit: 'contain',
+                            }}
                             className=""
                         />
                     }
@@ -230,7 +233,7 @@ export default function Register() {
                     key={`register_button`}
                     // passing tailwind styles
                     wrapperTStyle={`rounded-md w-4/6 mb-10
-                      lg:w-[75%]
+                      lg:w-[75%] 
                 `}
                     wrapperStyle={{
                         marginTop: 25,

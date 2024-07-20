@@ -1,15 +1,15 @@
 'use client'
 
 import React, { useState } from 'react'
-import Input from '../_components/Input'
-import Button from '../_components/Button'
+import Input from '../../_components/Input'
+import Button from '../../_components/Button'
 
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { motion } from 'framer-motion'
 
-import Education from '../../assets/education.png'
+import Education from '../../../assets/education.png'
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -148,7 +148,7 @@ export default function Login() {
                     items-center w-4/6
                 "
                 >
-                    <Link href="/register">
+                    <Link href="/auth/register">
                         <p
                             className="
                             text-black text-[.8rem] font-light
@@ -157,8 +157,8 @@ export default function Login() {
                             Not A Member?{' '}
                             <span
                                 className="font-semibold
-                            underline
-                        "
+                                    underline
+                                "
                             >
                                 Sign Up
                             </span>

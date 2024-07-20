@@ -17,6 +17,7 @@ import Link from 'next/link'
 
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
 import { useEffect, useState } from 'react'
+import { Router, useRouter } from 'next/router'
 
 export default function Head() {
     const [showLoginDropdown, setShowLoginDropdown] =
@@ -31,9 +32,13 @@ export default function Head() {
         setMenuPressed((prev) => !prev)
     }
 
+    const [seeAll, setSeeAll] = useState<boolean>(false)
+
     // useEffect(() => {
     //     console.log(menuPressed)
     // }, [menuPressed])
+
+    // const router = useRouter()
 
     return (
         <header
@@ -179,7 +184,7 @@ export default function Head() {
                                         sm:max-lg:text-[.9rem] sm:max-lg:text-black
                                         sm:max-lg:font-semibold
                                     "
-                                    href="/login"
+                                    href="/auth/login"
                                     onClick={() => {
                                         setMenuPressed(false)
                                     }}
@@ -211,7 +216,7 @@ export default function Head() {
                                     onClick={() => {
                                         setMenuPressed(false)
                                     }}
-                                    href="/register"
+                                    href="/auth/register"
                                 >
                                     <p
                                         className="text-[.8rem] text-black hover:underline
@@ -377,19 +382,103 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                     return (
                                                         <div
                                                             key={`nav_menu_list${nav_ind}`}
-                                                            className="flex items-center h-12 w-full 
-                                                            pl-3 border-b border-b-slate-200 
+                                                            className={`flex items-center h-12 w-full 
+                                                            pl-3 border-b border-b-slate-200 relative 
                                                             cursor-pointer bg-white hover:bg-[--card]
-                                                        "
+                                                            justify-between pr-3
+                                                        `}
+                                                            onMouseEnter={() => {
+                                                                if (
+                                                                    nav_ind ===
+                                                                    nav_menu_list.length -
+                                                                        1
+                                                                ) {
+                                                                    console.log(
+                                                                        'mouse entering'
+                                                                    )
+                                                                    setSeeAll(
+                                                                        true
+                                                                    )
+                                                                }
+                                                            }}
                                                         >
-                                                            <p className="font-medium text-black text-[16px]">
+                                                            <p
+                                                                className="font-medium text-black text-[16px]
+
+                                                            "
+                                                            >
                                                                 {
                                                                     nav_item
                                                                 }
                                                             </p>
+                                                            <span>
+                                                                {nav_ind ===
+                                                                nav_menu_list.length -
+                                                                    1 ? (
+                                                                    <FontAwesomeIcon
+                                                                        icon={
+                                                                            faChevronRight
+                                                                        }
+                                                                        className="text-[10px] ml-1"
+                                                                    />
+                                                                ) : null}
+                                                            </span>
                                                         </div>
                                                     )
                                                 }
+                                            )}
+
+                                            {/* menu side bar */}
+                                            {seeAll && (
+                                                <motion.div
+                                                    className={`
+                                                    absolute h-full w-96
+                                                    bg-transparent top-0
+                                                    ${
+                                                        ind <
+                                                        bottom_navbar_items.length /
+                                                            2
+                                                            ? 'left-full pl-5'
+                                                            : 'right-full pr-5'
+                                                    }
+                                                    transition-all 
+                                                    pt-4
+                                                `}
+                                                    onMouseLeave={() => {
+                                                        if (seeAll) {
+                                                            console.log(
+                                                                'mouse leaving'
+                                                            )
+                                                            setSeeAll(
+                                                                false
+                                                            )
+                                                        }
+                                                    }}
+                                                    initial={{
+                                                        scale: 0.5,
+                                                        opacity: 0,
+                                                        y: 15,
+                                                    }}
+                                                    animate={{
+                                                        scale: 1,
+                                                        opacity: 1,
+                                                        y: 0,
+                                                        transition: {
+                                                            duration: 0.1,
+                                                            ease: 'easeIn',
+                                                        },
+                                                    }}
+                                                >
+                                                    <div
+                                                        className="h-full w-full 
+                                                         bg-red-50 rounded-md 
+                                                          shadow-md flex items-center
+                                                          justify-center
+                                                        "
+                                                    >
+                                                        Menu Side Bar
+                                                    </div>
+                                                </motion.div>
                                             )}
                                         </div>
                                     </motion.div>
@@ -441,7 +530,8 @@ s                    items-center gap-3 w-full mr-7 border-r
                             >
                                 <div
                                     className="w-40 h-20 bg-white
-                                    pt-3 pl-3 shadow-md shadow-slate-300           
+                                    pt-3 pl-3 shadow-md shadow-slate-300 
+                                    flex flex-col gap-1
                                 "
                                 >
                                     <p
@@ -452,7 +542,13 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         1. Already a Member?
                                         <br />
                                         <Link
-                                            href={'/login'}
+                                            href={'/auth/login'}
+                                            onClick={() => {
+                                                // router.push('/auth/login')
+                                                console.log(
+                                                    'login to this website'
+                                                )
+                                            }}
                                             className="hover:underline text-black
                                                 font-medium
                                             "
@@ -461,16 +557,25 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         </Link>
                                     </p>
                                     <span
-                                        className="no-underline
+                                        className="no-underline w-full
                                         font-medium text-black text-[12px]
+                                        flex
                                     "
                                     >
                                         2.
                                         <Link
-                                            href={'/register'}
+                                            onClick={() => {
+                                                // router.push(
+                                                //     'auth/register'
+                                                // )
+                                                console.log(
+                                                    'sign up to this website'
+                                                )
+                                            }}
+                                            href={'/auth/register'}
                                             className="font-medium text-black
-                                    text-[12px] hover:underline
-                                "
+                                                text-[12px] hover:underline
+                                            "
                                         >
                                             Sign up
                                         </Link>
