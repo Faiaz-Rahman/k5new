@@ -2,29 +2,21 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface CounterState {
-    value: number
+    isLoggedIn: boolean
+    user: null | Object
 }
 
 const initialState = {
-    value: 0,
+    isLoggedIn: false,
+    user: null,
 } satisfies CounterState as CounterState
 
 const authSlice = createSlice({
     name: 'counter',
     initialState,
-    reducers: {
-        increment(state) {
-            state.value++
-        },
-        decrement(state) {
-            state.value--
-        },
-        incrementByAmount(state, action: PayloadAction<number>) {
-            state.value += action.payload
-        },
-    },
+    reducers: {},
 })
 
-export const { increment, decrement, incrementByAmount } =
-    authSlice.actions
+// export const { increment, decrement, incrementByAmount } =
+//     authSlice.actions
 export default authSlice.reducer
