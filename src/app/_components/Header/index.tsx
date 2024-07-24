@@ -17,7 +17,11 @@ import Link from 'next/link'
 
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
 import { useEffect, useState } from 'react'
-import { Router, useRouter } from 'next/router'
+
+import { useRouter } from 'next/navigation'
+
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
 
 export default function Head() {
     const [showLoginDropdown, setShowLoginDropdown] =
@@ -33,6 +37,9 @@ export default function Head() {
     }
 
     const [seeAll, setSeeAll] = useState<boolean>(false)
+
+    // const { value } = useSelector((state: RootState) => state.auth)
+    // console.log(value)
 
     // useEffect(() => {
     //     console.log(menuPressed)
@@ -54,19 +61,20 @@ export default function Head() {
             "
         >
             {/* mobile responsive navbar > logo container */}
-            <div
+            <Link
                 className="h-full w-2/5 items-center flex
-                    pl-[20px] lg:hidden
+                    pl-10 lg:hidden
                 "
+                href={'/'}
             >
                 <p
                     className="text-black font-bold
-                        text-[17px]
+                        text-[1.3rem]
                     "
                 >
                     Logo
                 </p>
-            </div>
+            </Link>
 
             {/* mobile responive navbar > icons container */}
             <div
@@ -393,9 +401,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                     nav_menu_list.length -
                                                                         1
                                                                 ) {
-                                                                    console.log(
-                                                                        'mouse entering'
-                                                                    )
                                                                     setSeeAll(
                                                                         true
                                                                     )
@@ -403,7 +408,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             }}
                                                         >
                                                             <p
-                                                                className="font-medium text-black text-[16px]
+                                                                className="font-medium text-black text-xs
 
                                                             "
                                                             >
@@ -446,9 +451,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 `}
                                                     onMouseLeave={() => {
                                                         if (seeAll) {
-                                                            console.log(
-                                                                'mouse leaving'
-                                                            )
                                                             setSeeAll(
                                                                 false
                                                             )
@@ -545,9 +547,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                             href={'/auth/login'}
                                             onClick={() => {
                                                 // router.push('/auth/login')
-                                                console.log(
-                                                    'login to this website'
-                                                )
                                             }}
                                             className="hover:underline text-black
                                                 font-medium
@@ -568,9 +567,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 // router.push(
                                                 //     'auth/register'
                                                 // )
-                                                console.log(
-                                                    'sign up to this website'
-                                                )
                                             }}
                                             href={'/auth/register'}
                                             className="font-medium text-black

@@ -179,15 +179,15 @@ export default function Register() {
                         outline-none border-2 border-gray-200
                         pl-4 rounded-md"
                     labelStyle="text-[--login-text-color] font-normal
-                text-[.8rem] text-left"
+                        text-[.8rem] text-left"
                     wrapperStyle="w-4/6 mt-3 relative
-                    lg:w-[75%]
-                "
+                        lg:w-[75%]
+                    "
                     onChange={(e) => setConfPass(e.target.value)}
                 >
                     <div
                         className="w-8 h-full flex
-                    items-center absolute right-0 top-0 mt-2"
+                            items-center absolute right-0 top-0 mt-2"
                         onClick={() => {
                             setShowConfpass((prev) => !prev)
                         }}
@@ -224,7 +224,12 @@ export default function Register() {
                             setAgreeToTerms((prev) => !prev)
                         }}
                     />
-                    <label className="font-semibold text-black">
+                    <label
+                        className="font-semibold text-black"
+                        onClick={() => {
+                            setAgreeToTerms((prev) => !prev)
+                        }}
+                    >
                         I agree to the Terms, Policies and Fees.
                     </label>
                 </div>
