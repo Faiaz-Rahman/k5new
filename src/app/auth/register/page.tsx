@@ -77,7 +77,7 @@ export default function Register() {
                         delay: 0.5,
                     }}
                 >
-                    Let's get started with your 7 days free trial
+                    Let&apos;s get started with your 7 days free trial
                 </motion.div>
 
                 <Button

@@ -1,10 +1,18 @@
+'use client'
 import Image from 'next/image'
 import Button from './_components/Button'
 
 import Education from '../assets/education.png'
 import Card from './_components/Card'
+import { useSelector } from 'react-redux'
+// import { RootState } from '@/lib/store'
+import { useEffect } from 'react'
 
 export default function Home() {
+    useEffect(() => {
+        throw new Error('Internal Error! Cannot load Wittyworkbooks.')
+    }, [])
+
     return (
         <main className="flex min-h-screen w-screen flex-col">
             <div className="w-screen bg-white mt-28 lg:mt-40">
