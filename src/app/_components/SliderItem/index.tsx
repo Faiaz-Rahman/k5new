@@ -4,6 +4,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { image_assets_arr } from '@/app/_constants'
+import Image from 'next/image'
 
 interface SliderItemProps {
     item: number
@@ -26,7 +27,7 @@ export default function SliderItem({
                 justify-center transition-all
                 duration-500
                 border border-gray-400 border-solid
-                overflow-hidden rounded-xl
+                overflow-hidden rounded-xl relative
                 group 
                 `}
             style={{
@@ -35,16 +36,21 @@ export default function SliderItem({
                 width,
             }}
         >
-            <img
+            <Image
                 src={image_assets_arr[item - 1]}
+                // width={width}
+                // height={height * 0.98}
                 alt=""
                 className="object-contain transition-all
                     duration-300 
                 "
-                style={{
-                    height: height * 0.98,
-                    width,
-                }}
+                objectFit="contain"
+                layout="fill"
+                sizes="responsive"
+
+                // style={{
+                //     objectFit: 'contain',
+                // }}
             />
 
             <div
