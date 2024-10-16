@@ -19,6 +19,7 @@ export default function Button({
 }: ButtonProps) {
     return (
         <button
+            onClick={onPress}
             className={`h-10 px-6  bg-[--button-primary] 
             rounded-full font-bold text-xs ${wrapperTStyle} 
         `}

@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 
 export default function Home() {
     useEffect(() => {
-        throw new Error('Internal Error! Cannot load Wittyworkbooks.')
+        // throw new Error('Internal Error! Cannot load Wittyworkbooks.')
     }, [])
 
     return (
