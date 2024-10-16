@@ -13,6 +13,8 @@ import Input from '../../_components/Input'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import Education from '../../../assets/education.png'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
 
 export default function Register() {
     const [email, setEmail] = useState<string>('')
@@ -23,6 +25,14 @@ export default function Register() {
     const [showConfpass, setShowConfpass] = useState<boolean>(false)
 
     const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false)
+
+    const { isLoggedIn } = useSelector(
+        (state) => (state as RootState).auth
+    )
+    console.log(
+        'the value of loggedIn in signup ==> store',
+        isLoggedIn
+    )
 
     return (
         <div
@@ -147,7 +157,7 @@ export default function Register() {
                     wrapperStyle="w-4/6 mt-3 relative
                         lg:w-[75%]
                 "
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setPass(e.target.value)}
                 >
                     <div
                         className="w-8 h-full flex

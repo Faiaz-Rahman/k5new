@@ -24,12 +24,16 @@ const authSlice = createSlice({
             state.isLoggedIn = false
             state.user = null
         },
+        updateUser(state, actions) {
+            state.user = actions.payload.user
+            state.isLoggedIn = actions.payload.isLoggedIn
+        },
     },
 })
 
 // export const { increment, decrement, incrementByAmount } =
 //     authSlice.actions
 
-export const { login, logout } = authSlice.actions
+export const { login, logout, updateUser } = authSlice.actions
 
 export default authSlice.reducer

@@ -13,12 +13,36 @@ import Education from '../../../assets/education.png'
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { auth } from '@/utils/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useAppDispatch } from '@/lib/store'
+import { updateUser } from '@/lib/slices/authSlice'
 
 export default function Login() {
     const [email, setEmail] = useState<string>('')
     const [pass, setPass] = useState<string>('')
 
+    const dispatch = useAppDispatch()
+
     const [showPass, setShowpass] = useState<boolean>(false)
+
+    const onPressLogin = async () => {
+        await signInWithEmailAndPassword(auth, email, pass)
+            .then((userCredential) => {
+                dispatch(
+                    updateUser({
+                        user: userCredential.user,
+                        isLoggedIn: true,
+                    })
+                )
+            })
+            .catch((error) => {
+                console.log(
+                    'error from onPressLogin =>',
+                    JSON.stringify(error)
+                )
+            })
+    }
 
     return (
         <div
@@ -104,7 +128,7 @@ export default function Login() {
                         lg:w-[75%] 
                         2xl:w-[55%]
                     "
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setPass(e.target.value)}
                 >
                     <div
                         className="w-8 h-full flex
@@ -139,7 +163,17 @@ export default function Login() {
                     }}
                     title="Log In"
                     onPress={() => {
-                        console.log('Log In')
+                        if (!email || !pass) {
+                            console.log(
+                                'the email is =>',
+                                email,
+                                'the password is =>',
+                                pass
+                            )
+                            alert('Please fill the fields first!')
+                        } else {
+                            onPressLogin()
+                        }
                     }}
                 />
 
