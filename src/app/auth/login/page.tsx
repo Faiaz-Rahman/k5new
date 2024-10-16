@@ -41,6 +41,11 @@ export default function Login() {
                     'error from onPressLogin =>',
                     JSON.stringify(error)
                 )
+                alert(
+                    JSON.stringify(
+                        'One or, both of your credentials are in incorrect'
+                    )
+                )
             })
     }
 

@@ -14,7 +14,10 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import Education from '../../../assets/education.png'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/lib/store'
+import { RootState, useAppDispatch } from '@/lib/store'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/utils/firebase'
+import { updateUser } from '@/lib/slices/authSlice'
 
 export default function Register() {
     const [email, setEmail] = useState<string>('')
@@ -25,14 +28,40 @@ export default function Register() {
     const [showConfpass, setShowConfpass] = useState<boolean>(false)
 
     const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
 
-    const { isLoggedIn } = useSelector(
+    const { isLoggedIn, user } = useSelector(
         (state) => (state as RootState).auth
     )
-    console.log(
-        'the value of loggedIn in signup ==> store',
-        isLoggedIn
-    )
+
+    const onPressRegister = async () => {
+        if (!email || !pass || !confPass) {
+            alert('Please, fill all the fields.')
+        } else if (!agreeToTerms) {
+            alert('You must agree to terms, policies and fees.')
+        } else {
+            if (pass !== confPass) {
+                alert('Password and Confirm Password does not match.')
+            } else {
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    pass
+                )
+                    .then((userCredential) => {
+                        dispatch(
+                            updateUser({
+                                user: userCredential.user,
+                                isLoggedIn: true,
+                            })
+                        )
+                    })
+                    .catch((error) => {
+                        alert(JSON.stringify(error.code))
+                    })
+            }
+        }
+    }
 
     return (
         <div
@@ -255,7 +284,8 @@ export default function Register() {
                     }}
                     title="Register"
                     onPress={() => {
-                        console.log('Register')
+                        // console.log('Register')
+                        onPressRegister()
                     }}
                 />
             </div>
