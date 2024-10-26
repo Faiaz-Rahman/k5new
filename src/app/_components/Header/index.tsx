@@ -437,7 +437,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                             {seeAll && (
                                                 <motion.div
                                                     className={`
-                                                    absolute h-full w-96
+                                                    absolute h-full w-[470px]
                                                     bg-transparent top-0
                                                     ${
                                                         ind <
@@ -473,12 +473,125 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 >
                                                     <div
                                                         className="h-full w-full 
-                                                         bg-red-50 rounded-md 
-                                                          shadow-md flex items-center
-                                                          justify-center
+                                                         bg-white rounded-md 
+                                                          grid grid-cols-[37%_35%_auto] gap-1 shadow-lg
                                                         "
                                                     >
-                                                        Menu Side Bar
+                                                        <div className="h-36 pl-3 pt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                Numbers
+                                                            </p>
+                                                            <ul className="list-none mt-5">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Learning
+                                                                    Numbers
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Counting
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Comparing
+                                                                    Numbers
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Comparing
+                                                                    Numbers
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="h-36 pl-3 pt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                4
+                                                                Operations
+                                                            </p>
+                                                            <ul className="list-none mt-5">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Addition
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Subtraction
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Multiplication
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Division
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="h-36  pl-3 pt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                Advanced
+                                                            </p>
+
+                                                            <ul className="list-none mt-5">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Exponents
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Proportions
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Percents
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Integers
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Algebra
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="h-32  pl-3 pt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                Fractions
+                                                                &
+                                                                Decimals
+                                                            </p>
+                                                            <ul className="list-none mt-3">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Fractions
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Decimals
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="h-32  pl-3 pt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                Measurement
+                                                            </p>
+
+                                                            <ul className="list-none mt-3">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Measurement
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Money
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Time
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="h-28  pl-3 pt-3 mt-3">
+                                                            <p className="text-black text-left text-[14px] font-medium">
+                                                                More
+                                                            </p>
+
+                                                            <ul className="list-none mt-3">
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Shape
+                                                                    &
+                                                                    Geometry
+                                                                </li>
+                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                    Data
+                                                                    &
+                                                                    Graphing
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </motion.div>
                                             )}
