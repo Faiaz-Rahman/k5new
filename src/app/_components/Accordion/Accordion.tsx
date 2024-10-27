@@ -73,21 +73,21 @@ export function AccordionItem({
     const open: boolean = selected === value
 
     const divRef = useRef<HTMLDivElement>(null)
-    const divRefInner = useRef<HTMLDivElement>(null)
     const [selectedInner, setSelectedInner] = useState<string>('')
     const [openInner, setOpenInner] = useState<boolean>(false)
 
-    const accordion_dropdown_style: string =
-        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-white text-sm hover:bg-[--accordion-hover] w-full'
+    const accordion_dropdown_style: string = `h-10 pl-2 cursor-pointer flex 
+        items-center justify-between
+        bg-white text-[13px] hover:bg-[--accordion-hover] w-full`
 
-    useEffect(() => {
-        console.log('likee =>', selectedInner)
-        if (selectedInner !== '') {
-            setOpenInner(true)
-        } else {
-            setOpenInner(false)
-        }
-    }, [selectedInner])
+    // useEffect(() => {
+    //     console.log('likee =>', selectedInner)
+    //     if (selectedInner !== '') {
+    //         setOpenInner(true)
+    //     } else {
+    //         setOpenInner(false)
+    //     }
+    // }, [selectedInner])
 
     // console.log(typeof divRef.current?.offsetHeight)
 
@@ -96,7 +96,8 @@ export function AccordionItem({
             <header
                 role="button"
                 className="bg-[--card] flex justify-between
-                items-center py-2 pl-2 w-full text-black lg:w-[200px] text-[16px]"
+                items-center py-2 pl-2 w-full text-black lg:w-[200px] text-[14px] 
+                font-normal"
                 onClick={() => {
                     setSelected(open ? null : value)
                 }}
