@@ -18,33 +18,33 @@ export default function BrowseByTopicsLayout({
             >
                 <Accordion value="en">
                     <AccordionItem
-                        trigger="Topic 1"
-                        value={'Topic 1'}
+                        trigger="Kindergarden"
+                        value={'Kindergarden'}
                     ></AccordionItem>
 
                     <AccordionItem
-                        trigger="Topic 2"
-                        value={'Topic 2'}
+                        trigger="Grade 1"
+                        value={'Grade 1'}
                     ></AccordionItem>
 
                     <AccordionItem
-                        trigger="Topic 3"
-                        value={'Topic 3'}
+                        trigger="Grade 2"
+                        value={'Grade 2'}
                     ></AccordionItem>
 
                     <AccordionItem
-                        trigger="Topic 4"
-                        value={'Topic 4'}
+                        trigger="Grade 3"
+                        value={'Grade 3'}
                     ></AccordionItem>
 
                     <AccordionItem
-                        trigger="Topic 5"
-                        value={'Topic 5'}
+                        trigger="Grade 4"
+                        value={'Grade 4'}
                     ></AccordionItem>
 
                     <AccordionItem
-                        trigger="Topic 6"
-                        value={'Topic 6'}
+                        trigger="Grade 5"
+                        value={'Grade 5'}
                     ></AccordionItem>
                 </Accordion>
 
