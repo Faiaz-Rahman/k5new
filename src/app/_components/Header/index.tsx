@@ -437,7 +437,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                             {seeAll && (
                                                 <motion.div
                                                     className={`
-                                                    absolute h-full w-[470px]
+                                                    absolute h-full w-[490px]
                                                     bg-transparent top-0
                                                     ${
                                                         ind <
@@ -482,18 +482,30 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Numbers
                                                             </p>
                                                             <ul className="list-none mt-5">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Learning
                                                                     Numbers
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Counting
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Comparing
                                                                     Numbers
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Comparing
                                                                     Numbers
                                                                 </li>
@@ -505,39 +517,66 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Operations
                                                             </p>
                                                             <ul className="list-none mt-5">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left 
+                                                                mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Addition
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left 
+                                                                mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Subtraction
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left 
+                                                                mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Multiplication
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left 
+                                                                mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Division
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                        <div className="h-36  pl-3 pt-3">
+                                                        <div className="h-36  pl-3 pt-3 pr-7">
                                                             <p className="text-black text-left text-[14px] font-medium">
                                                                 Advanced
                                                             </p>
 
                                                             <ul className="list-none mt-5">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Exponents
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Proportions
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Percents
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Integers
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] 
+                                                                text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                >
                                                                     Algebra
                                                                 </li>
                                                             </ul>
@@ -549,10 +588,18 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Decimals
                                                             </p>
                                                             <ul className="list-none mt-3">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Fractions
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Decimals
                                                                 </li>
                                                             </ul>
@@ -563,29 +610,45 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             </p>
 
                                                             <ul className="list-none mt-3">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Measurement
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Money
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Time
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                        <div className="h-28  pl-3 pt-3 mt-3">
+                                                        <div className="h-28  pl-3 pt-3 mt-3 pr-3">
                                                             <p className="text-black text-left text-[14px] font-medium">
                                                                 More
                                                             </p>
 
                                                             <ul className="list-none mt-3">
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li
+                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                    hover:underline hover:cursor-pointer
+                                                                "
+                                                                >
                                                                     Shape
                                                                     &
                                                                     Geometry
                                                                 </li>
-                                                                <li className="text-gray-700 text-[12px] text-left mb-1">
+                                                                <li className="text-gray-700 hover:underline hover:cursor-pointer text-[12px] text-left mb-1">
                                                                     Data
                                                                     &
                                                                     Graphing

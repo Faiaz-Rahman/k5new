@@ -78,7 +78,7 @@ export function AccordionItem({
     const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string =
-        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-[--accordion-grade-color] text-sm hover:bg-slate-50 w-full'
+        'h-10 pl-2 cursor-pointer flex items-center justify-between bg-white text-sm hover:bg-[--accordion-hover] w-full'
 
     useEffect(() => {
         console.log('likee =>', selectedInner)
@@ -95,8 +95,8 @@ export function AccordionItem({
         <li {...props} className="">
             <header
                 role="button"
-                className="bg-[--accordion-topic] flex justify-between
-                items-center py-2 pl-2 w-full text-white lg:w-[200px]"
+                className="bg-[--card] flex justify-between
+                items-center py-2 pl-2 w-full text-black lg:w-[200px] text-[16px]"
                 onClick={() => {
                     setSelected(open ? null : value)
                 }}
@@ -104,7 +104,7 @@ export function AccordionItem({
                 {trigger}
                 <FontAwesomeIcon
                     icon={faChevronUp}
-                    className={`text-[10px] text-white
+                    className={`text-[10px] text-black
                         mr-3 transition-all ${
                             open ? 'rotate-180' : '0'
                         } duration-300`}
@@ -116,17 +116,12 @@ export function AccordionItem({
                 lg:w-[200px]
                 "
                 style={{
-                    height: open
-                        ? selectedInner
-                            ? 40 * (bottom_navbar_items.length - 1) +
-                              40 * topic_name.length
-                            : 40 * (bottom_navbar_items.length - 1)
-                        : 0,
+                    height: open ? 40 * (topic_name.length - 1) : 0,
                 }}
             >
                 <div ref={divRef} className="">
-                    {bottom_navbar_items.map((item, ind) => {
-                        if (ind < bottom_navbar_items.length - 1) {
+                    {topic_name.map((item, ind) => {
+                        if (ind < topic_name.length - 1) {
                             return (
                                 <div key={ind} className="">
                                     <div
@@ -145,46 +140,6 @@ export function AccordionItem({
                                         }}
                                     >
                                         {item}
-                                        <FontAwesomeIcon
-                                            icon={faChevronUp}
-                                            className={`text-[10px] text-black
-                                        mr-3 transition-all duration-300 ${
-                                            selectedInner === item
-                                                ? 'rotate-180'
-                                                : '0'
-                                        }`}
-                                        />
-                                    </div>
-
-                                    <div
-                                        className="transition-all
-                                        duration-300 overflow-y-hidden
-                                    "
-                                        style={{
-                                            height:
-                                                selectedInner === item
-                                                    ? 40 *
-                                                      topic_name.length
-                                                    : 0,
-                                        }}
-                                    >
-                                        <div ref={divRefInner}>
-                                            {topic_name.map(
-                                                (item, ind) => {
-                                                    return (
-                                                        <div
-                                                            key={ind}
-                                                            className={`h-10 pl-2 cursor-pointer flex items-center 
-                                                                justify-between text-sm bg-white
-                                                                hover:bg-[--accordion-hover]
-                                                            `}
-                                                        >
-                                                            {item}
-                                                        </div>
-                                                    )
-                                                }
-                                            )}
-                                        </div>
                                     </div>
                                 </div>
                             )
