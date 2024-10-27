@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface AppState {
     isLoggedIn: boolean
-    user: null | Object
+    user: null | any
 }
 
 const initialState = {

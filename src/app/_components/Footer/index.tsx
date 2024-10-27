@@ -23,13 +23,13 @@ export default function Footer() {
             <div
                 className="h-56 w-screen grid 
                 grid-cols-1 gap-10 bg-[--card] 
-                lg:grid-cols-[45%_auto]    
+                lg:grid-cols-[40%_auto]
             "
             >
                 <div
                     className="h-[100%] flex justify-center pl-[20px] 
-                    font-bold text-sm flex-col gap-[1rem] mt-4
-                    lg:pl-24    
+                    font-bold text-sm flex-col mt-4
+                    lg:pl-24  
                 "
                 >
                     Join Us
@@ -66,7 +66,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center w-full">
                     <div
                         className="h-[90%] flex flex-col box-border
                         justify-center pl-[20px] w-full

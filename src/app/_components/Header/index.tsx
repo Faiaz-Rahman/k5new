@@ -18,10 +18,11 @@ import Link from 'next/link'
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
 import { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/navigation'
-
 import { useSelector } from 'react-redux'
-import { RootState } from '@/lib/store'
+import { RootState, useAppDispatch } from '@/lib/store'
+import { logout } from '@/lib/slices/authSlice'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/utils/firebase'
 
 export default function Head() {
     const [showLoginDropdown, setShowLoginDropdown] =
@@ -37,6 +38,20 @@ export default function Head() {
     }
 
     const [seeAll, setSeeAll] = useState<boolean>(false)
+
+    const dispatch = useAppDispatch()
+    const { isLoggedIn, user } = useSelector(
+        (state) => (state as RootState).auth
+    )
+
+    const onPressLogout = async () => {
+        try {
+            await signOut(auth)
+            dispatch(logout())
+        } catch (error) {
+            console.log('error while logout =>', error)
+        }
+    }
 
     // const { value } = useSelector((state: RootState) => state.auth)
     // console.log(value)
@@ -477,7 +492,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                           grid grid-cols-[37%_35%_auto] gap-1 shadow-lg
                                                         "
                                                     >
-                                                        <div className="h-36 pl-3 pt-3">
+                                                        <div className="h-36 pl-6 pt-3">
                                                             <p className="text-black text-left text-[14px] font-medium">
                                                                 Numbers
                                                             </p>
@@ -581,7 +596,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                        <div className="h-32  pl-3 pt-3">
+                                                        <div className="h-32  pl-6 pt-3">
                                                             <p className="text-black text-left text-[14px] font-medium">
                                                                 Fractions
                                                                 &
@@ -717,18 +732,24 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         text-[12px]
                                     "
                                     >
-                                        1. Already a Member?
+                                        {isLoggedIn
+                                            ? `Logged in as ${user?.email}`
+                                            : '1. Already a Member'}
                                         <br />
                                         <Link
                                             href={'/auth/login'}
                                             onClick={() => {
                                                 // router.push('/auth/login')
+
+                                                onPressLogout()
                                             }}
                                             className="hover:underline text-black
                                                 font-medium
                                             "
                                         >
-                                            Login
+                                            {isLoggedIn
+                                                ? 'Log out'
+                                                : 'Login'}
                                         </Link>
                                     </p>
                                     <span
@@ -737,7 +758,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         flex
                                     "
                                     >
-                                        2.
+                                        {isLoggedIn ? '' : '2.'}
                                         <Link
                                             onClick={() => {
                                                 // router.push(
@@ -749,7 +770,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 text-[12px] hover:underline
                                             "
                                         >
-                                            Sign up
+                                            {isLoggedIn
+                                                ? ''
+                                                : 'Sign up'}
                                         </Link>
                                     </span>
                                 </div>
