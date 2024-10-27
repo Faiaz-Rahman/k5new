@@ -1,4 +1,5 @@
 import React from 'react'
+import { Oval } from 'react-loader-spinner'
 
 interface ButtonProps {
     title: string
@@ -7,6 +8,7 @@ interface ButtonProps {
     wrapperStyle?: Object
     wrapperTStyle?: string
     leftIcon?: React.ReactNode
+    isLoading?: boolean
 }
 
 export default function Button({
@@ -16,6 +18,7 @@ export default function Button({
     wrapperStyle,
     wrapperTStyle,
     leftIcon,
+    isLoading,
 }: ButtonProps) {
     return (
         <button
@@ -35,7 +38,23 @@ export default function Button({
                     {leftIcon}
                 </div>
             ) : null}
-            {title}
+            {isLoading ? (
+                <div className="w-full h-full flex justify-center items-center">
+                    <Oval
+                        visible={true}
+                        height="27"
+                        width="27"
+                        color="#627ddb"
+                        ariaLabel="oval-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        strokeWidth={7}
+                        secondaryColor="#474e7f"
+                    />
+                </div>
+            ) : (
+                title
+            )}
         </button>
     )
 }

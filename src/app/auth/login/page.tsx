@@ -27,20 +27,24 @@ export default function Login() {
     const dispatch = useAppDispatch()
 
     const [showPass, setShowpass] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const onPressLogin = async () => {
+        setLoading(true)
         await signInWithEmailAndPassword(auth, email, pass)
             .then((userCredential) => {
                 console.log(
                     'user credentials =>',
                     userCredential.user
                 )
+
                 dispatch(
                     updateUser({
                         user: userCredential.user,
                         isLoggedIn: true,
                     })
                 )
+                setLoading(false)
                 router.push('/')
             })
             .catch((error) => {
@@ -48,6 +52,7 @@ export default function Login() {
                     'error from onPressLogin =>',
                     JSON.stringify(error)
                 )
+                setLoading(false)
                 alert(
                     JSON.stringify(
                         'One or, both of your credentials are in incorrect'
@@ -167,10 +172,11 @@ export default function Login() {
                     <Button
                         // passing tailwind styles
                         wrapperTStyle={`rounded-md w-4/6
-                    lg:w-[75%]
+                            lg:w-[75%]
 
-                    2xl:w-[55%]
-                `}
+                            2xl:w-[55%]
+                        `}
+                        isLoading={loading}
                         wrapperStyle={{
                             marginTop: 25,
                         }}
