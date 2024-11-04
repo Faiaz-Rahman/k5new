@@ -12,12 +12,12 @@ import { getAuth } from 'firebase/auth'
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyBtzcHu6WO-YrH5mxtM9E6WTKaRyQTRq9Q',
-    authDomain: 'wittyworkbooks.firebaseapp.com',
-    projectId: 'wittyworkbooks',
-    storageBucket: 'wittyworkbooks.appspot.com',
-    messagingSenderId: '173129752049',
-    appId: '1:173129752049:web:0de715d3e89717d2a37850',
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID,
 }
 
 // Initialize Firebase
