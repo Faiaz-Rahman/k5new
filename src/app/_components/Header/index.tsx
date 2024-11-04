@@ -705,7 +705,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                         {showLoginDropdown && (
                             // Login Dropdown
                             <motion.div
-                                className="bg-transparent h-24 w-40 flex flex-col
+                                className="bg-transparent h-24 flex flex-col
                                 justify-end absolute top-[100%]
                             "
                                 initial={{
@@ -722,9 +722,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 }}
                             >
                                 <div
-                                    className="w-40 h-20 bg-white
+                                    className="h-20 bg-white
                                     pt-3 pl-3 shadow-md shadow-slate-300 
-                                    flex flex-col gap-1
+                                    flex flex-col gap-1 pr-3
                                 "
                                 >
                                     <p
