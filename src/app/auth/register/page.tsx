@@ -18,11 +18,15 @@ import { RootState, useAppDispatch } from '@/lib/store'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import { updateUser } from '@/lib/slices/authSlice'
+import { useRouter } from 'next/navigation'
 
 export default function Register() {
+    const router = useRouter()
+
     const [email, setEmail] = useState<string>('')
     const [pass, setPass] = useState<string>('')
     const [showPass, setShowpass] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const [confPass, setConfPass] = useState<string>('')
     const [showConfpass, setShowConfpass] = useState<boolean>(false)
@@ -43,6 +47,8 @@ export default function Register() {
             if (pass !== confPass) {
                 alert('Password and Confirm Password does not match.')
             } else {
+                setLoading(true)
+
                 await createUserWithEmailAndPassword(
                     auth,
                     email,
@@ -55,6 +61,8 @@ export default function Register() {
                                 isLoggedIn: true,
                             })
                         )
+                        setLoading(false)
+                        router.push('/')
                     })
                     .catch((error) => {
                         alert(JSON.stringify(error.code))
@@ -278,7 +286,8 @@ export default function Register() {
                     // passing tailwind styles
                     wrapperTStyle={`rounded-md w-4/6 mb-10
                       lg:w-[75%] 
-                `}
+                    `}
+                    isLoading={loading}
                     wrapperStyle={{
                         marginTop: 25,
                     }}
