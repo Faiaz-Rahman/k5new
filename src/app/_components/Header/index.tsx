@@ -23,8 +23,11 @@ import { RootState, useAppDispatch } from '@/lib/store'
 import { logout } from '@/lib/slices/authSlice'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
+import { useRouter } from 'next/navigation'
 
 export default function Head() {
+    const router = useRouter()
+
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
 
@@ -329,6 +332,9 @@ export default function Head() {
                         bg-[--button-primary] rounded-full
                         items-center cursor-pointer 
                     "
+                        onClick={() => {
+                            router.push('/printable-worksheets')
+                        }}
                     >
                         <p className="text-xs font-semibold">
                             Workbook Store
@@ -366,7 +372,11 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 }}
                             >
                                 <Link
-                                    href="#"
+                                    href={
+                                        item === 'Browse by topic'
+                                            ? '/math-by-topic'
+                                            : '/'
+                                    }
                                     className="text-xs font-medium
                                     h-full w-full flex items-center
                                 "

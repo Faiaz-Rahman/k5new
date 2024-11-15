@@ -1,4 +1,4 @@
-export default function PrintableWorksheetLayout({
+export default function TopicWiseMathLayout({
     children,
 }: {
     children: React.ReactNode
