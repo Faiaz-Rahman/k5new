@@ -11,7 +11,7 @@ export default function TopicWiseMathClient({
     const formattedGrade =
         params.grade.charAt(0).toUpperCase() + params.grade.slice(1)
 
-    const formattedTopicName = params.topicName.split('_')
+    const formattedTopicName = params.topicName.split('-')
 
     return (
         <>
@@ -19,7 +19,11 @@ export default function TopicWiseMathClient({
                 <p className="font-medium text-[10px]">
                     Maths {' > '} {formattedGrade} {' > '}{' '}
                     {formattedTopicName.map((item, index) => {
-                        return item + ' '
+                        return (
+                            item.charAt(0).toUpperCase() +
+                            item.slice(1) +
+                            ' '
+                        )
                     })}
                 </p>
             </div>
@@ -28,7 +32,15 @@ export default function TopicWiseMathClient({
             "
             >
                 <p className="font-bold text-2xl">
-                    Grade 1 Number Pattern Worksheets
+                    {formattedGrade}{' '}
+                    {formattedTopicName.map((item, index) => {
+                        return (
+                            item.charAt(0).toUpperCase() +
+                            item.slice(1) +
+                            ' '
+                        )
+                    })}{' '}
+                    Worksheets
                 </p>
             </div>
         </>

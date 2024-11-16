@@ -56,6 +56,28 @@ export default function Head() {
         }
     }
 
+    const handleNavigation = (
+        grade: string,
+        topicName: string
+    ): void => {
+        const formattedGrade =
+            grade.charAt(0).toLowerCase() + grade.slice(1)
+        const splittedTopicName = topicName.split(' ')
+        // console.log(splittedTopicName)
+
+        const formattedTopicName = splittedTopicName.map(
+            (item, ind) => {
+                return ind !== splittedTopicName.length - 1
+                    ? item.charAt(0).toLowerCase() +
+                          item.slice(1) +
+                          '-'
+                    : item
+            }
+        )
+
+        router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
+    }
+
     // const { value } = useSelector((state: RootState) => state.auth)
     // console.log(value)
 
@@ -375,7 +397,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                     href={
                                         item === 'Browse by topic'
                                             ? '/math-by-topic'
-                                            : '/'
+                                            : `#`
                                     }
                                     className="text-xs font-medium
                                     h-full w-full flex items-center
@@ -420,6 +442,12 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             cursor-pointer bg-white hover:bg-[--card]
                                                             justify-between pr-3
                                                         `}
+                                                            onClick={() => {
+                                                                handleNavigation(
+                                                                    item,
+                                                                    nav_item
+                                                                )
+                                                            }}
                                                             onMouseEnter={() => {
                                                                 if (
                                                                     nav_ind ===
@@ -434,7 +462,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                         >
                                                             <p
                                                                 className="font-medium text-black text-xs
-
                                                             "
                                                             >
                                                                 {
