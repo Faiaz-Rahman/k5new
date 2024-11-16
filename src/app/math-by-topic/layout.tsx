@@ -1,4 +1,5 @@
 'use client'
+
 import Accordion, {
     AccordionItem,
 } from '../_components/Accordion/Accordion'
@@ -20,32 +21,32 @@ export default function BrowseByTopicsLayout({
                     <AccordionItem
                         trigger="Kindergarden"
                         value={'Kindergarden'}
-                    ></AccordionItem>
+                    />
 
                     <AccordionItem
                         trigger="Grade 1"
                         value={'Grade 1'}
-                    ></AccordionItem>
+                    />
 
                     <AccordionItem
                         trigger="Grade 2"
                         value={'Grade 2'}
-                    ></AccordionItem>
+                    />
 
                     <AccordionItem
                         trigger="Grade 3"
                         value={'Grade 3'}
-                    ></AccordionItem>
+                    />
 
                     <AccordionItem
                         trigger="Grade 4"
                         value={'Grade 4'}
-                    ></AccordionItem>
+                    />
 
                     <AccordionItem
                         trigger="Grade 5"
                         value={'Grade 5'}
-                    ></AccordionItem>
+                    />
                 </Accordion>
 
                 <div className="flex flex-col w-full">{children}</div>
