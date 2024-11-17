@@ -65,15 +65,16 @@ export default function Head() {
         const splittedTopicName = topicName.split(' ')
         // console.log(splittedTopicName)
 
-        const formattedTopicName = splittedTopicName.map(
-            (item, ind) => {
+        const formattedTopicName = splittedTopicName
+            .map((item, ind) => {
                 return ind !== splittedTopicName.length - 1
-                    ? item.charAt(0).toLowerCase() +
-                          item.slice(1) +
-                          '-'
+                    ? item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}-`)
                     : item
-            }
-        )
+            })
+            .join('')
 
         router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
     }
