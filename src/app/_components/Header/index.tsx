@@ -23,8 +23,11 @@ import { RootState, useAppDispatch } from '@/lib/store'
 import { logout } from '@/lib/slices/authSlice'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
+import { useRouter } from 'next/navigation'
 
 export default function Head() {
+    const router = useRouter()
+
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
 
@@ -51,6 +54,29 @@ export default function Head() {
         } catch (error) {
             console.log('error while logout =>', error)
         }
+    }
+
+    const handleNavigation = (
+        grade: string,
+        topicName: string
+    ): void => {
+        const formattedGrade =
+            grade.charAt(0).toLowerCase() + grade.slice(1)
+        const splittedTopicName = topicName.split(' ')
+        // console.log(splittedTopicName)
+
+        const formattedTopicName = splittedTopicName
+            .map((item, ind) => {
+                return ind !== splittedTopicName.length - 1
+                    ? item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}-`)
+                    : item
+            })
+            .join('')
+
+        router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
     }
 
     // const { value } = useSelector((state: RootState) => state.auth)
@@ -329,6 +355,9 @@ export default function Head() {
                         bg-[--button-primary] rounded-full
                         items-center cursor-pointer 
                     "
+                        onClick={() => {
+                            router.push('/printable-worksheets')
+                        }}
                     >
                         <p className="text-xs font-semibold">
                             Workbook Store
@@ -366,7 +395,11 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 }}
                             >
                                 <Link
-                                    href="#"
+                                    href={
+                                        item === 'Browse by topic'
+                                            ? '/math-by-topic'
+                                            : `#`
+                                    }
                                     className="text-xs font-medium
                                     h-full w-full flex items-center
                                 "
@@ -410,6 +443,12 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             cursor-pointer bg-white hover:bg-[--card]
                                                             justify-between pr-3
                                                         `}
+                                                            onClick={() => {
+                                                                handleNavigation(
+                                                                    item,
+                                                                    nav_item
+                                                                )
+                                                            }}
                                                             onMouseEnter={() => {
                                                                 if (
                                                                     nav_ind ===
@@ -424,7 +463,6 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                         >
                                                             <p
                                                                 className="font-medium text-black text-xs
-
                                                             "
                                                             >
                                                                 {

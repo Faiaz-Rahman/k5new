@@ -2,7 +2,7 @@
 
 import Accordion, {
     AccordionItem,
-} from '../_components/Accordion/Accordion'
+} from '@/app/_components/Accordion/Accordion'
 
 export default function BrowseByTopicsLayout({
     children,
