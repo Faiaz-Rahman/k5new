@@ -444,6 +444,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             justify-between pr-3
                                                         `}
                                                             onClick={() => {
+                                                                setShowMinimizedLinkDropdown(
+                                                                    ''
+                                                                )
                                                                 handleNavigation(
                                                                     item,
                                                                     nav_item
