@@ -388,7 +388,11 @@ s                    items-center gap-3 w-full mr-7 border-r
                                     rounded-full relative
                                 "
                                 onMouseEnter={() => {
-                                    setShowMinimizedLinkDropdown(item)
+                                    if (item !== 'Browse by topic') {
+                                        setShowMinimizedLinkDropdown(
+                                            item
+                                        )
+                                    }
                                 }}
                                 onMouseLeave={() => {
                                     setShowMinimizedLinkDropdown('')
@@ -444,13 +448,18 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             justify-between pr-3
                                                         `}
                                                             onClick={() => {
-                                                                setShowMinimizedLinkDropdown(
-                                                                    ''
-                                                                )
-                                                                handleNavigation(
-                                                                    item,
-                                                                    nav_item
-                                                                )
+                                                                if (
+                                                                    item !==
+                                                                    'Browse by topic'
+                                                                ) {
+                                                                    setShowMinimizedLinkDropdown(
+                                                                        ''
+                                                                    )
+                                                                    handleNavigation(
+                                                                        item,
+                                                                        nav_item
+                                                                    )
+                                                                }
                                                             }}
                                                             onMouseEnter={() => {
                                                                 if (
