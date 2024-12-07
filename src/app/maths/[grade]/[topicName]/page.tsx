@@ -14,9 +14,25 @@ export async function generateMetadata({
         topicName: string
     }
 }) {
+    const formattedGrade =
+        params.grade.charAt(0).toUpperCase() + params.grade.slice(1)
+    const splittedTopicName = params.topicName.split(' ')
+    console.log(splittedTopicName)
+
+    const formattedTopicName = splittedTopicName
+        .map((item, ind) => {
+            return ind !== splittedTopicName.length - 1
+                ? item
+                      .charAt(0)
+                      .toLowerCase()
+                      .concat(`${item.slice(1)}-`)
+                : item
+        })
+        .join('')
+
     return {
-        title: `Maths | ${params.grade} | ${params.topicName}`,
-        description: `${params.topicName} Maths for ${params.grade} grade`,
+        title: `Maths | ${formattedGrade} | ${formattedTopicName}`,
+        description: `${formattedTopicName} Maths for ${formattedGrade} grade`,
     }
 }
 
