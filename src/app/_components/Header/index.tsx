@@ -594,6 +594,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                         item,
                                                                                         number_item
                                                                                     )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
                                                                                 }}
                                                                             >
                                                                                 {
@@ -628,6 +631,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                         item,
                                                                                         operations_item
                                                                                     )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
                                                                                 }}
                                                                             >
                                                                                 {
@@ -659,6 +665,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                     handleNavigation(
                                                                                         item,
                                                                                         advanced_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
                                                                                     )
                                                                                 }}
                                                                             >
@@ -694,6 +703,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                         item,
                                                                                         fractions_item
                                                                                     )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
                                                                                 }}
                                                                             >
                                                                                 {
@@ -727,6 +739,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                         item,
                                                                                         measurement_item
                                                                                     )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
                                                                                 }}
                                                                             >
                                                                                 {
@@ -759,6 +774,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                                     handleNavigation(
                                                                                         item,
                                                                                         more_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
                                                                                     )
                                                                                 }}
                                                                             >
