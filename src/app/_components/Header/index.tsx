@@ -42,6 +42,33 @@ export default function Head() {
 
     const [seeAll, setSeeAll] = useState<boolean>(false)
 
+    const operations = [
+        'Addition',
+        'Subtraction',
+        'Multiplication',
+        'Division',
+    ]
+
+    const numbers = [
+        'Learning Numbers',
+        'Counting',
+        'Comparing Numbers',
+        'Comparing Numbers',
+    ]
+
+    const advanced = [
+        'Exponent',
+        'Proportions',
+        'Percents',
+        'Integers',
+        'Algebra',
+    ]
+
+    const fractions = ['Fractions', 'Decimals']
+
+    const measurement = ['Measurement', 'Money', 'Time']
+    const more = ['Shape & Geometry', 'Graphing']
+
     const dispatch = useAppDispatch()
     const { isLoggedIn, user } = useSelector(
         (state) => (state as RootState).auth
@@ -388,7 +415,11 @@ s                    items-center gap-3 w-full mr-7 border-r
                                     rounded-full relative
                                 "
                                 onMouseEnter={() => {
-                                    setShowMinimizedLinkDropdown(item)
+                                    if (item !== 'Browse by topic') {
+                                        setShowMinimizedLinkDropdown(
+                                            item
+                                        )
+                                    }
                                 }}
                                 onMouseLeave={() => {
                                     setShowMinimizedLinkDropdown('')
@@ -444,10 +475,23 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             justify-between pr-3
                                                         `}
                                                             onClick={() => {
-                                                                handleNavigation(
-                                                                    item,
-                                                                    nav_item
-                                                                )
+                                                                if (
+                                                                    item !==
+                                                                    'Browse by topic'
+                                                                ) {
+                                                                    if (
+                                                                        nav_item !==
+                                                                        'See All'
+                                                                    ) {
+                                                                        setShowMinimizedLinkDropdown(
+                                                                            ''
+                                                                        )
+                                                                        handleNavigation(
+                                                                            item,
+                                                                            nav_item
+                                                                        )
+                                                                    }
+                                                                }
                                                             }}
                                                             onMouseEnter={() => {
                                                                 if (
@@ -535,33 +579,33 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Numbers
                                                             </p>
                                                             <ul className="list-none mt-5">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Learning
-                                                                    Numbers
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Counting
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Comparing
-                                                                    Numbers
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Comparing
-                                                                    Numbers
-                                                                </li>
+                                                                {numbers.map(
+                                                                    (
+                                                                        number_item,
+                                                                        num_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={`number_item${num_ind}`}
+                                                                                className="text-gray-700 text-[12px] 
+                                                                								text-left mb-1 hover:underline hover:cursor-pointer"
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        number_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    number_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                         <div className="h-36 pl-3 pt-3">
@@ -570,30 +614,35 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Operations
                                                             </p>
                                                             <ul className="list-none mt-5">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left 
+                                                                {operations.map(
+                                                                    (
+                                                                        operations_item,
+                                                                        operations_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={
+                                                                                    operations_ind
+                                                                                }
+                                                                                className="text-gray-700 text-[12px] text-left 
                                                                 mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Addition
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left 
-                                                                mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Subtraction
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left 
-                                                                mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Multiplication
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left 
-                                                                mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Division
-                                                                </li>
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        operations_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    operations_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                         <div className="h-36  pl-3 pt-3 pr-7">
@@ -602,36 +651,33 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             </p>
 
                                                             <ul className="list-none mt-5">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
+                                                                {advanced.map(
+                                                                    (
+                                                                        advanced_item,
+                                                                        advanced_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={`advanced${advanced_ind}`}
+                                                                                className="text-gray-700 text-[12px] 
                                                                 text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Exponents
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Proportions
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Percents
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Integers
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] 
-                                                                text-left mb-1 hover:underline hover:cursor-pointer"
-                                                                >
-                                                                    Algebra
-                                                                </li>
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        advanced_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    advanced_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                         <div className="h-32  pl-6 pt-3">
@@ -641,20 +687,34 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                                 Decimals
                                                             </p>
                                                             <ul className="list-none mt-3">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                {fractions.map(
+                                                                    (
+                                                                        fractions_item,
+                                                                        fraction_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={`fraction${fraction_ind}`}
+                                                                                className="text-gray-700 text-[12px] text-left mb-1
                                                                     hover:underline hover:cursor-pointer
                                                                 "
-                                                                >
-                                                                    Fractions
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
-                                                                    hover:underline hover:cursor-pointer
-                                                                "
-                                                                >
-                                                                    Decimals
-                                                                </li>
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        fractions_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    fractions_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                         <div className="h-32  pl-3 pt-3">
@@ -663,27 +723,34 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             </p>
 
                                                             <ul className="list-none mt-3">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
+                                                                {measurement.map(
+                                                                    (
+                                                                        measurement_item,
+                                                                        measurement_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={`measurement${measurement_ind}`}
+                                                                                className="text-gray-700 text-[12px] text-left mb-1
                                                                     hover:underline hover:cursor-pointer
                                                                 "
-                                                                >
-                                                                    Measurement
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
-                                                                    hover:underline hover:cursor-pointer
-                                                                "
-                                                                >
-                                                                    Money
-                                                                </li>
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
-                                                                    hover:underline hover:cursor-pointer
-                                                                "
-                                                                >
-                                                                    Time
-                                                                </li>
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        measurement_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    measurement_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                         <div className="h-28  pl-3 pt-3 mt-3 pr-3">
@@ -692,20 +759,34 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                             </p>
 
                                                             <ul className="list-none mt-3">
-                                                                <li
-                                                                    className="text-gray-700 text-[12px] text-left mb-1
-                                                                    hover:underline hover:cursor-pointer
-                                                                "
-                                                                >
-                                                                    Shape
-                                                                    &
-                                                                    Geometry
-                                                                </li>
-                                                                <li className="text-gray-700 hover:underline hover:cursor-pointer text-[12px] text-left mb-1">
-                                                                    Data
-                                                                    &
-                                                                    Graphing
-                                                                </li>
+                                                                {more.map(
+                                                                    (
+                                                                        more_item,
+                                                                        more_ind
+                                                                    ) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={`more${more_ind}`}
+                                                                                className="text-gray-700 text-[12px] text-left mb-1
+                                                                    						hover:underline hover:cursor-pointer
+                                                                								"
+                                                                                onClick={() => {
+                                                                                    handleNavigation(
+                                                                                        item,
+                                                                                        more_item
+                                                                                    )
+                                                                                    setShowMinimizedLinkDropdown(
+                                                                                        ''
+                                                                                    )
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    more_item
+                                                                                }
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
                                                             </ul>
                                                         </div>
                                                     </div>
