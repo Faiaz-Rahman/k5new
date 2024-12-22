@@ -41,6 +41,10 @@ export default function Head() {
     }
 
     const [seeAll, setSeeAll] = useState<boolean>(false)
+    const [showSuggestions, setShowSuggestions] =
+        useState<boolean>(false)
+
+    const staticSuggestionArray = [1, 2, 3]
 
     const operations = [
         'Addition',
@@ -100,6 +104,9 @@ export default function Head() {
                           .toLowerCase()
                           .concat(`${item.slice(1)}-`)
                     : item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}`)
             })
             .join('')
 
@@ -323,7 +330,7 @@ export default function Head() {
                 <div
                     className="h-full w-[150px] flex items-center
                     "
-                    // bg-green-200
+                    bg-green-200
                 >
                     <p
                         className="text-black font-bold
@@ -337,9 +344,9 @@ export default function Head() {
                 {/* Search Bar */}
                 <div
                     className="h-full w-[calc(100%_-_300px)] flex items-center
-                    justify-center
+                    justify-center relative
+                    bg-white 
                     "
-                    // bg-red-300
                 >
                     <div
                         className="h-[80%]
@@ -368,8 +375,46 @@ export default function Head() {
                             className="flex w-[100%] text-xs
                             h-[100%] pl-3 outline-none rounded-e-full
                             "
+                            onClick={() => {
+                                setShowSuggestions(true)
+                            }}
+                            onBlur={() => {
+                                setShowSuggestions(false)
+                            }}
                         />
                     </div>
+
+                    {showSuggestions && (
+                        <div className="w-full absolute top-full z-20 flex flex-col gap-1">
+                            {staticSuggestionArray.map(
+                                (suggestion, sugg_index) => {
+                                    return (
+                                        <motion.div
+                                            initial={{
+                                                y: -20,
+                                                opacity: 0,
+                                            }}
+                                            exit={{
+                                                y: 0,
+                                                opacity: 1,
+                                            }}
+                                            animate={{
+                                                y: 0,
+                                                opacity: 1,
+                                                transition: {
+                                                    duration: 0.1,
+                                                    ease: 'easeIn',
+                                                },
+                                            }}
+                                            className={`bg-gray-100 w-full h-10 top-[calc(100%_+_${
+                                                (sugg_index + 1) * 40
+                                            }px)]`}
+                                        ></motion.div>
+                                    )
+                                }
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div
