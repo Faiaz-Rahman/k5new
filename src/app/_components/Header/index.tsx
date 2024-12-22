@@ -390,6 +390,7 @@ export default function Head() {
                                 (suggestion, sugg_index) => {
                                     return (
                                         <motion.div
+                                            key={`suggestion${sugg_index}`}
                                             initial={{
                                                 y: -20,
                                                 opacity: 0,
@@ -402,7 +403,7 @@ export default function Head() {
                                                 y: 0,
                                                 opacity: 1,
                                                 transition: {
-                                                    duration: 0.1,
+                                                    duration: 0.12,
                                                     ease: 'easeIn',
                                                 },
                                             }}
