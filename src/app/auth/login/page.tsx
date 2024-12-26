@@ -15,9 +15,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { auth } from '@/utils/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useAppDispatch } from '@/lib/store'
+import { RootState, useAppDispatch } from '@/lib/store'
 import { updateUser } from '@/lib/slices/authSlice'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
 export default function Login() {
     const [email, setEmail] = useState<string>('')
@@ -25,7 +26,9 @@ export default function Login() {
     const router = useRouter()
 
     const dispatch = useAppDispatch()
-
+    const { isLoggedIn, user } = useSelector(
+        (state: RootState) => state.auth
+    )
     const [showPass, setShowpass] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
