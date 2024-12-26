@@ -1,5 +1,4 @@
 'use client'
-
 import {
     faBars,
     faChevronLeft,
@@ -20,13 +19,26 @@ import { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/lib/store'
-import { logout } from '@/lib/slices/authSlice'
+import { logout, updateIsSocialLogin } from '@/lib/slices/authSlice'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
-export default function Head() {
+interface HeadProps {
+    signOutSocialLogin: () => Promise<void>
+}
+
+export default function Head({ signOutSocialLogin }: HeadProps) {
     const router = useRouter()
+    const dispatch = useAppDispatch()
+    const { data } = useSession()
+
+    const { isLoggedIn, socialLogin, user } = useSelector(
+        (state: RootState) => state.auth
+    )
+    // console.log('from header =>', isLoggedIn, socialLogin)
+    // console.log('data => header =>', data)
 
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
@@ -73,15 +85,21 @@ export default function Head() {
     const measurement = ['Measurement', 'Money', 'Time']
     const more = ['Shape & Geometry', 'Graphing']
 
-    const dispatch = useAppDispatch()
-    const { isLoggedIn, user } = useSelector(
-        (state) => (state as RootState).auth
-    )
-
     const onPressLogout = async () => {
         try {
-            await signOut(auth)
-            dispatch(logout())
+            // await signOut(auth)
+            if (data?.user && socialLogin) {
+                console.log('logout for social login')
+
+                dispatch(updateIsSocialLogin(false))
+                dispatch(logout())
+                signOutSocialLogin()
+            } else {
+                console.log('logout for regular login')
+
+                await signOut(auth)
+                dispatch(logout())
+            }
         } catch (error) {
             console.log('error while logout =>', error)
         }
@@ -112,15 +130,6 @@ export default function Head() {
 
         router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
     }
-
-    // const { value } = useSelector((state: RootState) => state.auth)
-    // console.log(value)
-
-    // useEffect(() => {
-    //     console.log(menuPressed)
-    // }, [menuPressed])
-
-    // const router = useRouter()
 
     return (
         <header
@@ -330,7 +339,7 @@ export default function Head() {
                 <div
                     className="h-full w-[150px] flex items-center
                     "
-                    bg-green-200
+                    // bg-green-200
                 >
                     <p
                         className="text-black font-bold
