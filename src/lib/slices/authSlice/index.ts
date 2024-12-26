@@ -4,11 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 interface AppState {
     isLoggedIn: boolean
     user: null | any
+    socialLogin: boolean
 }
 
 const initialState = {
     isLoggedIn: false,
     user: null,
+    socialLogin: false,
 } satisfies AppState as AppState
 
 const authSlice = createSlice({
@@ -28,12 +30,16 @@ const authSlice = createSlice({
             state.user = actions.payload.user
             state.isLoggedIn = actions.payload.isLoggedIn
         },
+        updateIsSocialLogin(state, actions) {
+            state.socialLogin = actions.payload
+        },
     },
 })
 
 // export const { increment, decrement, incrementByAmount } =
 //     authSlice.actions
 
-export const { login, logout, updateUser } = authSlice.actions
+export const { login, logout, updateUser, updateIsSocialLogin } =
+    authSlice.actions
 
 export default authSlice.reducer
