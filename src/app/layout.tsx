@@ -26,7 +26,7 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
     const session = await auth()
-    // console.log('session from layout =>', session?.user)
+    console.log('session from layout =>', session?.user)
 
     const signOutSocialLogin = async () => {
         'use server'
