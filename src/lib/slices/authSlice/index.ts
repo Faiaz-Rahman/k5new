@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface AppState {
     isLoggedIn: boolean
@@ -35,9 +34,6 @@ const authSlice = createSlice({
         },
     },
 })
-
-// export const { increment, decrement, incrementByAmount } =
-//     authSlice.actions
 
 export const { login, logout, updateUser, updateIsSocialLogin } =
     authSlice.actions

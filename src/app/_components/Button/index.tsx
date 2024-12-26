@@ -23,14 +23,14 @@ export default function Button({
     return (
         <button
             onClick={onPress}
-            className={`h-10 px-6  bg-[--button-primary] 
+            className={`py-2 px-6  bg-[--button-primary] 
             rounded-full font-bold text-xs ${wrapperTStyle} 
         `}
             style={{ width, ...wrapperStyle }}
         >
             {leftIcon ? (
                 <div
-                    className="h-6 w-6 bg-white
+                    className="h-full w-6 bg-white
                 rounded-full flex justify-center 
                 items-center mr-2       
             "

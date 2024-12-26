@@ -182,9 +182,41 @@ export default function Register({
                     }}
                 />
 
+                <Button
+                    key={`google_login_button`}
+                    wrapperTStyle={`flex justify-center
+                    items-center border-2 border-[--button-primary]
+                    bg-white w-4/6 mt-2 
+
+                    lg:w-[75%]
+                `}
+                    title="Login with Facebook"
+                    leftIcon={
+                        <Image
+                            src={require('../../../assets/facebook.png')}
+                            height={18}
+                            width={18}
+                            alt="google logo"
+                            style={{
+                                objectFit: 'contain',
+                            }}
+                            className=""
+                        />
+                    }
+                    onPress={async () => {
+                        doSignIn('facebook')
+                        if (session?.user) {
+                            console.log(
+                                'the session user from onPress Login With Google =>',
+                                session?.user.name
+                            )
+                        }
+                    }}
+                />
+
                 <div
                     className="h-10 w-3/6
-                    flex items-center justify-center
+                    flex items-center justify-center mt-3
                 "
                 >
                     <div className="w-2/5 h-[1px] bg-gray-200" />

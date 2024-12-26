@@ -26,9 +26,7 @@ export default function Login() {
     const router = useRouter()
 
     const dispatch = useAppDispatch()
-    const { isLoggedIn, user } = useSelector(
-        (state: RootState) => state.auth
-    )
+
     const [showPass, setShowpass] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
