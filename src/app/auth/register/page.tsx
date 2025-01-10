@@ -14,6 +14,9 @@ export default async function RegisterServerComponent() {
         'use server'
 
         await signIn(signInType)
+        const updatedSession = await auth()
+
+        return updatedSession
     }
 
     return (

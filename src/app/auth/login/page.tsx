@@ -45,6 +45,12 @@ export default function Login() {
                         isLoggedIn: true,
                     })
                 )
+                localStorage.setItem(
+                    'user',
+                    JSON.stringify(userCredential.user)
+                )
+                localStorage.setItem('isLoggedIn', 'true')
+
                 setLoading(false)
                 router.push('/')
             })
@@ -180,6 +186,7 @@ export default function Login() {
                         isLoading={loading}
                         wrapperStyle={{
                             marginTop: 25,
+                            height: 40,
                         }}
                         title="Log In"
                         onPress={() => {

@@ -41,6 +41,9 @@ export default function Register({
     const [pass, setPass] = useState<string>('')
     const [showPass, setShowpass] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
+    const [sessionState, setSessionState] = useState<Session | null>(
+        session
+    )
 
     const [confPass, setConfPass] = useState<string>('')
     const [showConfpass, setShowConfpass] = useState<boolean>(false)
@@ -71,6 +74,11 @@ export default function Register({
                                 isLoggedIn: true,
                             })
                         )
+                        localStorage.setItem(
+                            'user',
+                            JSON.stringify(userCredential.user)
+                        )
+                        localStorage.setItem('isLoggedIn', 'true')
                         setLoading(false)
                         router.push('/')
                     })
@@ -81,18 +89,22 @@ export default function Register({
         }
     }
 
-    React.useEffect(() => {
-        if (session?.user) {
-            dispatch(
-                updateUser({
-                    user: session?.user,
-                    isLoggedIn: true,
-                })
-            )
-            dispatch(updateIsSocialLogin(true))
-            router.push('/')
-        }
-    }, [session])
+    // React.useEffect(() => {
+    //     if (session?.user) {
+    //         console.log(
+    //             'got session from the user here =>',
+    //             session?.user
+    //         )
+    //         dispatch(
+    //             updateUser({
+    //                 user: session?.user,
+    //                 isLoggedIn: true,
+    //             })
+    //         )
+    //         dispatch(updateIsSocialLogin(true))
+    //         router.push('/')
+    //     }
+    // }, [session])
 
     return (
         <div
@@ -172,7 +184,9 @@ export default function Register({
                         />
                     }
                     onPress={async () => {
-                        doSignIn('google')
+                        const updatedSession: any = doSignIn('google')
+                        setSessionState(updatedSession)
+
                         if (session?.user) {
                             console.log(
                                 'the session user from onPress Login With Google =>',
@@ -183,7 +197,7 @@ export default function Register({
                 />
 
                 <Button
-                    key={`google_login_button`}
+                    key={`facebook_login_button`}
                     wrapperTStyle={`flex justify-center
                     items-center border-2 border-[--button-primary]
                     bg-white w-4/6 mt-2 
