@@ -12,6 +12,7 @@ import StoreProvider from './StoreProvider'
 import { auth, signOut } from '@/auth'
 
 import { SessionProvider } from 'next-auth/react'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,6 +27,13 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
     const session = await auth()
+    let cookieStore
+
+    if (session?.user) {
+        cookieStore = await cookies()
+        cookieStore.set('isLoggedIn', 'true')
+    }
+
     const users: Array<string> = []
 
     console.log('session from layout =>', session?.user)
@@ -63,6 +71,7 @@ export default async function RootLayout({
                             session={session}
                             topics={users}
                             signOutSocialLogin={signOutSocialLogin}
+                            cookiesData={cookieStore}
                         />
                         {children}
                         <Footer />

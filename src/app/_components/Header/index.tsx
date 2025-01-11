@@ -14,7 +14,7 @@ import './index.css'
 import Link from 'next/link'
 
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/lib/store'
@@ -24,19 +24,23 @@ import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 
 interface HeadProps {
     signOutSocialLogin: () => Promise<void>
     session: Session | null
     topics?: Array<string>
+    cookiesData?: ReadonlyRequestCookies
 }
 
 export default function Head({
     signOutSocialLogin,
     session,
     topics,
+    cookiesData,
 }: HeadProps) {
     const router = useRouter()
+
     const dispatch = useAppDispatch()
     const { data, update } = useSession()
 
@@ -59,6 +63,8 @@ export default function Head({
     const [seeAll, setSeeAll] = useState<boolean>(false)
     const [showSuggestions, setShowSuggestions] =
         useState<boolean>(false)
+
+    const pressedTextRef = useRef<string>('')
 
     const [suggestions, setSuggestions] = useState<Array<string>>([])
     const [searchText, setSearchText] = useState<string>('')
@@ -128,6 +134,13 @@ export default function Head({
         }
     }
 
+    const isPresentInLocalStorage = async () => {
+        const isPresent = cookiesData?.has('isLoggedIn')
+        console.log('is the cookie present =?', isPresent)
+
+        return isPresent
+    }
+
     useEffect(() => {
         console.log(
             'The value of isLoggedIn and, user is =>',
@@ -138,6 +151,10 @@ export default function Head({
             setSuggestions(topics)
         }
     }, [isLoggedIn, user])
+
+    useEffect(() => {
+        isPresentInLocalStorage()
+    }, [])
 
     const handleNavigation = (
         grade: string,
@@ -458,7 +475,10 @@ export default function Head({
                                 setShowSuggestions(true)
                             }}
                             onBlur={() => {
-                                if (!searchText.length) {
+                                if (
+                                    !searchText.length &&
+                                    pressedTextRef.current !== ''
+                                ) {
                                     setShowSuggestions(false)
                                 }
                             }}
@@ -511,6 +531,9 @@ export default function Head({
                                                         32
                                                     }px)]`}
                                                 onClick={() => {
+                                                    pressedTextRef.current.concat(
+                                                        suggestion
+                                                    )
                                                     setSearchText(
                                                         suggestion
                                                     )
