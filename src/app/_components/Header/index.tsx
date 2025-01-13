@@ -1,9 +1,9 @@
 'use client'
+
 import {
     faBars,
     faChevronLeft,
     faChevronRight,
-    faCircleXmark,
     faMagnifyingGlass,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +15,7 @@ import './index.css'
 import Link from 'next/link'
 
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/lib/store'
@@ -24,21 +24,31 @@ import { signOut } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
 interface HeadProps {
     signOutSocialLogin: () => Promise<void>
+    session: Session | null
+    topics?: Array<string>
+    isLoggedInUser?: boolean
 }
 
-export default function Head({ signOutSocialLogin }: HeadProps) {
+export default function Head({
+    signOutSocialLogin,
+    session,
+    topics,
+    isLoggedInUser = false,
+}: HeadProps) {
     const router = useRouter()
+
     const dispatch = useAppDispatch()
-    const { data } = useSession()
+    const { data, update } = useSession()
 
     const { isLoggedIn, socialLogin, user } = useSelector(
         (state: RootState) => state.auth
     )
-    // console.log('from header =>', isLoggedIn, socialLogin)
-    // console.log('data => header =>', data)
+    const [localStorageValue, setLocalStorageValue] =
+        useState<string>('')
 
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
@@ -56,7 +66,10 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
     const [showSuggestions, setShowSuggestions] =
         useState<boolean>(false)
 
-    const staticSuggestionArray = [1, 2, 3]
+    const pressedTextRef = useRef<string>('')
+
+    const [suggestions, setSuggestions] = useState<Array<string>>([])
+    const [searchText, setSearchText] = useState<string>('')
 
     const operations = [
         'Addition',
@@ -87,23 +100,62 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
 
     const onPressLogout = async () => {
         try {
-            // await signOut(auth)
-            if (data?.user && socialLogin) {
-                console.log('logout for social login')
-
+            if (data?.user || socialLogin || isLoggedInUser) {
+                console.log(
+                    'social login =>',
+                    data?.user,
+                    socialLogin,
+                    isLoggedInUser
+                )
                 dispatch(updateIsSocialLogin(false))
                 dispatch(logout())
                 signOutSocialLogin()
             } else {
-                console.log('logout for regular login')
+                console.log(
+                    'logout for credentials =>',
+                    data?.user,
+                    socialLogin,
+                    isLoggedInUser
+                )
 
                 await signOut(auth)
                 dispatch(logout())
+                localStorage.clear()
             }
         } catch (error) {
             console.log('error while logout =>', error)
         }
     }
+
+    const handleSuggestion = (value: string) => {
+        if (topics) {
+            const tempArr = topics.filter(
+                (topic_name, topic_index) => {
+                    if (
+                        topic_name
+                            .toLowerCase()
+                            .includes(value.toLowerCase())
+                    ) {
+                        return topic_name
+                    }
+                    return
+                }
+            )
+            console.log(tempArr)
+            setSuggestions(tempArr)
+        }
+    }
+
+    useEffect(() => {
+        if (topics?.length) {
+            setSuggestions(topics)
+        }
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            setLocalStorageValue('true')
+        } else {
+            setLocalStorageValue('')
+        }
+    }, [isLoggedIn, user, topics])
 
     const handleNavigation = (
         grade: string,
@@ -112,7 +164,6 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
         const formattedGrade =
             grade.charAt(0).toLowerCase() + grade.slice(1)
         const splittedTopicName = topicName.split(' ')
-        // console.log(splittedTopicName)
 
         const formattedTopicName = splittedTopicName
             .map((item, ind) => {
@@ -238,10 +289,19 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                                     <div
                                         key={`side_menu_${nav_index}`}
                                         className="h-[55px] 
-                                    w-2/3 bg-[--button-primary] self-center
-                                    rounded-lg cursor-pointer flex items-center
-                                    justify-center
-                                "
+                                            w-2/3 bg-[--button-primary] self-center
+                                            rounded-lg cursor-pointer flex items-center
+                                            justify-center
+                                        "
+                                        onClick={() => {
+                                            handleNavigation(
+                                                navbar_item,
+                                                'Topic 1'
+                                            )
+                                            setMenuPressed(
+                                                !menuPressed
+                                            )
+                                        }}
                                     >
                                         <p
                                             className="text-black 
@@ -263,21 +323,30 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                         >
                             <div
                                 className="
-                                flex items-center h-full pr-3"
+                                flex items-center h-full pr-3 w-3/5"
                             >
-                                <FontAwesomeIcon
-                                    icon={faChevronLeft}
-                                    className="text-xs mr-1"
-                                />
-                                <Link
+                                {auth.currentUser?.email ||
+                                isLoggedInUser ? null : (
+                                    <FontAwesomeIcon
+                                        icon={faChevronLeft}
+                                        className="text-xs mr-1"
+                                    />
+                                )}
+                                <div
                                     className="hover:underline 
-                                        h-full flex items-center
+                                        h-full flex items-center cursor-pointer
 
                                         sm:max-lg:text-[.9rem] sm:max-lg:text-black
                                         sm:max-lg:font-semibold
                                     "
-                                    href="/auth/login"
                                     onClick={() => {
+                                        if (
+                                            isLoggedInUser ||
+                                            auth.currentUser?.email
+                                        ) {
+                                        } else {
+                                            router.push('/auth/login')
+                                        }
                                         setMenuPressed(false)
                                     }}
                                 >
@@ -288,9 +357,13 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                                         sm:max-lg:font-semibold
                                     "
                                     >
-                                        Login
+                                        {localStorageValue == 'true'
+                                            ? auth.currentUser?.email
+                                            : isLoggedInUser
+                                            ? `${session?.user?.email}`
+                                            : `Login`}
                                     </p>
-                                </Link>
+                                </div>
                             </div>
 
                             <div
@@ -298,17 +371,26 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                                 flex items-center h-full pl-3
                             "
                             >
-                                <Link
+                                <div
                                     className="
-                                        text-right h-full flex items-center
+                                        text-right h-full flex items-center cursor-pointer
                                     
                                         sm:max-lg:text-[.9rem] sm:max-lg:text-black
                                         sm:max-lg:font-semibold
                                         "
                                     onClick={() => {
                                         setMenuPressed(false)
+                                        if (
+                                            auth.currentUser?.email ||
+                                            isLoggedInUser
+                                        ) {
+                                            onPressLogout()
+                                        } else {
+                                            router.push(
+                                                '/auth/register'
+                                            )
+                                        }
                                     }}
-                                    href="/auth/register"
                                 >
                                     <p
                                         className="text-[.8rem] text-black hover:underline
@@ -317,9 +399,12 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                                         sm:max-lg:font-semibold
                                     "
                                     >
-                                        Register
+                                        {auth.currentUser?.email ||
+                                        isLoggedInUser
+                                            ? 'Logout'
+                                            : 'Register'}
                                     </p>
-                                </Link>
+                                </div>
                                 <FontAwesomeIcon
                                     icon={faChevronRight}
                                     className="text-xs ml-1"
@@ -381,6 +466,7 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                         <input
                             type="text"
                             placeholder="Search"
+                            value={searchText}
                             className="flex w-[100%] text-xs
                             h-[100%] pl-3 outline-none rounded-e-full
                             "
@@ -388,42 +474,91 @@ export default function Head({ signOutSocialLogin }: HeadProps) {
                                 setShowSuggestions(true)
                             }}
                             onBlur={() => {
-                                setShowSuggestions(false)
+                                if (
+                                    !searchText.length &&
+                                    pressedTextRef.current !== ''
+                                ) {
+                                    setShowSuggestions(false)
+                                }
+                            }}
+                            onChange={(
+                                e: ChangeEvent<HTMLInputElement>
+                            ) => {
+                                setSearchText(e.target.value)
+                                handleSuggestion(e.target.value)
                             }}
                         />
                     </div>
 
                     {showSuggestions && (
-                        <div className="w-full absolute top-full z-20 flex flex-col gap-1">
-                            {staticSuggestionArray.map(
-                                (suggestion, sugg_index) => {
-                                    return (
-                                        <motion.div
-                                            key={`suggestion${sugg_index}`}
-                                            initial={{
-                                                y: -20,
-                                                opacity: 0,
-                                            }}
-                                            exit={{
-                                                y: 0,
-                                                opacity: 1,
-                                            }}
-                                            animate={{
-                                                y: 0,
-                                                opacity: 1,
-                                                transition: {
-                                                    duration: 0.12,
-                                                    ease: 'easeIn',
-                                                },
-                                            }}
-                                            className={`bg-gray-100 w-full h-10 top-[calc(100%_+_${
-                                                (sugg_index + 1) * 40
-                                            }px)]`}
-                                        ></motion.div>
-                                    )
-                                }
-                            )}
-                        </div>
+                        <motion.div
+                            className="w-full absolute top-full z-20 flex flex-col bg-gray-100
+                                rounded-xl
+                            "
+                            initial={{
+                                y: -20,
+                                opacity: 0,
+                            }}
+                            exit={{
+                                y: 0,
+                                opacity: 1,
+                            }}
+                            animate={{
+                                y: 0,
+                                opacity: 1,
+                                transition: {
+                                    duration: 0.12,
+                                    ease: 'easeIn',
+                                },
+                            }}
+                        >
+                            <p className="text-xs text-gray-700 font-normal mt-3 ml-3">
+                                POPULAR SEARCHES
+                            </p>
+
+                            <div className="mt-3">
+                                {suggestions.map(
+                                    (suggestion, sugg_index) => {
+                                        return (
+                                            <div
+                                                key={`suggestion${sugg_index}`}
+                                                className={`bg-gray-100 w-full pl-3 flex items-center 
+                                                    h-8 hover:bg-white hover:cursor-pointer
+                                                    top-[calc(100%_+_${
+                                                        (sugg_index +
+                                                            1) *
+                                                        32
+                                                    }px)]`}
+                                                onClick={() => {
+                                                    pressedTextRef.current.concat(
+                                                        suggestion
+                                                    )
+                                                    setSearchText(
+                                                        suggestion
+                                                    )
+                                                    setShowSuggestions(
+                                                        false
+                                                    )
+                                                }}
+                                            >
+                                                <p className="text-xs text-gray-700 font-normal">
+                                                    {suggestion}
+                                                </p>
+                                            </div>
+                                        )
+                                    }
+                                )}
+                            </div>
+
+                            <div
+                                className={`border-t-[1px] bg-gray-100 h-8 flex items-center pl-3 rounded-b-xl`}
+                            >
+                                <p className="text-xs text-gray-700 font-normal">
+                                    Search all resources for "
+                                    {searchText}"
+                                </p>
+                            </div>
+                        </motion.div>
                     )}
                 </div>
 
@@ -855,6 +990,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                     })}
                 </ul>
                 {/* become a member button container */}
+                {/* try to implement a localStorage based solution */}
                 <div
                     className="h-full w-[300px]
                     flex items-center justify-center pr-24 
@@ -906,25 +1042,36 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         text-[12px]
                                     "
                                     >
-                                        {isLoggedIn
-                                            ? `Logged in as ${user?.email}`
+                                        {auth.currentUser?.email
+                                            ? `Logged in as, ${auth.currentUser?.email}`
+                                            : isLoggedInUser
+                                            ? `Logged in as, ${session?.user?.email}`
                                             : '1. Already a Member'}
                                         <br />
-                                        <Link
-                                            href={'/auth/login'}
+                                        <div
                                             onClick={() => {
-                                                // router.push('/auth/login')
-
-                                                onPressLogout()
+                                                if (
+                                                    localStorageValue ===
+                                                        'true' ||
+                                                    isLoggedInUser
+                                                ) {
+                                                    onPressLogout()
+                                                } else {
+                                                    router.push(
+                                                        '/auth/login'
+                                                    )
+                                                }
                                             }}
                                             className="hover:underline text-black
                                                 font-medium
                                             "
                                         >
-                                            {isLoggedIn
+                                            {auth.currentUser
+                                                ?.email ||
+                                            isLoggedInUser
                                                 ? 'Log out'
                                                 : 'Login'}
-                                        </Link>
+                                        </div>
                                     </p>
                                     <span
                                         className="no-underline w-full
@@ -932,7 +1079,10 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         flex
                                     "
                                     >
-                                        {isLoggedIn ? '' : '2.'}
+                                        {localStorageValue ===
+                                            'true' || isLoggedInUser
+                                            ? ''
+                                            : '2.'}
                                         <Link
                                             onClick={() => {
                                                 // router.push(
@@ -944,7 +1094,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 text-[12px] hover:underline
                                             "
                                         >
-                                            {isLoggedIn
+                                            {auth.currentUser
+                                                ?.email ||
+                                            isLoggedInUser
                                                 ? ''
                                                 : 'Sign up'}
                                         </Link>

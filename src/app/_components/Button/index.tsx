@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { CSSProperties, ReactHTMLElement } from 'react'
 import { Oval } from 'react-loader-spinner'
 
 interface ButtonProps {
     title: string
     onPress: () => void
     width?: number
-    wrapperStyle?: Object
+    wrapperStyle?: CSSProperties
     wrapperTStyle?: string
     leftIcon?: React.ReactNode
     isLoading?: boolean
