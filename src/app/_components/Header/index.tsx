@@ -1,4 +1,5 @@
 'use client'
+
 import {
     faBars,
     faChevronLeft,
@@ -24,20 +25,19 @@ import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 
 interface HeadProps {
     signOutSocialLogin: () => Promise<void>
     session: Session | null
     topics?: Array<string>
-    cookiesData?: ReadonlyRequestCookies
+    isLoggedInUser?: boolean
 }
 
 export default function Head({
     signOutSocialLogin,
     session,
     topics,
-    cookiesData,
+    isLoggedInUser = false,
 }: HeadProps) {
     const router = useRouter()
 
@@ -47,6 +47,8 @@ export default function Head({
     const { isLoggedIn, socialLogin, user } = useSelector(
         (state: RootState) => state.auth
     )
+    const [localStorageValue, setLocalStorageValue] =
+        useState<string>('')
 
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
@@ -97,22 +99,30 @@ export default function Head({
     const more = ['Shape & Geometry', 'Graphing']
 
     const onPressLogout = async () => {
+        console.log('logging out!')
         try {
             // await signOut(auth)
-            if (data?.user || socialLogin) {
+            if (data?.user || socialLogin || isLoggedInUser) {
                 console.log(
-                    'logout for social login, socialLogin =>',
-                    socialLogin
+                    'social login =>',
+                    data?.user,
+                    socialLogin,
+                    isLoggedInUser
                 )
-
                 dispatch(updateIsSocialLogin(false))
                 dispatch(logout())
                 signOutSocialLogin()
             } else {
-                console.log('logout for regular login')
+                console.log(
+                    'logout for credentials =>',
+                    data?.user,
+                    socialLogin,
+                    isLoggedInUser
+                )
 
                 await signOut(auth)
                 dispatch(logout())
+                localStorage.clear()
             }
         } catch (error) {
             console.log('error while logout =>', error)
@@ -123,7 +133,11 @@ export default function Head({
         if (topics) {
             const tempArr = topics.filter(
                 (topic_name, topic_index) => {
-                    if (topic_name.includes(value)) {
+                    if (
+                        topic_name
+                            .toLowerCase()
+                            .includes(value.toLowerCase())
+                    ) {
                         return topic_name
                     }
                     return
@@ -134,27 +148,17 @@ export default function Head({
         }
     }
 
-    const isPresentInLocalStorage = async () => {
-        const isPresent = cookiesData?.has('isLoggedIn')
-        console.log('is the cookie present =?', isPresent)
-
-        return isPresent
-    }
-
     useEffect(() => {
-        console.log(
-            'The value of isLoggedIn and, user is =>',
-            isLoggedIn,
-            user
-        )
         if (topics?.length) {
             setSuggestions(topics)
         }
-    }, [isLoggedIn, user])
-
-    useEffect(() => {
-        isPresentInLocalStorage()
-    }, [])
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            setLocalStorageValue('true')
+        } else {
+            setLocalStorageValue('')
+        }
+        console.log()
+    }, [isLoggedIn, user, localStorage])
 
     const handleNavigation = (
         grade: string,
@@ -327,7 +331,8 @@ export default function Head({
                                 className="
                                 flex items-center h-full pr-3 w-3/5"
                             >
-                                {!user?.name && (
+                                {auth.currentUser?.email ||
+                                isLoggedInUser ? null : (
                                     <FontAwesomeIcon
                                         icon={faChevronLeft}
                                         className="text-xs mr-1"
@@ -340,13 +345,11 @@ export default function Head({
                                         sm:max-lg:text-[.9rem] sm:max-lg:text-black
                                         sm:max-lg:font-semibold
                                     "
-                                    // href="/auth/login"
                                     onClick={() => {
-                                        if (user) {
-                                            console.log(
-                                                'user =>',
-                                                user
-                                            )
+                                        if (
+                                            isLoggedInUser ||
+                                            auth.currentUser?.email
+                                        ) {
                                         } else {
                                             router.push('/auth/login')
                                         }
@@ -360,8 +363,10 @@ export default function Head({
                                         sm:max-lg:font-semibold
                                     "
                                     >
-                                        {user?.name
-                                            ? `${user?.name}`
+                                        {localStorageValue == 'true'
+                                            ? auth.currentUser?.email
+                                            : isLoggedInUser
+                                            ? `${session?.user?.email}`
                                             : `Login`}
                                     </p>
                                 </div>
@@ -382,9 +387,8 @@ export default function Head({
                                     onClick={() => {
                                         setMenuPressed(false)
                                         if (
-                                            data?.user ||
-                                            isLoggedIn ||
-                                            socialLogin
+                                            auth.currentUser?.email ||
+                                            isLoggedInUser
                                         ) {
                                             onPressLogout()
                                         } else {
@@ -401,7 +405,8 @@ export default function Head({
                                         sm:max-lg:font-semibold
                                     "
                                     >
-                                        {user?.name
+                                        {auth.currentUser?.email ||
+                                        isLoggedInUser
                                             ? 'Logout'
                                             : 'Register'}
                                     </p>
@@ -1043,25 +1048,36 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         text-[12px]
                                     "
                                     >
-                                        {isLoggedIn
-                                            ? `Logged in as ${user?.email}`
+                                        {auth.currentUser?.email
+                                            ? `Logged in as, ${auth.currentUser?.email}`
+                                            : isLoggedInUser
+                                            ? `Logged in as, ${session?.user?.email}`
                                             : '1. Already a Member'}
                                         <br />
-                                        <Link
-                                            href={'/auth/login'}
+                                        <div
                                             onClick={() => {
-                                                // router.push('/auth/login')
-
-                                                onPressLogout()
+                                                if (
+                                                    localStorageValue ===
+                                                        'true' ||
+                                                    isLoggedInUser
+                                                ) {
+                                                    onPressLogout()
+                                                } else {
+                                                    router.push(
+                                                        '/auth/login'
+                                                    )
+                                                }
                                             }}
                                             className="hover:underline text-black
                                                 font-medium
                                             "
                                         >
-                                            {isLoggedIn
+                                            {auth.currentUser
+                                                ?.email ||
+                                            isLoggedInUser
                                                 ? 'Log out'
                                                 : 'Login'}
-                                        </Link>
+                                        </div>
                                     </p>
                                     <span
                                         className="no-underline w-full
@@ -1069,7 +1085,10 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         flex
                                     "
                                     >
-                                        {isLoggedIn ? '' : '2.'}
+                                        {localStorageValue ===
+                                            'true' || isLoggedInUser
+                                            ? ''
+                                            : '2.'}
                                         <Link
                                             onClick={() => {
                                                 // router.push(
@@ -1081,7 +1100,9 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 text-[12px] hover:underline
                                             "
                                         >
-                                            {isLoggedIn
+                                            {auth.currentUser
+                                                ?.email ||
+                                            isLoggedInUser
                                                 ? ''
                                                 : 'Sign up'}
                                         </Link>
