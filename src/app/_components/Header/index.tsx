@@ -99,9 +99,7 @@ export default function Head({
     const more = ['Shape & Geometry', 'Graphing']
 
     const onPressLogout = async () => {
-        console.log('logging out!')
         try {
-            // await signOut(auth)
             if (data?.user || socialLogin || isLoggedInUser) {
                 console.log(
                     'social login =>',
@@ -157,8 +155,7 @@ export default function Head({
         } else {
             setLocalStorageValue('')
         }
-        console.log()
-    }, [isLoggedIn, user, localStorage])
+    }, [isLoggedIn, user, topics])
 
     const handleNavigation = (
         grade: string,
@@ -167,7 +164,6 @@ export default function Head({
         const formattedGrade =
             grade.charAt(0).toLowerCase() + grade.slice(1)
         const splittedTopicName = topicName.split(' ')
-        // console.log(splittedTopicName)
 
         const formattedTopicName = splittedTopicName
             .map((item, ind) => {
@@ -185,8 +181,6 @@ export default function Head({
 
         router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
     }
-
-    // console.log('topics are as following =>', topics)
 
     return (
         <header
