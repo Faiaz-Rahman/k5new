@@ -27,11 +27,16 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
     const session = await auth()
-    let cookieStore
+
+    let cookieStore, isLoggedInValue
 
     if (session?.user) {
         cookieStore = await cookies()
-        cookieStore.set('isLoggedIn', 'true')
+
+        isLoggedInValue = cookieStore.get('isLoggedIn')?.value
+        isLoggedInValue =
+            isLoggedInValue === 'true' || !!session?.user
+        console.log('cookie store value =>', isLoggedInValue)
     }
 
     const users: Array<string> = []
@@ -44,7 +49,6 @@ export default async function RootLayout({
 
         await signOut()
     }
-
     const response = await fetch(
         'https://jsonplaceholder.typicode.com/users',
         {
@@ -55,12 +59,13 @@ export default async function RootLayout({
     if (!response.ok) {
         console.log('error while calling the get api')
     }
+
     const responseJson: Array<any> = await response.json()
 
     responseJson.map((item, ind) => {
         users.push(item.name)
     })
-    console.log(users)
+    // console.log(users)
 
     return (
         <html lang="en">
@@ -71,7 +76,7 @@ export default async function RootLayout({
                             session={session}
                             topics={users}
                             signOutSocialLogin={signOutSocialLogin}
-                            cookiesData={cookieStore}
+                            isLoggedInUser={isLoggedInValue}
                         />
                         {children}
                         <Footer />
