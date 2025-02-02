@@ -40,32 +40,34 @@ export default async function RootLayout({
         console.log('cookie store value =>', isLoggedInValue)
     }
 
-    const users: Array<string> = []
+    const fetched_topic_names: Array<string> = []
 
     console.log('session from layout =>', session?.user)
 
     const signOutSocialLogin = async () => {
         'use server'
-        console.log('signOutSocialLogin =>')
+        console.log('calling signOutSocialLogin on layout')
 
         await signOut()
     }
-    const response = await fetch(
-        'https://jsonplaceholder.typicode.com/users',
-        {
-            method: 'GET',
-            cache: 'no-store',
-        }
-    )
+    const response = await fetch('http://localhost:3000/api/topics', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: { grade: 'all' } }),
+    })
+
     if (!response.ok) {
         console.log('error while calling the get api')
+    } else {
+        const responseJson: { topics: Array<string> } =
+            await response.json()
+
+        responseJson?.topics.map((item, _) => {
+            fetched_topic_names.push(item)
+        })
     }
-
-    const responseJson: Array<any> = await response.json()
-
-    responseJson.map((item, ind) => {
-        users.push(item.name)
-    })
 
     return (
         <html lang="en">
@@ -74,7 +76,7 @@ export default async function RootLayout({
                     <SessionProvider>
                         <Head
                             session={session}
-                            topics={users}
+                            topics={fetched_topic_names}
                             signOutSocialLogin={signOutSocialLogin}
                             isLoggedInUser={isLoggedInValue}
                         />
