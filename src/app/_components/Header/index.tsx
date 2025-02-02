@@ -197,6 +197,9 @@ export default function Head({
             lg:flex lg:justify-center lg:items-center lg:flex-col
             lg:gap-3 lg:fixed lg:bg-white lg:opacity-100 lg:z-10
             "
+            onMouseLeave={() => {
+                setShowSuggestions(false)
+            }}
         >
             {/* mobile responsive navbar > logo container */}
             <Link
