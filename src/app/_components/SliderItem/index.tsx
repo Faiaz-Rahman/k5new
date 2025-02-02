@@ -11,6 +11,7 @@ import { useSession, getSession } from 'next-auth/react'
 
 import { auth } from '@/utils/firebase'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 interface SliderItemProps {
     item: number
@@ -25,6 +26,7 @@ export default function SliderItem({
     height,
     width,
 }: SliderItemProps) {
+    const router = useRouter()
     return (
         <div
             key={item}
@@ -73,7 +75,7 @@ export default function SliderItem({
                         })
                     } else {
                         // @here
-                        console.log('proceed to payment')
+                        router.push('/subscription')
                     }
                 }}
             >

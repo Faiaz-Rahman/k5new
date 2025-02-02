@@ -1090,7 +1090,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                             ? `Logged in as, ${session?.user?.email}`
                                             : '1. Already a Member'}
                                         <br />
-                                        <div
+                                        <span
                                             onClick={() => {
                                                 if (
                                                     localStorageValue ===
@@ -1113,7 +1113,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                             isLoggedInUser
                                                 ? 'Log out'
                                                 : 'Login'}
-                                        </div>
+                                        </span>
                                     </p>
                                     <span
                                         className="no-underline w-full
