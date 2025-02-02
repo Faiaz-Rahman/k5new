@@ -6,8 +6,7 @@ export default function PrintableWorksheetLayout({
     return (
         <>
             <div
-                className="w-screen pt-24 pl-[20px]
-                pr-[20px]
+                className="w-screen pt-24 pl-[20px] pr-[20px]
                 lg:pl-24 lg:pr-24 lg:pt-40
             "
             >

@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import TopicWiseMathClient from './page.client'
 
 export async function generateMetadata({
@@ -12,7 +11,6 @@ export async function generateMetadata({
     const formattedGrade =
         params.grade.charAt(0).toUpperCase() + params.grade.slice(1)
     const splittedTopicName = params.topicName.split(' ')
-    console.log(splittedTopicName)
 
     const formattedTopicName = splittedTopicName
         .map((item, ind) => {

@@ -18,7 +18,7 @@ export const image_assets_arr: string[] = [
 ]
 
 export const topic_name = [
-    'Numbers & Counting',
+    'Numbers and Counting',
     'Number Patterns',
     'Comparing Numbers',
     'Base Ten Blocks',
@@ -30,7 +30,7 @@ export const topic_name = [
     'Counting Money',
     'Telling Time',
     'Geometry',
-    'Date & Graphing',
+    'Date and Graphing',
     'Word Problems',
 ]
 
