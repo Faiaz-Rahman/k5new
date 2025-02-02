@@ -141,6 +141,15 @@ export default function Footer() {
                                 Privacy Policy
                             </Link>
                             <Link
+                                href="/payment-policy"
+                                className="text-[12px] font-medium
+                                hover:underline
+                                lg:text-[15px]
+                            "
+                            >
+                                Payment Policy
+                            </Link>
+                            <Link
                                 href="#"
                                 className="text-[12px] font-medium
                                 hover:underline
