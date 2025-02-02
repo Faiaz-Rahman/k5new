@@ -26,6 +26,9 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
 
+import Image from 'next/image'
+import LogoImage from '@/assets/wittyworkbooks_logo.png'
+
 interface HeadProps {
     signOutSocialLogin: () => Promise<void>
     session: Session | null
@@ -197,18 +200,20 @@ export default function Head({
         >
             {/* mobile responsive navbar > logo container */}
             <Link
-                className="h-full w-2/5 items-center flex
-                    pl-10 lg:hidden
+                className="h-full w-2/5 flex items-center 
+                    pl-10 lg:hidden pt-5
                 "
                 href={'/'}
             >
-                <p
-                    className="text-black font-bold
-                        text-[1.3rem]
-                    "
-                >
-                    Logo
-                </p>
+                <Image
+                    height={110}
+                    width={100}
+                    alt="logo"
+                    src={LogoImage}
+                    style={{
+                        objectFit: 'contain',
+                    }}
+                />
             </Link>
 
             {/* mobile responive navbar > icons container */}
@@ -417,22 +422,28 @@ export default function Head({
 
             {/* Header Top UI*/}
             <div
-                className="hidden lg:h-12 lg:w-full lg:flex lg:items-center lg:pl-24"
+                className="hidden lg:h-12 lg:w-full lg:flex lg:items-center lg:pl-24 
+                lg:hover:cursor-pointer"
                 // bg-red-100
             >
                 {/* Logo Container */}
                 <div
+                    onClick={() => {
+                        router.push('/')
+                    }}
                     className="h-full w-[150px] flex items-center
                     "
                     // bg-green-200
                 >
-                    <p
-                        className="text-black font-bold
-                        text-[17px]
-                    "
-                    >
-                        Logo
-                    </p>
+                    <Image
+                        height={110}
+                        width={100}
+                        alt="logo"
+                        src={LogoImage}
+                        style={{
+                            objectFit: 'contain',
+                        }}
+                    />
                 </div>
 
                 {/* Search Bar */}

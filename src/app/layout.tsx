@@ -13,6 +13,7 @@ import { auth, signOut } from '@/auth'
 
 import { SessionProvider } from 'next-auth/react'
 import { cookies } from 'next/headers'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -65,7 +66,6 @@ export default async function RootLayout({
     responseJson.map((item, ind) => {
         users.push(item.name)
     })
-    // console.log(users)
 
     return (
         <html lang="en">
@@ -79,6 +79,7 @@ export default async function RootLayout({
                             isLoggedInUser={isLoggedInValue}
                         />
                         {children}
+                        <Toaster />
                         <Footer />
                     </SessionProvider>
                 </StoreProvider>
