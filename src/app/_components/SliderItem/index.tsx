@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import './index.css'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
@@ -5,6 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { image_assets_arr } from '@/app/_constants'
 import Image from 'next/image'
+import { useSession, getSession } from 'next-auth/react'
+
+import { auth } from '@/utils/firebase'
+import { toast } from 'sonner'
 
 interface SliderItemProps {
     item: number
@@ -38,19 +44,15 @@ export default function SliderItem({
         >
             <Image
                 src={image_assets_arr[item - 1]}
-                // width={width}
-                // height={height * 0.98}
                 alt=""
                 className="object-contain transition-all
                     duration-300 
                 "
-                objectFit="contain"
                 layout="fill"
                 sizes="responsive"
-
-                // style={{
-                //     objectFit: 'contain',
-                // }}
+                style={{
+                    objectFit: 'contain',
+                }}
             />
 
             <div
@@ -58,8 +60,22 @@ export default function SliderItem({
                 absolute bottom-0 left-0 transition-all 
                 hover:opacity-40 group-hover:h-full 
                 duration-500 flex items-center
-                justify-center flex-col 
+                justify-center flex-col group-hover:cursor-pointer
             "
+                onClick={async () => {
+                    const latestSession = await getSession()
+                    if (
+                        latestSession === null &&
+                        auth.currentUser == null
+                    ) {
+                        toast('WittyWorkbooks', {
+                            description: `Log in to get access to free worksheets.`,
+                        })
+                    } else {
+                        // @here
+                        console.log('proceed to payment')
+                    }
+                }}
             >
                 <FontAwesomeIcon
                     icon={faLock}
@@ -67,7 +83,7 @@ export default function SliderItem({
                 />
                 <p
                     className="text-cyan-950 font-bold text-[14px]
-                text-center
+                    text-center
                 "
                 >
                     Subscribe

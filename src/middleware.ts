@@ -11,14 +11,12 @@ export async function middleware(req: Request) {
     if (token) {
         response.cookies.set('isLoggedIn', 'true', {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             path: '/',
         })
     } else {
         response.cookies.set('isLoggedIn', 'null', {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             path: '/',
         })

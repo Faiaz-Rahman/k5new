@@ -1,17 +1,15 @@
 'use client'
+
 import Image from 'next/image'
 import Button from './_components/Button'
 
 import Education from '../assets/education.png'
 import Card from './_components/Card'
-import { useSelector } from 'react-redux'
-// import { RootState } from '@/lib/store'
-import { useEffect } from 'react'
+
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-    useEffect(() => {
-        // throw new Error('Internal Error! Cannot load Wittyworkbooks.')
-    }, [])
+    const router = useRouter()
 
     return (
         <main className="flex min-h-screen w-screen flex-col">
@@ -22,10 +20,6 @@ export default function Home() {
                     lg:w-screen lg:flex lg:h-[550px] lg:flex-row
                 "
                 >
-                    {/* <div
-                        className="w-[50%] h-[100%] flex flex-col 
-                        pl-24 gap-8 justify-center"
-                    > */}
                     <div
                         className="w-full h-full flex flex-col justify-center
                         pl-[39px] pr-[39px] gap-5 items-center
@@ -34,10 +28,6 @@ export default function Home() {
                         lg:pl-24 lg:gap-8 lg:justify-center lg:items-start
                     "
                     >
-                        {/* <p className="font-medium text-[40px] text-black ">
-                            Explore Limitless Our{'\n'}Worksheets And
-                            {'\n'} Expand Your Knowledge
-                        </p> */}
                         <p
                             className="font-medium text-[24px] text-black
                             text-center
@@ -67,16 +57,13 @@ export default function Home() {
 
                         <Button
                             title="Explore Now"
-                            onPress={() => {}}
+                            onPress={() => {
+                                router.push('/printable-worksheets')
+                            }}
                             width={String('Explore Now').length * 15}
                         />
                     </div>
 
-                    {/* <div
-                        className="w-[50%] h-[100%] flex items-center bg-white
-                        justify-center                        
-                    "
-                    > */}
                     <div
                         className="w-full flex items-center bg-white
                         justify-center

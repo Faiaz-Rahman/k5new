@@ -27,26 +27,6 @@ export default function Slider({
                             width={220}
                         />
                     )
-                } else if (ind === focusedInd - 1) {
-                    return (
-                        <SliderItem
-                            item={item}
-                            key={ind}
-                            transform={style}
-                            height={200}
-                            width={220}
-                        />
-                    )
-                } else if (ind === focusedInd + 1) {
-                    return (
-                        <SliderItem
-                            item={item}
-                            key={ind}
-                            transform={style}
-                            height={200}
-                            width={220}
-                        />
-                    )
                 } else {
                     return (
                         <SliderItem

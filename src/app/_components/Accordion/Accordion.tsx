@@ -1,6 +1,7 @@
 import { bottom_navbar_items, topic_name } from '@/app/_constants'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useRouter } from 'next/navigation'
 import React, {
     ReactNode,
     useContext,
@@ -69,27 +70,53 @@ export function AccordionItem({
     trigger,
     ...props
 }: AccordionItem) {
+    const router = useRouter()
     const [selected, setSelected] = useContext(AccordionContext)
     const open: boolean = selected === value
 
     const divRef = useRef<HTMLDivElement>(null)
     const [selectedInner, setSelectedInner] = useState<string>('')
-    const [openInner, setOpenInner] = useState<boolean>(false)
 
     const accordion_dropdown_style: string = `h-10 pl-2 cursor-pointer flex 
         items-center justify-between
         bg-white text-[13px] hover:bg-[--accordion-hover] w-full`
 
-    // useEffect(() => {
-    //     console.log('likee =>', selectedInner)
-    //     if (selectedInner !== '') {
-    //         setOpenInner(true)
-    //     } else {
-    //         setOpenInner(false)
-    //     }
-    // }, [selectedInner])
+    const handleNavigation = (
+        grade: string,
+        topicName: string
+    ): void => {
+        console.log('grade and topicName are =>', grade, topicName)
+        const splittedGrade = grade.split(' ')
 
-    // console.log(typeof divRef.current?.offsetHeight)
+        const formattedGrade = splittedGrade
+            .map((_splitted_grade, _grade_ind) => {
+                return _grade_ind == splittedGrade.length - 1
+                    ? _splitted_grade.charAt(0).toLowerCase() +
+                          _splitted_grade.slice(1)
+                    : _splitted_grade.charAt(0).toLowerCase() +
+                          _splitted_grade.slice(1) +
+                          '-'
+            })
+            .join('')
+
+        const splittedTopicName = topicName.split(' ')
+
+        const formattedTopicName = splittedTopicName
+            .map((item, ind) => {
+                return ind !== splittedTopicName.length - 1
+                    ? item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}-`)
+                    : item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}`)
+            })
+            .join('')
+
+        router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
+    }
 
     return (
         <li {...props} className="">
@@ -137,6 +164,10 @@ export function AccordionItem({
                                                 setSelectedInner('')
                                             } else {
                                                 setSelectedInner(item)
+                                                handleNavigation(
+                                                    value,
+                                                    item
+                                                )
                                             }
                                         }}
                                     >

@@ -51,3 +51,12 @@ export const nav_menu_list: string[] = [
     'Topic 5',
     'See All',
 ]
+
+export const accordion_item_list: string[] = [
+    'Kindergarden',
+    'Grade-1',
+    'Grade-2',
+    'Grade-3',
+    'Grade-4',
+    'Grade-5',
+]

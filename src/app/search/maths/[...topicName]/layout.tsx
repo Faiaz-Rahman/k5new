@@ -3,6 +3,7 @@
 import Accordion, {
     AccordionItem,
 } from '@/app/_components/Accordion/Accordion'
+import { accordion_item_list } from '@/app/_constants'
 
 export default function PrintableWorksheetLayout({
     children,
@@ -18,35 +19,17 @@ export default function PrintableWorksheetLayout({
                     "
             >
                 <Accordion value="en">
-                    <AccordionItem
-                        trigger="Kindergarden"
-                        value={'Kindergarden'}
-                    />
-
-                    <AccordionItem
-                        trigger="Grade 1"
-                        value={'Grade 1'}
-                    />
-
-                    <AccordionItem
-                        trigger="Grade 2"
-                        value={'Grade 2'}
-                    />
-
-                    <AccordionItem
-                        trigger="Grade 3"
-                        value={'Grade 3'}
-                    />
-
-                    <AccordionItem
-                        trigger="Grade 4"
-                        value={'Grade 4'}
-                    />
-
-                    <AccordionItem
-                        trigger="Grade 5"
-                        value={'Grade 5'}
-                    />
+                    {accordion_item_list.map(
+                        (_accordion_topic, _acc_ind) => {
+                            return (
+                                <AccordionItem
+                                    key={`accordion_${_accordion_topic}`}
+                                    trigger={_accordion_topic}
+                                    value={_accordion_topic}
+                                />
+                            )
+                        }
+                    )}
                 </Accordion>
 
                 <div className="flex flex-col w-full">{children}</div>

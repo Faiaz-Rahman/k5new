@@ -91,7 +91,6 @@ export default function MathByTopicPageClient() {
                                 unoptimized
                                 src={image_assets_arr[index]}
                                 alt=""
-                                objectFit="contain"
                                 style={{
                                     objectFit: 'contain',
                                 }}
