@@ -110,7 +110,7 @@ export default function Register({
         <div
             className="pt-24 h-screen w-screen
         
-            lg:flex lg:pt-40
+            lg:flex lg:pt-40 lg:w-screen lg:h-auto lg:items-center
           "
         >
             <div
