@@ -15,7 +15,12 @@ import './index.css'
 import Link from 'next/link'
 
 import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, {
+    ChangeEvent,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/lib/store'
@@ -69,7 +74,7 @@ export default function Head({
     const [showSuggestions, setShowSuggestions] =
         useState<boolean>(false)
 
-    const pressedTextRef = useRef<string>('')
+    const inputRef = useRef<any>()
 
     const [suggestions, setSuggestions] = useState<Array<string>>([])
     const [searchText, setSearchText] = useState<string>('')
@@ -104,23 +109,11 @@ export default function Head({
     const onPressLogout = async () => {
         try {
             if (data?.user || socialLogin || isLoggedInUser) {
-                console.log(
-                    'social login =>',
-                    data?.user,
-                    socialLogin,
-                    isLoggedInUser
-                )
                 dispatch(updateIsSocialLogin(false))
                 dispatch(logout())
                 signOutSocialLogin()
+                update()
             } else {
-                console.log(
-                    'logout for credentials =>',
-                    data?.user,
-                    socialLogin,
-                    isLoggedInUser
-                )
-
                 await signOut(auth)
                 dispatch(logout())
                 localStorage.clear()
@@ -132,33 +125,38 @@ export default function Head({
 
     const handleSuggestion = (value: string) => {
         if (topics) {
-            const tempArr = topics.filter(
-                (topic_name, topic_index) => {
-                    if (
-                        topic_name
-                            .toLowerCase()
-                            .includes(value.toLowerCase())
-                    ) {
-                        return topic_name
-                    }
-                    return
+            const tempArr = topics.filter((topic_name, _) => {
+                if (
+                    topic_name
+                        .toLowerCase()
+                        .includes(value.toLowerCase())
+                ) {
+                    return topic_name
                 }
-            )
-            console.log(tempArr)
+                return
+            })
             setSuggestions(tempArr)
         }
     }
 
-    useEffect(() => {
-        if (topics?.length) {
-            setSuggestions(topics)
-        }
-        if (localStorage.getItem('isLoggedIn') === 'true') {
-            setLocalStorageValue('true')
-        } else {
-            setLocalStorageValue('')
-        }
-    }, [isLoggedIn, user, topics])
+    const getFormattedTopicName = (topicName: string): string => {
+        const splittedTopicName = topicName.split(' ')
+
+        const formattedTopicName = splittedTopicName
+            .map((item, ind) => {
+                return ind !== splittedTopicName.length - 1
+                    ? item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}-`)
+                    : item
+                          .charAt(0)
+                          .toLowerCase()
+                          .concat(`${item.slice(1)}`)
+            })
+            .join('')
+        return formattedTopicName
+    }
 
     const handleNavigation = (
         grade: string,
@@ -184,6 +182,17 @@ export default function Head({
 
         router.push(`/maths/${formattedGrade}/${formattedTopicName}`)
     }
+
+    useEffect(() => {
+        if (topics?.length) {
+            setSuggestions(topics)
+        }
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            setLocalStorageValue('true')
+        } else {
+            setLocalStorageValue('')
+        }
+    }, [isLoggedIn, user, topics])
 
     return (
         <header
@@ -425,7 +434,7 @@ export default function Head({
 
             {/* Header Top UI*/}
             <div
-                className="hidden lg:h-12 lg:w-full lg:flex lg:items-center lg:pl-24 
+                className="hidden lg:h-12 lg:w-full lg:flex lg:items-center lg:pl-[82px] 
                 lg:hover:cursor-pointer"
                 // bg-red-100
             >
@@ -453,15 +462,15 @@ export default function Head({
                 <div
                     className="h-full w-[calc(100%_-_300px)] flex items-center
                     justify-center relative
-                    bg-white 
+                    bg-white
                     "
                 >
                     <div
                         className="h-[80%]
-                     w-[100%] flex justify-center
-                     rounded-full items-center  border-gray-300
-                     border
-                "
+                        w-[100%] flex justify-center
+                        rounded-full items-center  border-gray-300
+                        border
+                    "
                     >
                         <div
                             className="h-full w-8 flex justify-end
@@ -479,6 +488,7 @@ export default function Head({
                         </div>
                         <input
                             type="text"
+                            ref={inputRef}
                             placeholder="Search"
                             value={searchText}
                             className="flex w-[100%] text-xs
@@ -488,18 +498,34 @@ export default function Head({
                                 setShowSuggestions(true)
                             }}
                             onBlur={() => {
-                                if (
-                                    !searchText.length &&
-                                    pressedTextRef.current !== ''
-                                ) {
-                                    setShowSuggestions(false)
-                                }
+                                // if (!searchText.length) {
+                                //     setShowSuggestions(false)
+                                // }
                             }}
                             onChange={(
                                 e: ChangeEvent<HTMLInputElement>
                             ) => {
                                 setSearchText(e.target.value)
                                 handleSuggestion(e.target.value)
+                            }}
+                            onKeyDown={(
+                                e: React.KeyboardEvent<HTMLInputElement>
+                            ) => {
+                                if (e.key === 'Enter') {
+                                    setShowSuggestions(false)
+                                    // removing focus from search input
+
+                                    // @here routing logic
+                                    const formattedTopicName =
+                                        getFormattedTopicName(
+                                            searchText
+                                        )
+                                    router.push(
+                                        `/search/maths/${formattedTopicName}`
+                                    )
+
+                                    inputRef.current.blur()
+                                }
                             }}
                         />
                     </div>
@@ -544,11 +570,13 @@ export default function Head({
                                                         32
                                                     }px)]`}
                                                 onClick={() => {
-                                                    pressedTextRef.current.concat(
-                                                        suggestion
-                                                    )
                                                     setSearchText(
                                                         suggestion
+                                                    )
+                                                    router.push(
+                                                        `/search/maths/${getFormattedTopicName(
+                                                            suggestion
+                                                        )}`
                                                     )
                                                     setShowSuggestions(
                                                         false
