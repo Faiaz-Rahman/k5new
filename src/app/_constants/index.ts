@@ -60,3 +60,25 @@ export const accordion_item_list: string[] = [
     'Grade-4',
     'Grade-5',
 ]
+
+export const operations = [
+    'Addition',
+    'Subtraction',
+    'Multiplication',
+    'Division',
+]
+
+export const numbers = [
+    'Learning Numbers',
+    'Counting',
+    'Comparing Numbers',
+    'Comparing Numbers',
+]
+
+export const advanced = [
+    'Exponent',
+    'Proportions',
+    'Percents',
+    'Integers',
+    'Algebra',
+]

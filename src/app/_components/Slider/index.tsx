@@ -7,12 +7,14 @@ interface SliderProps {
     focusedInd: number
     setFocusedInd?: React.Dispatch<React.SetStateAction<number>>
     data: number[]
+    clientKey: string
 }
 
 export default function Slider({
     style,
     focusedInd,
     data,
+    clientKey,
 }: SliderProps) {
     return (
         <>
@@ -25,6 +27,7 @@ export default function Slider({
                             transform={style}
                             height={300}
                             width={220}
+                            clientKey={clientKey}
                         />
                     )
                 } else {
@@ -35,6 +38,7 @@ export default function Slider({
                             transform={style}
                             height={200}
                             width={220}
+                            clientKey={clientKey}
                         />
                     )
                 }

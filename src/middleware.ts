@@ -7,20 +7,21 @@ export async function middleware(req: Request) {
         secret: process.env.AUTH_SECRET,
     })
     const response = NextResponse.next()
+    // console.log('the token from middleware is =>', token)
 
-    if (token) {
-        response.cookies.set('isLoggedIn', 'true', {
-            httpOnly: true,
-            sameSite: 'strict',
-            path: '/',
-        })
-    } else {
-        response.cookies.set('isLoggedIn', 'null', {
-            httpOnly: true,
-            sameSite: 'strict',
-            path: '/',
-        })
-    }
+    // if (token) {
+    //     response.cookies.set('isLoggedIn', 'true', {
+    //         httpOnly: true,
+    //         sameSite: 'strict',
+    //         path: '/',
+    //     })
+    // } else {
+    //     response.cookies.set('isLoggedIn', 'null', {
+    //         httpOnly: true,
+    //         sameSite: 'strict',
+    //         path: '/',
+    //     })
+    // }
 
     return response
 }

@@ -40,12 +40,16 @@ export default function LoginClient() {
 
                 dispatch(
                     updateUser({
-                        user: userCredential.user,
+                        user: {
+                            displayName:
+                                userCredential.user.displayName,
+                            email: userCredential.user.email,
+                            photoURL: userCredential.user.photoURL,
+                            uid: userCredential.user.uid,
+                        },
                         isLoggedIn: true,
                     })
                 )
-
-                localStorage.setItem('isLoggedIn', 'true')
 
                 setLoading(false)
                 router.push('/')
@@ -58,7 +62,7 @@ export default function LoginClient() {
                 setLoading(false)
                 alert(
                     JSON.stringify(
-                        'One or, both of your credentials are in incorrect'
+                        'One or, both of your credentials are incorrect'
                     )
                 )
             })

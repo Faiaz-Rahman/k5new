@@ -24,8 +24,6 @@ import {
 import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
 
-// import { useSession } from 'next-auth/react'
-
 interface RegisterProps {
     doSignIn: (signInType: string) => void
     session: Session | null
@@ -88,23 +86,6 @@ export default function Register({
             }
         }
     }
-
-    // React.useEffect(() => {
-    //     if (session?.user) {
-    //         console.log(
-    //             'got session from the user here =>',
-    //             session?.user
-    //         )
-    //         dispatch(
-    //             updateUser({
-    //                 user: session?.user,
-    //                 isLoggedIn: true,
-    //             })
-    //         )
-    //         dispatch(updateIsSocialLogin(true))
-    //         router.push('/')
-    //     }
-    // }, [session])
 
     return (
         <div

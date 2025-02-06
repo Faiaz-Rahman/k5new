@@ -70,13 +70,6 @@ interface ContentStatus {
     icon: React.JSX.Element
 }
 
-interface StatusContentMap {
-    succeeded: ContentStatus
-    processing: ContentStatus
-    requires_payment_method: ContentStatus
-    default: ContentStatus
-}
-
 const STATUS_CONTENT_MAP: Record<string, ContentStatus> = {
     succeeded: {
         text: 'Payment succeeded',
@@ -109,6 +102,8 @@ export default function CompletePage() {
     useEffect(() => {
         if (!stripe) {
             return
+        } else {
+            console.log('got stripe in complete page')
         }
 
         const clientSecret = new URLSearchParams(
@@ -117,13 +112,24 @@ export default function CompletePage() {
 
         if (!clientSecret) {
             return
+        } else {
+            console.log(
+                'client secret from complete page =>',
+                clientSecret
+            )
         }
 
         stripe
             .retrievePaymentIntent(clientSecret)
             .then(({ paymentIntent }) => {
                 if (!paymentIntent) {
+                    console.log('no payment generated')
                     return
+                } else {
+                    console.log(
+                        'payment generated with intent...',
+                        paymentIntent
+                    )
                 }
 
                 setStatus(paymentIntent.status)

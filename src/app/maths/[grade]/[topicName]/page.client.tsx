@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function TopicWiseMathClient({
     params,
@@ -26,10 +26,45 @@ export default function TopicWiseMathClient({
     const [focusedInd, setfocusedInd] = useState<number>(1)
     const [style, setStyle] = useState<number>(0)
 
+    const [clientSecret, setClientSecret] = useState<string>('')
+
     const formattedGrade =
         params.grade.charAt(0).toUpperCase() + params.grade.slice(1)
 
+    const hasFetchedDataOnce = useRef<boolean>(false)
+
     const formattedTopicName = params.topicName.split('-')
+
+    const fetchData = async () => {
+        try {
+            const res = await fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: [{ id: 'xl-tshirt' }],
+                }),
+            })
+
+            const resJson = await res.json()
+            console.log(
+                'got the client secret from client side =>',
+                resJson
+            )
+            setClientSecret(resJson.clientSecret)
+        } catch (error) {
+            console.log(
+                'error while posting to create-payment-intent',
+                error
+            )
+        }
+    }
+
+    useEffect(() => {
+        if (!hasFetchedDataOnce.current) {
+            fetchData()
+            hasFetchedDataOnce.current = true
+        }
+    }, [])
 
     return (
         <>
@@ -142,6 +177,7 @@ export default function TopicWiseMathClient({
                         setFocusedInd={setfocusedInd}
                         style={style}
                         setStyle={setStyle}
+                        clientKey={clientSecret}
                     />
                 </div>
 

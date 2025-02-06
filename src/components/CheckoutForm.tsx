@@ -5,53 +5,65 @@ import {
     PaymentElement,
     useStripe,
     useElements,
+    CardElement,
 } from '@stripe/react-stripe-js'
 
 import Stripe from 'stripe'
-import { StripePaymentElementOptions } from '@stripe/stripe-js'
+import {
+    StripeCardElement,
+    StripeCardElementOptions,
+    StripePaymentElementOptions,
+} from '@stripe/stripe-js'
 
-export default function CheckoutForm() {
+export default function CheckoutForm({
+    clientSecret,
+}: {
+    clientSecret: string
+}) {
     const stripe = useStripe()
     const elements = useElements()
 
     const [message, setMessage] = useState<string>('')
     const [isLoading, setIsLoading] = useState(false)
 
+    const [cardElement, setCardElement] = useState<any>()
+
+    if (elements) {
+        setCardElement(elements.getElement(CardElement))
+    }
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!stripe || !elements) {
             console.log('stripe has not loaded yet')
-            // Stripe.js hasn't yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return
         }
 
+        const card: StripeCardElement | null =
+            elements.getElement(CardElement)
+
+        console.log('stripe from checkout =>')
         setIsLoading(true)
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                // Make sure to change this to your payment completion page
-                return_url: 'http://localhost:3000',
+                return_url: 'http://localhost:3000/ABC',
             },
         })
 
-        // This point will only be reached if there is an immediate error when
-        // confirming the payment. Otherwise, your customer will be redirected to
-        // your `return_url`. For some payment methods like iDEAL, your customer will
-        // be redirected to an intermediate site first to authorize the payment, then
-        // redirected to the `return_url`.
-        if (
-            error.type === 'card_error' ||
-            error.type === 'validation_error'
-        ) {
-            if (error instanceof Stripe.errors.StripeError) {
-                setMessage(error)
-            }
-        } else {
-            setMessage('An unexpected error occurred.')
-        }
+        // if (
+        //     error &&
+        //     (error.type === 'card_error' ||
+        //         error.type === 'validation_error')
+        // ) {
+        //     if (error instanceof Stripe.errors.StripeError) {
+        //         setMessage(error)
+        //     }
+        // } else {
+        //     setMessage('An unexpected error occurred.')
+        // }
 
         setIsLoading(false)
     }
@@ -60,11 +72,17 @@ export default function CheckoutForm() {
         layout: 'accordion',
     }
 
+    const cardPaymentOption: StripeCardElementOptions = {
+        iconStyle: 'solid',
+        hidePostalCode: true,
+        preferredNetwork: [],
+    }
+
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
-            <PaymentElement
+            <CardElement
                 id="payment-element"
-                options={paymentElementOptions}
+                options={cardPaymentOption}
             />
             <button
                 disabled={isLoading || !stripe || !elements}

@@ -1,24 +1,44 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import AuthReducer from '../lib/slices/authSlice'
+import authReducer from '../lib/slices/authSlice'
 import { useDispatch } from 'react-redux'
 
-export const makeStore = () => {
-    return configureStore({
-        reducer: {
-            auth: AuthReducer,
-        },
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware({
-                serializableCheck: false,
-            }),
-    })
+import { persistReducer, persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistedConfig = {
+    auth: {
+        key: 'auth',
+        storage,
+    },
 }
 
-// Infer the type of makeStore
-export type AppStore = ReturnType<typeof makeStore>
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+const persistedAuthReducer = persistReducer(
+    persistedConfig.auth,
+    authReducer
+)
+
+export const store = configureStore({
+    reducer: {
+        auth: persistedAuthReducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [
+                    'persist/PERSIST',
+                    'persist/REHYDRATE',
+                    'persist/PURGE',
+                ],
+            },
+        }),
+})
+
+export const persistor = persistStore(store)
+
+export type AppStore = typeof store
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()

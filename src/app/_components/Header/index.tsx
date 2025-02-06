@@ -14,7 +14,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import './index.css'
 import Link from 'next/link'
 
-import { bottom_navbar_items, nav_menu_list } from '@/app/_constants'
+import {
+    advanced,
+    bottom_navbar_items,
+    nav_menu_list,
+    numbers,
+    operations,
+} from '@/app/_constants'
 import React, {
     ChangeEvent,
     useEffect,
@@ -23,12 +29,12 @@ import React, {
 } from 'react'
 
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '@/lib/store'
+import { persistor, RootState, useAppDispatch } from '@/lib/store'
 import { logout, updateIsSocialLogin } from '@/lib/slices/authSlice'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+
 import { Session } from 'next-auth'
 
 import Image from 'next/image'
@@ -50,13 +56,9 @@ export default function Head({
     const router = useRouter()
 
     const dispatch = useAppDispatch()
-    const { data, update } = useSession()
-
     const { isLoggedIn, socialLogin, user } = useSelector(
         (state: RootState) => state.auth
     )
-    const [localStorageValue, setLocalStorageValue] =
-        useState<string>('')
 
     const [showLoginDropdown, setShowLoginDropdown] =
         useState<boolean>(false)
@@ -79,44 +81,37 @@ export default function Head({
     const [suggestions, setSuggestions] = useState<Array<string>>([])
     const [searchText, setSearchText] = useState<string>('')
 
-    const operations = [
-        'Addition',
-        'Subtraction',
-        'Multiplication',
-        'Division',
-    ]
-
-    const numbers = [
-        'Learning Numbers',
-        'Counting',
-        'Comparing Numbers',
-        'Comparing Numbers',
-    ]
-
-    const advanced = [
-        'Exponent',
-        'Proportions',
-        'Percents',
-        'Integers',
-        'Algebra',
-    ]
-
     const fractions = ['Fractions', 'Decimals']
 
     const measurement = ['Measurement', 'Money', 'Time']
     const more = ['Shape & Geometry', 'Graphing']
 
+    //new code
+    const searchBoxRef = useRef<HTMLDivElement>(null)
+    const suggestionsRef = useRef<HTMLDivElement>(null)
+
     const onPressLogout = async () => {
+        console.log('pressing log out function ...')
+
         try {
-            if (data?.user || socialLogin || isLoggedInUser) {
+            if (socialLogin || isLoggedInUser) {
                 dispatch(updateIsSocialLogin(false))
-                dispatch(logout())
                 signOutSocialLogin()
-                update()
+
+                await persistor.purge()
+
+                console.log('social value from store =>', socialLogin)
             } else {
+                console.log('inside else onPressLogout =>')
                 await signOut(auth)
+
+                await persistor.purge()
+                console.log(
+                    'isLoggedIn value after purging =>',
+                    isLoggedIn
+                )
+
                 dispatch(logout())
-                localStorage.clear()
             }
         } catch (error) {
             console.log('error while logout =>', error)
@@ -187,12 +182,38 @@ export default function Head({
         if (topics?.length) {
             setSuggestions(topics)
         }
-        if (localStorage.getItem('isLoggedIn') === 'true') {
-            setLocalStorageValue('true')
-        } else {
-            setLocalStorageValue('')
+    }, [topics])
+
+    useEffect(() => {
+        const handleClickOutSideSearchBar = (ev: MouseEvent) => {
+            if (
+                !searchBoxRef.current?.contains(ev.target as Node) ||
+                !suggestionsRef.current?.contains(ev.target as Node)
+            ) {
+                setShowSuggestions(false)
+            }
         }
-    }, [isLoggedIn, user, topics])
+
+        document.addEventListener(
+            'mousedown',
+            handleClickOutSideSearchBar
+        )
+        return () => {
+            document.removeEventListener(
+                'mousedown',
+                handleClickOutSideSearchBar
+            )
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(
+            'currentUser, isLoggedIn, user from store =>',
+            auth.currentUser,
+            isLoggedIn,
+            user
+        )
+    }, [])
 
     return (
         <header
@@ -359,7 +380,7 @@ export default function Head({
                                     onClick={() => {
                                         if (
                                             isLoggedInUser ||
-                                            auth.currentUser?.email
+                                            user?.email
                                         ) {
                                         } else {
                                             router.push('/auth/login')
@@ -374,8 +395,8 @@ export default function Head({
                                         sm:max-lg:font-semibold
                                     "
                                     >
-                                        {localStorageValue == 'true'
-                                            ? auth.currentUser?.email
+                                        {user?.email
+                                            ? `${user?.email}`
                                             : isLoggedInUser
                                             ? `${session?.user?.email}`
                                             : `Login`}
@@ -460,15 +481,15 @@ export default function Head({
 
                 {/* Search Bar */}
                 <div
+                    ref={searchBoxRef}
                     className="h-full w-[calc(100%_-_300px)] flex items-center
                     justify-center relative
-                    bg-white
                     "
                 >
                     <div
                         className="h-[80%]
                         w-[100%] flex justify-center
-                        rounded-full items-center  border-gray-300
+                        rounded-full items-center  border-gray-300 
                         border
                     "
                     >
@@ -493,15 +514,12 @@ export default function Head({
                             value={searchText}
                             className="flex w-[100%] text-xs
                             h-[100%] pl-3 outline-none rounded-e-full
+                            bg-white
                             "
                             onClick={() => {
                                 setShowSuggestions(true)
                             }}
-                            onBlur={() => {
-                                // if (!searchText.length) {
-                                //     setShowSuggestions(false)
-                                // }
-                            }}
+                            onBlur={() => {}}
                             onChange={(
                                 e: ChangeEvent<HTMLInputElement>
                             ) => {
@@ -532,6 +550,7 @@ export default function Head({
 
                     {showSuggestions && (
                         <motion.div
+                            ref={suggestionsRef}
                             className="w-full absolute top-full z-20 flex flex-col bg-gray-100
                                 rounded-xl
                             "
@@ -1084,8 +1103,8 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         text-[12px]
                                     "
                                     >
-                                        {auth.currentUser?.email
-                                            ? `Logged in as, ${auth.currentUser?.email}`
+                                        {isLoggedIn
+                                            ? `Logged in as, ${user?.email}`
                                             : isLoggedInUser
                                             ? `Logged in as, ${session?.user?.email}`
                                             : '1. Already a Member'}
@@ -1093,8 +1112,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         <span
                                             onClick={() => {
                                                 if (
-                                                    localStorageValue ===
-                                                        'true' ||
+                                                    isLoggedIn ||
                                                     isLoggedInUser
                                                 ) {
                                                     onPressLogout()
@@ -1108,8 +1126,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                                 font-medium
                                             "
                                         >
-                                            {auth.currentUser
-                                                ?.email ||
+                                            {isLoggedIn ||
                                             isLoggedInUser
                                                 ? 'Log out'
                                                 : 'Login'}
@@ -1121,23 +1138,18 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         flex
                                     "
                                     >
-                                        {localStorageValue ===
-                                            'true' || isLoggedInUser
+                                        {isLoggedIn === true ||
+                                        isLoggedInUser
                                             ? ''
                                             : '2.'}
                                         <Link
-                                            onClick={() => {
-                                                // router.push(
-                                                //     'auth/register'
-                                                // )
-                                            }}
+                                            onClick={() => {}}
                                             href={'/auth/register'}
                                             className="font-medium text-black
                                                 text-[12px] hover:underline
                                             "
                                         >
-                                            {auth.currentUser
-                                                ?.email ||
+                                            {isLoggedIn ||
                                             isLoggedInUser
                                                 ? ''
                                                 : 'Sign up'}

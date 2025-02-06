@@ -8,12 +8,12 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Head from './_components/Header'
 import Footer from './_components/Footer'
-import StoreProvider from './StoreProvider'
 import { auth, signOut } from '@/auth'
 
 import { SessionProvider } from 'next-auth/react'
 import { cookies } from 'next/headers'
 import { Toaster } from '@/components/ui/sonner'
+import { Providers } from '@/lib/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -72,8 +72,8 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <StoreProvider>
-                    <SessionProvider>
+                <SessionProvider>
+                    <Providers>
                         <Head
                             session={session}
                             topics={fetched_topic_names}
@@ -83,8 +83,8 @@ export default async function RootLayout({
                         {children}
                         <Toaster />
                         <Footer />
-                    </SessionProvider>
-                </StoreProvider>
+                    </Providers>
+                </SessionProvider>
             </body>
         </html>
     )

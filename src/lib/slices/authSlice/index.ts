@@ -1,8 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+interface userProps {
+    uid: string
+    email: string | null
+    displayName: string | null
+    photoURL: string | null
+}
+
 interface AppState {
     isLoggedIn: boolean
-    user: null | any
+    user: null | userProps
     socialLogin: boolean
 }
 
@@ -25,7 +32,12 @@ const authSlice = createSlice({
             state.isLoggedIn = false
             state.user = null
         },
-        updateUser(state, actions) {
+        updateUser(
+            state,
+            actions: {
+                payload: { user: userProps; isLoggedIn: boolean }
+            }
+        ) {
             state.user = actions.payload.user
             state.isLoggedIn = actions.payload.isLoggedIn
         },

@@ -115,6 +115,7 @@ export default function MathByTopicPageClient() {
                 "
                 >
                     <Slider
+                        clientKey=""
                         data={data}
                         focusedInd={focusedInd}
                         setFocusedInd={setfocusedInd}

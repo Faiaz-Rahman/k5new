@@ -1,15 +1,14 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = require('stripe')(
-    process.env.STRIPE_SECRET_KEY as string
-)
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 const calculateOrderAmount = (items: number) => {
     return items
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     const body = await req.json()
     if (req.method !== 'POST') {
         return Response.json(
@@ -28,12 +27,23 @@ export async function POST(req: Request) {
                     enabled: true,
                 },
             })
-        if (paymentIntent.client_secret) {
-            console.log(
-                'successfully retrieved client secret: ',
-                paymentIntent.client_secret
-            )
 
+        // const session = await stripe.checkout.sessions.create({
+        //     mode: 'subscription',
+        //     payment_method_types: ['card'],
+        //     line_items: [
+        //         {
+        //             price: '100',
+        //             quantity: 1,
+        //         },
+        //     ],
+        //     success_url: `${req.headers.get(
+        //         'origin'
+        //     )}/success?session_id={CHECKOUT_SESSION_ID}`,
+        //     cancel_url: `${req.headers.get('origin')}/subscriptions`,
+        // })
+
+        if (paymentIntent.client_secret) {
             return Response.json(
                 { clientSecret: paymentIntent.client_secret },
                 { status: 200 }

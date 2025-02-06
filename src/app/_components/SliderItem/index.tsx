@@ -7,17 +7,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { image_assets_arr } from '@/app/_constants'
 import Image from 'next/image'
-import { useSession, getSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 
-import { auth } from '@/utils/firebase'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
 
 interface SliderItemProps {
     item: number
     transform: number
-    height: number //How much is it going to translate?
+    height: number
     width: number
+    clientKey: string
 }
 
 export default function SliderItem({
@@ -25,8 +27,14 @@ export default function SliderItem({
     transform,
     height,
     width,
+    clientKey,
 }: SliderItemProps) {
     const router = useRouter()
+
+    const { isLoggedIn } = useSelector(
+        (state: RootState) => state.auth
+    )
+
     return (
         <div
             key={item}
@@ -66,16 +74,24 @@ export default function SliderItem({
             "
                 onClick={async () => {
                     const latestSession = await getSession()
-                    if (
-                        latestSession === null &&
-                        auth.currentUser == null
-                    ) {
+                    if (latestSession === null && !isLoggedIn) {
                         toast('WittyWorkbooks', {
                             description: `Log in to get access to free worksheets.`,
                         })
                     } else {
                         // @here
-                        router.push('/subscription')
+                        if (clientKey) {
+                            console.log(
+                                'the clientSecret from SliderItem is: ',
+                                clientKey
+                            )
+
+                            router.push(
+                                `/subscription?payment_intent_client_secret=${encodeURIComponent(
+                                    clientKey
+                                )}`
+                            )
+                        }
                     }
                 }}
             >
