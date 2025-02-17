@@ -28,21 +28,6 @@ export async function POST(req: NextRequest) {
                 },
             })
 
-        // const session = await stripe.checkout.sessions.create({
-        //     mode: 'subscription',
-        //     payment_method_types: ['card'],
-        //     line_items: [
-        //         {
-        //             price: '100',
-        //             quantity: 1,
-        //         },
-        //     ],
-        //     success_url: `${req.headers.get(
-        //         'origin'
-        //     )}/success?session_id={CHECKOUT_SESSION_ID}`,
-        //     cancel_url: `${req.headers.get('origin')}/subscriptions`,
-        // })
-
         if (paymentIntent.client_secret) {
             return Response.json(
                 { clientSecret: paymentIntent.client_secret },

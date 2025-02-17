@@ -85,12 +85,8 @@ export default function SliderItem({
                                 'the clientSecret from SliderItem is: ',
                                 clientKey
                             )
-
-                            router.push(
-                                `/subscription?payment_intent_client_secret=${encodeURIComponent(
-                                    clientKey
-                                )}`
-                            )
+                            router.prefetch('/subscription')
+                            router.push(`/subscription`)
                         }
                     }
                 }}
