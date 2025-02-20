@@ -16,6 +16,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -40,6 +41,9 @@ export default function Subscription() {
     const [plans, setPlans] = useState<Array<subscriptionPlanType>>(
         []
     )
+    const [selectedPlan, setSelectedPlan] =
+        useState<subscriptionPlanType>()
+
     const hasFetchedData = useRef<boolean>(false)
     const [showDialog, setShowDialog] = useState<boolean>(false)
 
@@ -62,6 +66,27 @@ export default function Subscription() {
         }
     }
 
+    const handleSubscription = async () => {
+        const stripe = await stripePromise
+
+        const sessionIdResp = await fetch('/api/checkout-session', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ priceId: selectedPlan?.price_id }),
+        })
+
+        const sessionId = await sessionIdResp.json()
+
+        console.log('the session id =>', sessionId)
+
+        const resp = await stripe?.redirectToCheckout({ sessionId })
+
+        if (resp?.error) {
+            console.log('got error while redirecting to checkout')
+        }
+    }
+
     React.useEffect(() => {
         if (!hasFetchedData.current) {
             getSubscriptionPlans()
@@ -72,15 +97,15 @@ export default function Subscription() {
 
     return (
         <div
-            className="flex flex-col-reverse w-screen pl-[20px] 
+            className="h-screen flex flex-col-reverse w-screen pl-[20px] 
                 pt-24 pr-[20px]
                 lg:pl-24 lg:flex-row lg:pt-40 lg:pr-24 lg:justify-center"
         >
             <div className="mb-10 w-3/5 flex justify-around mt-10 gap-x-10">
-                {plans.map((plan) => (
+                {plans.map((plan, _) => (
                     <Card
                         key={plan.id}
-                        className={`w-full max-w-md p-6 shadow-lg border-4
+                        className={`w-full max-w-md p-6 shadow-lg border-4 h-[250px]
                         rounded-2xl ${
                             plan.name === 'Gold'
                                 ? 'border-[#FFD700]'
@@ -124,6 +149,7 @@ export default function Subscription() {
                                 className="w-full"
                                 onClick={() => {
                                     setShowDialog(true)
+                                    setSelectedPlan(plan)
                                 }}
                             >
                                 Subscribe Now
@@ -140,15 +166,38 @@ export default function Subscription() {
                 <DialogTrigger></DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>
-                            Are you absolutely sure?
-                        </DialogTitle>
+                        <DialogTitle>Wittyworkbooks</DialogTitle>
                         <DialogDescription>
-                            This action cannot be undone. This will
-                            permanently delete your account and remove
-                            your data from our servers.
+                            You are about to purchase{' '}
+                            {selectedPlan?.name} plan for $
+                            {selectedPlan?.price
+                                ? (selectedPlan?.price / 100).toFixed(
+                                      2
+                                  )
+                                : ''}
                         </DialogDescription>
                     </DialogHeader>
+
+                    <DialogFooter>
+                        <DialogFooter>
+                            <Button
+                                onClick={() => {
+                                    setShowDialog(false)
+                                }}
+                            >
+                                Cancel
+                            </Button>
+
+                            <Button
+                                onClick={() => {
+                                    // @here
+                                    // subscription logic
+                                }}
+                            >
+                                Purchase
+                            </Button>
+                        </DialogFooter>
+                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </div>
