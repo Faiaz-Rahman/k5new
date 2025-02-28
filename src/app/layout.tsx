@@ -32,7 +32,7 @@ export default async function RootLayout({
     let cookieStore, isLoggedInValue
 
     if (session?.user) {
-        cookieStore = await cookies()
+        cookieStore = cookies()
 
         isLoggedInValue = cookieStore.get('isLoggedIn')?.value
         isLoggedInValue =
@@ -50,13 +50,16 @@ export default async function RootLayout({
 
         await signOut()
     }
-    const response = await fetch('http://localhost:3000/api/topics', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data: { grade: 'all' } }),
-    })
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/topics`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: { grade: 'all' } }),
+        }
+    )
 
     if (!response.ok) {
         console.log('error while calling the get api')
