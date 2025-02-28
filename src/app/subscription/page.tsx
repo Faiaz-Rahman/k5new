@@ -24,6 +24,11 @@ import {
 import LoadingUI from '../loading'
 import { useDispatch } from 'react-redux'
 import { updateSubscriptionStatus } from '@/lib/slices/authSlice'
+import { Loader2 } from 'lucide-react'
+import { RootState } from '@/lib/store'
+import { useSelector } from 'react-redux'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
@@ -45,12 +50,18 @@ export default function Subscription() {
         []
     )
     const [hasLoaded, setHasLoaded] = useState<boolean>(false)
+    const [subscriptionLoader, setSubscriptionLoader] =
+        useState<boolean>(false)
+    const { user, isLoggedIn, subscription } = useSelector(
+        (state: RootState) => state.auth
+    )
+
     const dispatch = useDispatch()
+    const router = useRouter()
 
     const [selectedPlan, setSelectedPlan] =
         useState<subscriptionPlanType>()
 
-    const hasFetchedData = useRef<boolean>(false)
     const [showDialog, setShowDialog] = useState<boolean>(false)
 
     const getSubscriptionPlans = async () => {
@@ -63,10 +74,6 @@ export default function Subscription() {
 
         if (resp.ok) {
             const respJsonData = await resp.json()
-            console.log(
-                'the json resp for subscription plan is ...',
-                respJsonData
-            )
 
             setPlans(respJsonData)
             setHasLoaded(true)
@@ -74,51 +81,82 @@ export default function Subscription() {
     }
 
     const handleSubscription = async () => {
-        const stripe = await stripePromise
+        if (user?.email || isLoggedIn) {
+            setSubscriptionLoader(true)
+            const stripe = await stripePromise
 
-        const sessionIdResp = await fetch('/api/checkout-session', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ priceId: selectedPlan?.price_id }),
-        })
+            const sessionIdResp = await fetch(
+                '/api/checkout-session',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        priceId: selectedPlan?.price_id,
+                    }),
+                }
+            )
 
-        const sessionId = await sessionIdResp.json()
+            const sessionId = await sessionIdResp.json()
+            if (selectedPlan) {
+                dispatch(
+                    updateSubscriptionStatus({
+                        isSubscribed: true,
+                        plan_name: selectedPlan?.name,
+                        plan_price: `${(
+                            selectedPlan?.price / 100
+                        ).toFixed(2)}`,
+                    })
+                )
+            }
+            setSubscriptionLoader(false)
 
-        console.log('the session id =>', sessionId)
+            const resp = await stripe?.redirectToCheckout({
+                sessionId: sessionId.sessionId as string,
+            })
 
-        const resp = await stripe?.redirectToCheckout({
-            sessionId: sessionId.sessionId as string,
-        })
-
-        if (resp?.error) {
-            console.log('got error while redirecting to checkout')
+            if (resp?.error) {
+                console.log(
+                    'got error while redirecting to checkout',
+                    resp?.error
+                )
+            }
         }
     }
 
     React.useEffect(() => {
-        if (!hasFetchedData.current) {
-            getSubscriptionPlans()
-
-            hasFetchedData.current = true
-        }
+        getSubscriptionPlans()
     }, [])
+
+    React.useEffect(() => {
+        console.log(
+            'the selected plan is =>',
+            selectedPlan,
+            subscription
+        )
+    }, [selectedPlan, subscription])
+
     if (!hasLoaded) {
         return <LoadingUI />
     }
 
     return (
         <div
-            className="h-screen flex flex-col-reverse w-screen pl-[20px] 
+            className="h-screen flex flex-col w-screen pl-[20px] 
                 pt-24 pr-[20px]
                 lg:pl-24 lg:flex-row lg:pt-40 lg:pr-24 lg:justify-center"
         >
-            <div className="mb-10 w-3/5 flex justify-around mt-10 gap-x-10">
+            <div
+                className="w-full h-full flex 
+                flex-col sm:flex-row items-center gap-10 justify-center
+                sm:items-start sm:pt-16
+            "
+            >
                 {plans.map((plan, _) => (
                     <Card
                         key={plan.id}
-                        className={`w-full max-w-md p-6 shadow-lg border-4 h-[250px]
+                        className={`w-[270px] sm:min-w-md p-6 shadow-lg border-4 h-[250px]
                         rounded-2xl ${
                             plan.name === 'Gold'
                                 ? 'border-[#FFD700]'
@@ -133,7 +171,7 @@ export default function Subscription() {
                         <CardContent>
                             <p className="text-2xl font-bold text-gray-800">
                                 ${(plan.price / 100).toFixed(2)}
-                                <span className="font-normal text-sm ml-2">
+                                <span className="font-normal text-xs ml-2">
                                     {plan.name == 'Gold'
                                         ? '/ 6 months'
                                         : '/ month'}
@@ -141,31 +179,46 @@ export default function Subscription() {
                             </p>
 
                             {/* @here */}
-                            {/* features for plans */}
-
-                            {/* <ul className="mt-4 space-y-2">
-                                {plan.features.map(
-                                    (feature, index) => (
-                                        <li
-                                            key={index}
-                                            className="flex items-center gap-2 text-gray-600"
-                                        >
-                                            <Check className="w-5 h-5 text-green-500" />{' '}
-                                            {feature}
-                                        </li>
-                                    )
-                                )}
-                            </ul> */}
                         </CardContent>
                         <CardFooter>
                             <Button
-                                className="w-full"
+                                className={`w-full ${
+                                    !user?.uid &&
+                                    subscription?.isSubscribed &&
+                                    subscription?.plan_name ==
+                                        plan.name
+                                        ? 'bg-state-600'
+                                        : 'bg-black'
+                                }`}
                                 onClick={() => {
-                                    setShowDialog(true)
-                                    setSelectedPlan(plan)
+                                    if (user?.uid) {
+                                        console.log(
+                                            'the selected plan is =>',
+                                            plan
+                                        )
+
+                                        setShowDialog(true)
+                                        setSelectedPlan(plan)
+                                    } else {
+                                        toast('Wittyworkbooks', {
+                                            description:
+                                                'Log into your account to subscribe',
+                                        })
+                                        router.push('/auth/login')
+                                    }
                                 }}
+                                disabled={
+                                    !user?.uid &&
+                                    subscription?.isSubscribed &&
+                                    subscription?.plan_name ==
+                                        plan.name
+                                }
                             >
-                                Subscribe Now
+                                {!user?.uid &&
+                                subscription?.isSubscribed &&
+                                subscription?.plan_name == plan.name
+                                    ? 'Subscribed'
+                                    : 'Subscribe'}
                             </Button>
                         </CardFooter>
                     </Card>
@@ -207,22 +260,11 @@ export default function Subscription() {
                                     // @here
                                     // subscription logic
                                     handleSubscription()
-
-                                    if (selectedPlan) {
-                                        dispatch(
-                                            updateSubscriptionStatus({
-                                                isSubscribed: true,
-                                                plan_name:
-                                                    selectedPlan?.name,
-                                                plan_price: `${(
-                                                    selectedPlan?.price /
-                                                    100
-                                                ).toFixed(2)}`,
-                                            })
-                                        )
-                                    }
                                 }}
                             >
+                                {subscriptionLoader && (
+                                    <Loader2 className="text-white h-[1.5rem] w-[1.5rem] animate-spin repeat-infinite" />
+                                )}
                                 Purchase
                             </Button>
                         </DialogFooter>

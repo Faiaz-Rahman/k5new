@@ -36,7 +36,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         login(state, actions) {
-            console.log('loggin in')
             state.isLoggedIn = actions.payload.isLoggedIn
             state.user = actions.payload.user
         },
@@ -46,9 +45,10 @@ const authSlice = createSlice({
         },
         updateUser(
             state,
-            actions: {
-                payload: { user: userProps; isLoggedIn: boolean }
-            }
+            actions: PayloadAction<{
+                user: userProps | null
+                isLoggedIn: boolean
+            }>
         ) {
             state.user = actions.payload.user
             state.isLoggedIn = actions.payload.isLoggedIn
@@ -56,6 +56,7 @@ const authSlice = createSlice({
         updateIsSocialLogin(state, actions) {
             state.socialLogin = actions.payload
         },
+        // used payload action @here
         updateSubscriptionStatus: (
             state,
             actions: PayloadAction<{
@@ -64,10 +65,7 @@ const authSlice = createSlice({
                 plan_price: string
             }>
         ) => {
-            state.subscription.isSubscribed =
-                actions.payload.isSubscribed
-            state.subscription.plan_name = actions.payload.plan_name
-            state.subscription.plan_price = actions.payload.plan_price
+            state.subscription = actions.payload
         },
     },
 })

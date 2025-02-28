@@ -35,7 +35,7 @@ export default function TopicWiseMathClient({
 
     const formattedTopicName = params.topicName.split('-')
 
-    const fetchData = async () => {
+    const getClientSecret = async () => {
         try {
             const res = await fetch('/api/create-payment-intent', {
                 method: 'POST',
@@ -46,10 +46,7 @@ export default function TopicWiseMathClient({
             })
 
             const resJson = await res.json()
-            console.log(
-                'got the client secret from client side =>',
-                resJson
-            )
+
             setClientSecret(resJson.clientSecret)
         } catch (error) {
             console.log(
@@ -61,7 +58,8 @@ export default function TopicWiseMathClient({
 
     useEffect(() => {
         if (!hasFetchedDataOnce.current) {
-            fetchData()
+            getClientSecret()
+
             hasFetchedDataOnce.current = true
         }
     }, [])

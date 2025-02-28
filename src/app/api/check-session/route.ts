@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import Stripe from 'stripe'
 
-export const POST = async (req: NextRequest) => {
+export async function POST(req: NextRequest) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
     const { session_id } = await req.json()
 
-    // console.log('the session id from api =>', session_id)
     try {
         const session = await stripe.checkout.sessions.retrieve(
             session_id
@@ -14,11 +13,21 @@ export const POST = async (req: NextRequest) => {
 
         console.log(session)
         if (session.payment_status === 'paid') {
-            // Update your database to mark the user as subscribed
             // await updateUserSubscriptionStatus(session.client_reference_id, 'active');
+            return NextResponse.json({ session }, { status: 200 })
+        } else if (session.payment_status == 'unpaid') {
+            return NextResponse.json(
+                { error: 'unpaid' },
+                { status: 500 }
+            )
+        } else {
+            return NextResponse.json(
+                {
+                    session,
+                },
+                { status: 200 }
+            )
         }
-
-        return NextResponse.json({ session })
     } catch (error: any) {
         return NextResponse.json(
             { error: error.message },

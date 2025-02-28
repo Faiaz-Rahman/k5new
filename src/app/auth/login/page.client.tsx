@@ -13,12 +13,16 @@ import Education from '../../../assets/education.png'
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { auth } from '@/utils/firebase'
+import { auth, db } from '@/utils/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { RootState, useAppDispatch } from '@/lib/store'
-import { updateUser } from '@/lib/slices/authSlice'
+import {
+    updateSubscriptionStatus,
+    updateUser,
+} from '@/lib/slices/authSlice'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { doc, getDoc } from 'firebase/firestore'
 
 export default function LoginClient() {
     const [email, setEmail] = useState<string>('')
@@ -29,6 +33,23 @@ export default function LoginClient() {
 
     const [showPass, setShowpass] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
+
+    const updateSubscriptionStatusFromFb = async (uid: string) => {
+        const docRef = doc(db, 'users', uid)
+
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+            const data = docSnap.data()
+
+            if (data.subscription) {
+                updateSubscriptionStatus({
+                    isSubscribed: data.subscription,
+                    plan_name: data.plan_name,
+                    plan_price: data.subscriptionDetails.plan_price,
+                })
+            }
+        }
+    }
 
     const onPressLogin = async () => {
         setLoading(true)
@@ -51,6 +72,10 @@ export default function LoginClient() {
                     })
                 )
 
+                updateSubscriptionStatusFromFb(
+                    userCredential?.user?.uid
+                )
+
                 setLoading(false)
                 router.push('/')
             })
@@ -60,11 +85,10 @@ export default function LoginClient() {
                     JSON.stringify(error)
                 )
                 setLoading(false)
-                alert(
-                    JSON.stringify(
-                        'One or, both of your credentials are incorrect'
-                    )
-                )
+
+                toast('Wittyworkbooks', {
+                    description: `One or, both of your credentials are incorrect`,
+                })
             })
     }
 
@@ -196,7 +220,10 @@ export default function LoginClient() {
                                 'the password is =>',
                                 pass
                             )
-                            alert('Please fill the fields first!')
+
+                            toast('Wittyworkbooks', {
+                                description: `Please fill the fields first`,
+                            })
                         } else {
                             onPressLogin()
                         }
