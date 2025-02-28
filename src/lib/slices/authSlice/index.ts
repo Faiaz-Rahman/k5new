@@ -1,4 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+interface subscriptionType {
+    isSubscribed: boolean
+    plan_name: string
+    plan_price: string
+}
 
 interface userProps {
     uid: string
@@ -11,12 +17,18 @@ interface AppState {
     isLoggedIn: boolean
     user: null | userProps
     socialLogin: boolean
+    subscription: subscriptionType
 }
 
 const initialState = {
     isLoggedIn: false,
     user: null,
     socialLogin: false,
+    subscription: {
+        isSubscribed: false,
+        plan_name: '',
+        plan_price: '',
+    },
 } satisfies AppState as AppState
 
 const authSlice = createSlice({
@@ -44,10 +56,28 @@ const authSlice = createSlice({
         updateIsSocialLogin(state, actions) {
             state.socialLogin = actions.payload
         },
+        updateSubscriptionStatus: (
+            state,
+            actions: PayloadAction<{
+                isSubscribed: boolean
+                plan_name: string
+                plan_price: string
+            }>
+        ) => {
+            state.subscription.isSubscribed =
+                actions.payload.isSubscribed
+            state.subscription.plan_name = actions.payload.plan_name
+            state.subscription.plan_price = actions.payload.plan_price
+        },
     },
 })
 
-export const { login, logout, updateUser, updateIsSocialLogin } =
-    authSlice.actions
+export const {
+    login,
+    logout,
+    updateUser,
+    updateIsSocialLogin,
+    updateSubscriptionStatus,
+} = authSlice.actions
 
 export default authSlice.reducer
