@@ -18,6 +18,9 @@ import { useDispatch } from 'react-redux'
 import { updateSubscriptionStatus } from '@/lib/slices/authSlice'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '@/utils/firebase'
+import { Poltawski_Nowy } from 'next/font/google'
 
 export default function SuccessPage() {
     const searchParams = useSearchParams()
@@ -27,7 +30,7 @@ export default function SuccessPage() {
 
     const session_id = searchParams.get('session_id')
 
-    const { subscription } = useSelector(
+    const { subscription, user } = useSelector(
         (state: RootState) => state.auth
     )
     const dispatch = useDispatch()
@@ -43,6 +46,18 @@ export default function SuccessPage() {
         const respJson = await resp.json()
         if (!respJson?.error) {
             setStatus('success')
+
+            if (user?.uid) {
+                const docRef = doc(db, 'users', user?.uid)
+
+                await updateDoc(docRef, {
+                    subscription: true,
+                    subscriptionDetails: {
+                        plan_name: subscription?.plan_name,
+                        plan_price: subscription?.plan_price,
+                    },
+                })
+            }
         } else {
             setStatus('failed')
             dispatch(
@@ -54,6 +69,8 @@ export default function SuccessPage() {
             )
         }
     }
+
+    console.log('the subscription value from store =>', subscription)
 
     React.useEffect(() => {
         if (!loadOneTime.current) {
