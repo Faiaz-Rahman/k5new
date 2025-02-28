@@ -13,16 +13,15 @@ import Input from '../../_components/Input'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import Education from '../../../assets/education.png'
-import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '@/lib/store'
+
+import { useAppDispatch } from '@/lib/store'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/utils/firebase'
-import {
-    updateIsSocialLogin,
-    updateUser,
-} from '@/lib/slices/authSlice'
+import { auth, db } from '@/utils/firebase'
+import { updateUser } from '@/lib/slices/authSlice'
 import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { toast } from 'sonner'
 
 interface RegisterProps {
     doSignIn: (signInType: string) => void
@@ -51,12 +50,18 @@ export default function Register({
 
     const onPressRegister = async () => {
         if (!email || !pass || !confPass) {
-            alert('Please, fill all the fields.')
+            toast('WittyWorkbooks', {
+                description: `Please, fill all the fields`,
+            })
         } else if (!agreeToTerms) {
-            alert('You must agree to terms, policies and fees.')
+            toast('WittyWorkbooks', {
+                description: `You must agree to terms, policies and fees`,
+            })
         } else {
             if (pass !== confPass) {
-                alert('Password and Confirm Password does not match.')
+                toast('WittyWorkbooks', {
+                    description: `Password and Confirm Password does not match`,
+                })
             } else {
                 setLoading(true)
 
@@ -65,23 +70,50 @@ export default function Register({
                     email,
                     pass
                 )
-                    .then((userCredential) => {
+                    .then(async (userCredential) => {
                         dispatch(
                             updateUser({
-                                user: userCredential.user,
+                                user: {
+                                    displayName:
+                                        userCredential?.user
+                                            ?.displayName || '',
+                                    email: userCredential?.user
+                                        ?.email,
+                                    photoURL:
+                                        userCredential?.user
+                                            ?.photoURL,
+                                    uid: userCredential?.user?.uid,
+                                },
                                 isLoggedIn: true,
                             })
                         )
-                        localStorage.setItem(
-                            'user',
-                            JSON.stringify(userCredential.user)
+
+                        const docRef = doc(
+                            db,
+                            'users',
+                            userCredential?.user.uid
                         )
-                        localStorage.setItem('isLoggedIn', 'true')
+
+                        await setDoc(docRef, {
+                            displayName:
+                                userCredential?.user?.displayName,
+                            email: userCredential?.user?.email,
+                            subscription: false,
+                            createdAt:
+                                userCredential?.user?.metadata
+                                    .creationTime,
+                            subscriptionDetails: null,
+                        })
+
                         setLoading(false)
                         router.push('/')
                     })
                     .catch((error) => {
-                        alert(JSON.stringify(error.code))
+                        toast('WittyWorkbooks', {
+                            description: `${JSON.stringify(
+                                error.code
+                            )}`,
+                        })
                     })
             }
         }
@@ -168,11 +200,25 @@ export default function Register({
                         const updatedSession: any = doSignIn('google')
                         setSessionState(updatedSession)
 
-                        if (session?.user) {
-                            console.log(
-                                'the session user from onPress Login With Google =>',
-                                session?.user
+                        if (session?.user?.id) {
+                            // console.log(
+                            //     'the session user from onPress Login With Google =>',
+                            //     session?.user
+                            // )
+
+                            const docRef = doc(
+                                db,
+                                'users',
+                                session?.user?.id
                             )
+
+                            await setDoc(docRef, {
+                                displayName: session?.user?.name,
+                                email: session?.user?.email,
+                                subscription: false,
+                                createdAt: new Date().toISOString(),
+                                subscriptionDetails: null,
+                            })
                         }
                     }}
                 />
@@ -200,11 +246,25 @@ export default function Register({
                     }
                     onPress={async () => {
                         doSignIn('facebook')
-                        if (session?.user) {
-                            console.log(
-                                'the session user from onPress Login With Google =>',
-                                session?.user.name
+                        if (session?.user?.id) {
+                            // console.log(
+                            //     'the session user from onPress Login With Google =>',
+                            //     session?.user.name
+                            // )
+
+                            const docRef = doc(
+                                db,
+                                'users',
+                                session?.user?.id
                             )
+
+                            await setDoc(docRef, {
+                                displayName: session?.user?.name,
+                                email: session?.user?.email,
+                                subscription: false,
+                                createdAt: new Date().toISOString(),
+                                subscriptionDetails: null,
+                            })
                         }
                     }}
                 />
