@@ -1,14 +1,30 @@
 'use client'
 
 import Slider from '@/app/_components/Slider'
-import { image_assets_arr } from '@/app/_constants'
+
+import { RootState } from '@/lib/store'
+import { db } from '@/utils/firebase'
 import {
     faChevronLeft,
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { doc, getDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+
+interface worksheetDataType {
+    craetedAt: string
+    gradeLevel: string
+    isPaid: boolean
+    publicUrl: string
+    subtitle: string
+    tags: Array<string>
+    title: string
+    topicName: string
+}
 
 export default function TopicWiseMathClient({
     params,
@@ -20,11 +36,13 @@ export default function TopicWiseMathClient({
 }) {
     const data: number[] = [1, 2, 3, 4, 5, 6]
     const divRef = useRef<HTMLDivElement>(null)
-
-    const data_for_worksheet: number[] = [1, 2, 3, 4, 5]
+    const { user } = useSelector((state: RootState) => state.auth)
 
     const [focusedInd, setfocusedInd] = useState<number>(1)
     const [style, setStyle] = useState<number>(0)
+
+    const [worksheets, setWorksheets] =
+        useState<Array<worksheetDataType>>()
 
     const [clientSecret, setClientSecret] = useState<string>('')
 
@@ -34,6 +52,7 @@ export default function TopicWiseMathClient({
     const hasFetchedDataOnce = useRef<boolean>(false)
 
     const formattedTopicName = params.topicName.split('-')
+    const [hasLoaded, setHasLoaded] = useState<boolean>()
 
     const getClientSecret = async () => {
         try {
@@ -56,20 +75,68 @@ export default function TopicWiseMathClient({
         }
     }
 
+    const fetchWorksheetsFromFb = async () => {
+        const docId = formattedTopicName
+            .map((topic, _) => {
+                return topic.charAt(0).toUpperCase() + topic.slice(1)
+            })
+            .join(' ')
+
+        const docRef = doc(db, formattedGrade, docId)
+
+        try {
+            const doc = await getDoc(docRef)
+
+            if (doc.exists()) {
+                const docData = doc.data()
+
+                setWorksheets(
+                    docData?.worksheetData as Array<worksheetDataType>
+                )
+                setHasLoaded(true)
+            } else {
+                setWorksheets([])
+                setHasLoaded(true)
+            }
+        } catch (error) {
+            console.log(
+                'error while retrieving worksheets from fb',
+                error
+            )
+        }
+    }
+
     useEffect(() => {
         if (!hasFetchedDataOnce.current) {
-            getClientSecret()
+            if (user?.uid) {
+                getClientSecret()
+            }
+            fetchWorksheetsFromFb()
 
             hasFetchedDataOnce.current = true
         }
     }, [])
+
+    if (!hasLoaded) {
+        return (
+            <div className="flex flex-1">
+                <div
+                    className="w-full h-screen flex pt-[20%]
+                    justify-center
+                "
+                >
+                    Loading ...
+                </div>
+            </div>
+        )
+    }
 
     return (
         <>
             <div className="py-2">
                 <p className="font-medium text-[10px]">
                     Maths {' > '} {formattedGrade} {' > '}{' '}
-                    {formattedTopicName.map((item, index) => {
+                    {formattedTopicName.map((item, _) => {
                         return (
                             item.charAt(0).toUpperCase() +
                             item.slice(1) +
@@ -78,6 +145,7 @@ export default function TopicWiseMathClient({
                     })}
                 </p>
             </div>
+
             <div
                 className="py-2 mb-3 w-full
             "
@@ -94,6 +162,7 @@ export default function TopicWiseMathClient({
                     Worksheets
                 </p>
             </div>
+
             <div
                 className="
                 text-[14px] w-full pr-5 lg:pr-40"
@@ -116,43 +185,47 @@ export default function TopicWiseMathClient({
 
             <div
                 className="flex flex-col w-[100%] 
-                py-3 gap-1 lg:w-[80%]"
+                gap-1 lg:w-[80%] mt-5"
             >
-                {data_for_worksheet.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            className="flex w-[100%]
-                            border-b border-b-gray-400
-                            items-center justify-between py-1
-                            lg:w-[80%]
-                            "
-                        >
+                {worksheets && worksheets.length > 0 ? (
+                    worksheets.map((worksheet, index) => {
+                        return (
                             <div
-                                className="flex flex-col h-full w-[100%5
-                "
+                                key={index}
+                                className="flex w-full h-20
+                                    border-b border-b-gray-400
+                                    items-center justify-between 
+                            "
                             >
-                                <p className="font-normal text-sm">
-                                    Patterns of object
-                                </p>
-                                <p className="font-normal text-sm">
-                                    What comes next?
-                                </p>
-                            </div>
+                                <div className="flex flex-col h-full w-[100%] justify-center">
+                                    <p className="font-sans text-sm">
+                                        {worksheet.title}
+                                    </p>
+                                    <p className="font-sans text-xs font-light">
+                                        {worksheet.subtitle}
+                                    </p>
+                                </div>
 
-                            <Image
-                                height={60}
-                                width={50}
-                                unoptimized
-                                src={image_assets_arr[index]}
-                                alt=""
-                                style={{
-                                    objectFit: 'contain',
-                                }}
-                            />
-                        </div>
-                    )
-                })}
+                                <div className="h-full w-[76px]">
+                                    <Image
+                                        src={worksheet.publicUrl}
+                                        alt="preview"
+                                        height={72}
+                                        width={76}
+                                        className="w-[76px] h-[70px] object-cover"
+                                    />
+                                </div>
+                            </div>
+                        )
+                    })
+                ) : (
+                    <div
+                        className="w-full border border-gray-300 rounded-md
+                        text-sm h-36 flex items-center justify-center mt-10 font-light"
+                    >
+                        No Worksheets available !!!
+                    </div>
+                )}
             </div>
 
             <div

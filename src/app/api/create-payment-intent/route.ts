@@ -10,7 +10,7 @@ const calculateOrderAmount = (items: number) => {
 
 export async function POST(req: NextRequest) {
     const body = await req.json()
-    console.log('the body is =>', body)
+    // console.log('the body is =>', body)
 
     if (req.method !== 'POST') {
         return Response.json(

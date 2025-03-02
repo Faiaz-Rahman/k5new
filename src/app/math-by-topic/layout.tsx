@@ -19,8 +19,8 @@ export default function BrowseByTopicsLayout({
             >
                 <Accordion value="en">
                     <AccordionItem
-                        trigger="Kindergarden"
-                        value={'Kindergarden'}
+                        trigger="Kindergarten"
+                        value={'Kindergarten'}
                     />
 
                     <AccordionItem

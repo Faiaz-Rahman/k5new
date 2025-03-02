@@ -102,14 +102,9 @@ export default function Head({
 
                 console.log('social value from store =>', socialLogin)
             } else {
-                console.log('inside else onPressLogout =>')
                 await signOut(auth)
 
                 await persistor.purge()
-                console.log(
-                    'isLoggedIn value after purging =>',
-                    isLoggedIn
-                )
 
                 dispatch(logout())
             }
@@ -204,15 +199,6 @@ export default function Head({
                 handleClickOutSideSearchBar
             )
         }
-    }, [])
-
-    useEffect(() => {
-        console.log(
-            'currentUser, isLoggedIn, user from store =>',
-            auth.currentUser,
-            isLoggedIn,
-            user
-        )
     }, [])
 
     return (
@@ -1076,7 +1062,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                         {showLoginDropdown && (
                             // Login Dropdown
                             <motion.div
-                                className="bg-transparent h-24 flex flex-col
+                                className="bg-transparent py-0 flex flex-col
                                 justify-end absolute top-[100%]
                             "
                                 initial={{
@@ -1093,8 +1079,8 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 }}
                             >
                                 <div
-                                    className="h-20 bg-white
-                                    pt-3 pl-3 shadow-md shadow-slate-300 
+                                    className="bg-white
+                                    py-3 pl-3 shadow-md shadow-slate-300 
                                     flex flex-col gap-1 pr-3
                                 "
                                 >
@@ -1140,7 +1126,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                     >
                                         {isLoggedIn === true ||
                                         isLoggedInUser
-                                            ? ''
+                                            ? null
                                             : '2.'}
                                         <Link
                                             onClick={() => {}}
@@ -1151,8 +1137,23 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         >
                                             {isLoggedIn ||
                                             isLoggedInUser
-                                                ? ''
+                                                ? null
                                                 : 'Sign up'}
+                                        </Link>
+                                    </span>
+                                    <span
+                                        className="no-underline w-full
+                                        font-medium text-black text-[12px]
+                                        flex
+                                    "
+                                    >
+                                        <Link
+                                            href={'/subscription'}
+                                            className="font-medium text-black
+                                                text-[12px] hover:underline
+                                            "
+                                        >
+                                            Subscription Plans
                                         </Link>
                                     </span>
                                 </div>

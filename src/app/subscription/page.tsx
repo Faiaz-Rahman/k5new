@@ -110,7 +110,6 @@ export default function Subscription() {
                     })
                 )
             }
-            setSubscriptionLoader(false)
 
             const resp = await stripe?.redirectToCheckout({
                 sessionId: sessionId.sessionId as string,
@@ -122,6 +121,7 @@ export default function Subscription() {
                     resp?.error
                 )
             }
+            setSubscriptionLoader(false)
         }
     }
 
@@ -145,8 +145,11 @@ export default function Subscription() {
         <div
             className="h-screen flex flex-col w-screen pl-[20px] 
                 pt-24 pr-[20px]
-                lg:pl-24 lg:flex-row lg:pt-40 lg:pr-24 lg:justify-center"
+                lg:pl-24 lg:pt-40 lg:pr-24 lg:justify-center"
         >
+            <p className="text-2xl font-semibold text-black sm:text-3xl">
+                All Subscription Plans
+            </p>
             <div
                 className="w-full h-full flex 
                 flex-col sm:flex-row items-center gap-10 justify-center
@@ -183,20 +186,15 @@ export default function Subscription() {
                         <CardFooter>
                             <Button
                                 className={`w-full ${
-                                    !user?.uid &&
+                                    !!user?.uid &&
                                     subscription?.isSubscribed &&
                                     subscription?.plan_name ==
                                         plan.name
-                                        ? 'bg-state-600'
+                                        ? 'bg-slate-500'
                                         : 'bg-black'
                                 }`}
                                 onClick={() => {
                                     if (user?.uid) {
-                                        console.log(
-                                            'the selected plan is =>',
-                                            plan
-                                        )
-
                                         setShowDialog(true)
                                         setSelectedPlan(plan)
                                     } else {
@@ -208,13 +206,13 @@ export default function Subscription() {
                                     }
                                 }}
                                 disabled={
-                                    !user?.uid &&
+                                    !!user?.uid &&
                                     subscription?.isSubscribed &&
                                     subscription?.plan_name ==
                                         plan.name
                                 }
                             >
-                                {!user?.uid &&
+                                {!!user?.uid &&
                                 subscription?.isSubscribed &&
                                 subscription?.plan_name == plan.name
                                     ? 'Subscribed'

@@ -1,5 +1,5 @@
 export const bottom_navbar_items: string[] = [
-    'Kindergarden',
+    'Kindergarten',
     'Grade-1',
     'Grade-2',
     'Grade-3',
@@ -19,7 +19,7 @@ export const image_assets_arr: string[] = [
 
 export const topic_name = [
     'Numbers and Counting',
-    'Number Patterns',
+    'Number Pattern',
     'Comparing Numbers',
     'Base Ten Blocks',
     'Place Value',
@@ -53,7 +53,7 @@ export const nav_menu_list: string[] = [
 ]
 
 export const accordion_item_list: string[] = [
-    'Kindergarden',
+    'Kindergarten',
     'Grade-1',
     'Grade-2',
     'Grade-3',

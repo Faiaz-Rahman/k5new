@@ -3,7 +3,7 @@ import { topic_name } from '@/app/_constants'
 import { NextResponse } from 'next/server'
 
 const topics: Record<string, string[]> = {
-    kindergarden: topic_name,
+    Kindergarten: topic_name,
     '1': topic_name,
     '2': topic_name,
     '3': topic_name,
