@@ -198,12 +198,31 @@ export default function TopicWiseMathClient({
                             "
                             >
                                 <div className="flex flex-col h-full w-[100%] justify-center">
-                                    <p className="font-sans text-sm">
+                                    <p className="font-sans text-sm font-semibold">
                                         {worksheet.title}
                                     </p>
-                                    <p className="font-sans text-xs font-light">
-                                        {worksheet.subtitle}
-                                    </p>
+                                    <div className="flex items-center gap-3">
+                                        <p className="font-sans text-xs font-light">
+                                            {worksheet.subtitle}
+                                        </p>
+
+                                        {worksheet.tags.map(
+                                            (worksheet_tags, _) => {
+                                                return (
+                                                    <div
+                                                        className="h-6 px-2 bg-yellow-200 flex items-center
+                                                    justify-center rounded-md"
+                                                    >
+                                                        <p className="text-xs font-extralight text-black">
+                                                            {
+                                                                worksheet_tags
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                )
+                                            }
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="h-full w-[76px]">

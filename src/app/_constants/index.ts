@@ -24,7 +24,7 @@ export const topic_name = [
     'Base Ten Blocks',
     'Place Value',
     'Addition',
-    'Substraction',
+    'Subtraction',
     'Fractions',
     'Measurement',
     'Counting Money',
