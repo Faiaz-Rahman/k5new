@@ -1,6 +1,7 @@
 'use client'
 
 import Slider from '@/app/_components/Slider'
+import WorksheetList from '@/app/_components/WorksheetListItem'
 
 import { RootState } from '@/lib/store'
 import { db } from '@/utils/firebase'
@@ -11,11 +12,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { doc, getDoc } from 'firebase/firestore'
-import Image from 'next/image'
+
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-interface worksheetDataType {
+export interface worksheetDataType {
   craetedAt: string
   gradeLevel: string
   isPaid: boolean
@@ -70,7 +71,7 @@ export default function TopicWiseMathClient({
     } catch (error) {
       console.log(
         'error while posting to create-payment-intent',
-        error,
+        error
       )
     }
   }
@@ -91,7 +92,7 @@ export default function TopicWiseMathClient({
         const docData = doc.data()
 
         setWorksheets(
-          docData?.worksheetData as Array<worksheetDataType>,
+          docData?.worksheetData as Array<worksheetDataType>
         )
         setHasLoaded(true)
       } else {
@@ -119,8 +120,8 @@ export default function TopicWiseMathClient({
       <div className="flex flex-1">
         <div
           className="w-full h-screen flex pt-[20%]
-                    justify-center
-                "
+            justify-center
+          "
         >
           Loading ...
         </div>
@@ -129,7 +130,7 @@ export default function TopicWiseMathClient({
   }
 
   return (
-    <>
+    <main>
       <div className="py-2">
         <p className="font-medium text-[10px]">
           Maths {' > '} {formattedGrade} {' > '}{' '}
@@ -176,56 +177,7 @@ export default function TopicWiseMathClient({
       >
         {worksheets && worksheets.length > 0 ? (
           worksheets.map((worksheet, index) => {
-            return (
-              <div
-                key={index}
-                className="flex w-full h-20
-                    border-b border-b-gray-400
-                    items-center justify-between
-                  hover:bg-gray-100 px-5 py-1
-                    rounded-t-md hover:cursor-pointer
-                "
-              >
-                <div
-                  className="flex flex-col h-full w-[100%] 
-                                    justify-center gap-y-3
-
-                                "
-                >
-                  <p className="font-sans text-sm font-semibold">
-                    {worksheet.title}
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <p className="font-sans text-xs font-light">
-                      {worksheet.subtitle}
-                    </p>
-
-                    {worksheet.tags.map((worksheet_tags, _) => {
-                      return (
-                        <div
-                          className="h-6 px-2 bg-yellow-200 flex items-center
-                            justify-center rounded-md"
-                        >
-                          <p className="text-xs font-extralight text-black">
-                            {worksheet_tags}
-                          </p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                <div className="h-full w-[76px]">
-                  <Image
-                    src={worksheet.publicUrl}
-                    alt="preview"
-                    height={72}
-                    width={76}
-                    className="w-[76px] h-[70px] object-cover"
-                  />
-                </div>
-              </div>
-            )
+            return <WorksheetList key={index} item={worksheet} />
           })
         ) : (
           <div
@@ -333,6 +285,6 @@ export default function TopicWiseMathClient({
           quidem?
         </p>
       </div>
-    </>
+    </main>
   )
 }
