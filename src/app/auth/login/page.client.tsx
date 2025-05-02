@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, useState } from 'react'
+import React, { useState } from 'react'
 import Input from '../../_components/Input'
 import Button from '../../_components/Button'
 
@@ -13,22 +13,50 @@ import Education from '../../../assets/education.png'
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { auth } from '@/utils/firebase'
+import { auth, db } from '@/utils/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { RootState, useAppDispatch } from '@/lib/store'
-import { updateUser } from '@/lib/slices/authSlice'
+
+import {
+  updateSubscriptionStatus,
+  updateUser,
+} from '@/lib/slices/authSlice'
+
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { doc, getDoc } from 'firebase/firestore'
+import { useDispatch } from 'react-redux'
 
 export default function LoginClient() {
-  const [email, setEmail] = useState<string>('')
-  const [pass, setPass] = useState<string>('')
   const router = useRouter()
 
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
+
+  const [email, setEmail] = useState<string>('')
+  const [pass, setPass] = useState<string>('')
 
   const [showPass, setShowpass] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+
+  const checkIfSubscribed = async (uid: string) => {
+    try {
+      const docRef = doc(db, 'users', uid)
+
+      const docData = (await getDoc(docRef)).data()
+
+      dispatch(
+        updateSubscriptionStatus({
+          isSubscribed: docData?.subscription ? true : false,
+          plan_name: docData?.subscriptionDetails.plan_name ?? '',
+          plan_price: docData?.subscriptionDetails.plan_price ?? '',
+        })
+      )
+    } catch (error) {
+      console.log(
+        'caught error while fetching user data from firebase =>',
+        error
+      )
+    }
+  }
 
   const onPressLogin = async () => {
     setLoading(true)
@@ -47,8 +75,10 @@ export default function LoginClient() {
               uid: userCredential.user.uid,
             },
             isLoggedIn: true,
-          }),
+          })
         )
+
+        checkIfSubscribed(userCredential?.user?.uid as string)
 
         setLoading(false)
         router.push('/')
@@ -56,30 +86,32 @@ export default function LoginClient() {
       .catch((error) => {
         console.log(
           'error from onPressLogin =>',
-          JSON.stringify(error),
+          JSON.stringify(error)
         )
         setLoading(false)
-        alert(
-          JSON.stringify(
+        // alert(
+        //   JSON.stringify(
+        //     'One or, both of your credentials are incorrect'
+        //   )
+        // )
+        toast('Wittyworkbooks', {
+          description:
             'One or, both of your credentials are incorrect',
-          ),
-        )
+        })
       })
   }
 
   return (
-    <div
+    <main
       className="pt-24 h-screen w-screen
-        
-            lg:flex lg:pt-40
-          "
+        lg:flex lg:pt-40
+      "
     >
       <div
         className="h-full w-full
-                    flex items-center justify-center flex-col
-                    
-                    lg:w-3/6
-                "
+        flex items-center justify-center flex-col
+        lg:w-3/6
+      "
       >
         <motion.div
           className="text-black font-semibold 
@@ -193,9 +225,11 @@ export default function LoginClient() {
                 'the email is =>',
                 email,
                 'the password is =>',
-                pass,
+                pass
               )
-              alert('Please fill the fields first!')
+              toast('Wittyworkbooks', {
+                description: 'Please, fill all the fields first.',
+              })
             } else {
               onPressLogin()
             }
@@ -244,6 +278,6 @@ export default function LoginClient() {
           }}
         />
       </div>
-    </div>
+    </main>
   )
 }
