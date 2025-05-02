@@ -23,11 +23,18 @@ export default function WorksheetList({
 
   const handleNav = () => {
     if (!item.isPaid) {
+      localStorage.setItem('worksheetDetails', JSON.stringify(item))
+
       router.push(`/worksheet/free/${topicName}`)
     } else {
       if (isLoggedIn) {
         if (subscription.isSubscribed) {
-          router.push(`/worksheet/(paid)/${topicName}`)
+          localStorage.setItem(
+            'worksheetDetails',
+            JSON.stringify(item)
+          )
+
+          router.push(`/worksheet/${topicName}`)
         } else {
           toast('WittyWorkbooks', {
             description: `Buy a subscription to access this worksheet`,
