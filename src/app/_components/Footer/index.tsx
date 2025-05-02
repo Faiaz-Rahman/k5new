@@ -81,7 +81,7 @@ export default function Footer() {
                             // bg-red-800
                         >
                             <Link
-                                href="#"
+                                href="/about-us"
                                 className="text-[12px] font-medium
                                 hover:underline
                                 lg:text-[15px]
