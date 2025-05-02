@@ -48,7 +48,7 @@ const authSlice = createSlice({
       actions: PayloadAction<{
         user: userProps | null
         isLoggedIn: boolean
-      }>
+      }>,
     ) {
       state.user = actions.payload.user
       state.isLoggedIn = actions.payload.isLoggedIn
@@ -63,7 +63,7 @@ const authSlice = createSlice({
         isSubscribed: boolean
         plan_name: string
         plan_price: string
-      }>
+      }>,
     ) {
       state.subscription = actions.payload
     },

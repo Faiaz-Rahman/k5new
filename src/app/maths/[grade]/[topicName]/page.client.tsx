@@ -71,7 +71,7 @@ export default function TopicWiseMathClient({
     } catch (error) {
       console.log(
         'error while posting to create-payment-intent',
-        error
+        error,
       )
     }
   }
@@ -92,7 +92,7 @@ export default function TopicWiseMathClient({
         const docData = doc.data()
 
         setWorksheets(
-          docData?.worksheetData as Array<worksheetDataType>
+          docData?.worksheetData as Array<worksheetDataType>,
         )
         setHasLoaded(true)
       } else {

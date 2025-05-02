@@ -27,7 +27,7 @@ export default function WorksheetList({
     } else {
       if (isLoggedIn) {
         if (subscription.isSubscribed) {
-          router.push(`/worksheet/${topicName}`)
+          router.push(`/worksheet/(paid)/${topicName}`)
         } else {
           toast('WittyWorkbooks', {
             description: `Buy a subscription to access this worksheet`,

@@ -89,11 +89,7 @@ export default function LoginClient() {
           JSON.stringify(error)
         )
         setLoading(false)
-        // alert(
-        //   JSON.stringify(
-        //     'One or, both of your credentials are incorrect'
-        //   )
-        // )
+
         toast('Wittyworkbooks', {
           description:
             'One or, both of your credentials are incorrect',
