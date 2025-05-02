@@ -5,46 +5,46 @@ import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 const calculateOrderAmount = (items: number) => {
-    return items
+  return items
 }
 
 export async function POST(req: NextRequest) {
-    const body = await req.json()
-    // console.log('the body is =>', body)
+  const body = await req.json()
+  // console.log('the body is =>', body)
 
-    if (req.method !== 'POST') {
-        return Response.json(
-            { error: 'method must be post' },
-            { status: 405 }
-        )
+  if (req.method !== 'POST') {
+    return Response.json(
+      { error: 'method must be post' },
+      { status: 405 },
+    )
+  }
+
+  try {
+    const paymentIntent: Stripe.PaymentIntent =
+      await stripe.paymentIntents.create({
+        amount: calculateOrderAmount(100),
+        currency: 'eur',
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      })
+
+    if (paymentIntent.client_secret) {
+      return Response.json(
+        { clientSecret: paymentIntent.client_secret },
+        { status: 200 },
+      )
+    } else {
+      return Response.json(
+        { error: 'internal server error' },
+        { status: 500 },
+      )
     }
-
-    try {
-        const paymentIntent: Stripe.PaymentIntent =
-            await stripe.paymentIntents.create({
-                amount: calculateOrderAmount(100),
-                currency: 'eur',
-                automatic_payment_methods: {
-                    enabled: true,
-                },
-            })
-
-        if (paymentIntent.client_secret) {
-            return Response.json(
-                { clientSecret: paymentIntent.client_secret },
-                { status: 200 }
-            )
-        } else {
-            return Response.json(
-                { error: 'internal server error' },
-                { status: 500 }
-            )
-        }
-    } catch (error) {
-        console.log('error from create-payment-intent', error)
-        return Response.json(
-            { error: 'internal server error' },
-            { status: 500 }
-        )
-    }
+  } catch (error) {
+    console.log('error from create-payment-intent', error)
+    return Response.json(
+      { error: 'internal server error' },
+      { status: 500 },
+    )
+  }
 }

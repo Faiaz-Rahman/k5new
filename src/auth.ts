@@ -3,15 +3,15 @@ import Google from 'next-auth/providers/google'
 import Facebook from 'next-auth/providers/facebook'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-    providers: [Google, Facebook],
-    callbacks: {
-        async session({ session, user, token }) {
-            return session
-        },
-        async redirect({ url, baseUrl }) {
-            // return url.startsWith(baseUrl) ? url : baseUrl + '/'
-            return '/'
-        },
+  providers: [Google, Facebook],
+  callbacks: {
+    async session({ session, user, token }) {
+      return session
     },
-    secret: process.env.AUTH_SECRET,
+    async redirect({ url, baseUrl }) {
+      // return url.startsWith(baseUrl) ? url : baseUrl + '/'
+      return '/'
+    },
+  },
+  secret: process.env.AUTH_SECRET,
 })

@@ -18,77 +18,76 @@ import { Providers } from '@/lib/Providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'WittyWorkbooks',
-    description: 'This is a learning website',
+  title: 'WittyWorkbooks',
+  description: 'This is a learning website',
 }
 
 export default async function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode
+  children: React.ReactNode
 }>) {
-    const session = await auth()
+  const session = await auth()
 
-    let cookieStore, isLoggedInValue
+  let cookieStore, isLoggedInValue
 
-    if (session?.user) {
-        cookieStore = cookies()
+  if (session?.user) {
+    cookieStore = cookies()
 
-        isLoggedInValue = cookieStore.get('isLoggedIn')?.value
-        isLoggedInValue =
-            isLoggedInValue === 'true' || !!session?.user
-        console.log('cookie store value =>', isLoggedInValue)
-    }
+    isLoggedInValue = cookieStore.get('isLoggedIn')?.value
+    isLoggedInValue = isLoggedInValue === 'true' || !!session?.user
+    console.log('cookie store value =>', isLoggedInValue)
+  }
 
-    const fetched_topic_names: Array<string> = []
+  const fetched_topic_names: Array<string> = []
 
-    console.log('session from layout =>', session?.user)
+  console.log('session from layout =>', session?.user)
 
-    const signOutSocialLogin = async () => {
-        'use server'
-        console.log('calling signOutSocialLogin on layout')
+  const signOutSocialLogin = async () => {
+    'use server'
+    console.log('calling signOutSocialLogin on layout')
 
-        await signOut()
-    }
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/topics`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ data: { grade: 'all' } }),
-        }
-    )
+    await signOut()
+  }
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/topics`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: { grade: 'all' } }),
+    },
+  )
 
-    if (!response.ok) {
-        console.log('error while calling the get api')
-    } else {
-        const responseJson: { topics: Array<string> } =
-            await response.json()
+  if (!response.ok) {
+    console.log('error while calling the get api')
+  } else {
+    const responseJson: { topics: Array<string> } =
+      await response.json()
 
-        responseJson?.topics.map((item, _) => {
-            fetched_topic_names.push(item)
-        })
-    }
+    responseJson?.topics.map((item, _) => {
+      fetched_topic_names.push(item)
+    })
+  }
 
-    return (
-        <html lang="en">
-            <body className={inter.className}>
-                <SessionProvider>
-                    <Providers>
-                        <Head
-                            session={session}
-                            topics={fetched_topic_names}
-                            signOutSocialLogin={signOutSocialLogin}
-                            isLoggedInUser={isLoggedInValue}
-                        />
-                        {children}
-                        <Toaster />
-                        <Footer />
-                    </Providers>
-                </SessionProvider>
-            </body>
-        </html>
-    )
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <SessionProvider>
+          <Providers>
+            <Head
+              session={session}
+              topics={fetched_topic_names}
+              signOutSocialLogin={signOutSocialLogin}
+              isLoggedInUser={isLoggedInValue}
+            />
+            {children}
+            <Toaster />
+            <Footer />
+          </Providers>
+        </SessionProvider>
+      </body>
+    </html>
+  )
 }
