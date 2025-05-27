@@ -31,7 +31,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
 )
 
 interface subscriptionPlanType {
@@ -51,7 +51,7 @@ export default function Subscription() {
   const [subscriptionLoader, setSubscriptionLoader] =
     useState<boolean>(false)
   const { user, isLoggedIn, subscription } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   )
 
   const dispatch = useDispatch()
@@ -100,7 +100,7 @@ export default function Subscription() {
             isSubscribed: true,
             plan_name: selectedPlan?.name,
             plan_price: `${(selectedPlan?.price / 100).toFixed(2)}`,
-          }),
+          })
         )
       }
 
@@ -111,7 +111,7 @@ export default function Subscription() {
       if (resp?.error) {
         console.log(
           'got error while redirecting to checkout',
-          resp?.error,
+          resp?.error
         )
       }
       setSubscriptionLoader(false)

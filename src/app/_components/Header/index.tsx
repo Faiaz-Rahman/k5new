@@ -57,7 +57,7 @@ export default function Head({
 
   const dispatch = useAppDispatch()
   const { isLoggedIn, socialLogin, user } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   )
 
   const [showLoginDropdown, setShowLoginDropdown] =
@@ -146,7 +146,7 @@ export default function Head({
 
   const handleNavigation = (
     grade: string,
-    topicName: string,
+    topicName: string
   ): void => {
     const formattedGrade =
       grade.charAt(0).toLowerCase() + grade.slice(1)
@@ -187,12 +187,12 @@ export default function Head({
 
     document.addEventListener(
       'mousedown',
-      handleClickOutSideSearchBar,
+      handleClickOutSideSearchBar
     )
     return () => {
       document.removeEventListener(
         'mousedown',
-        handleClickOutSideSearchBar,
+        handleClickOutSideSearchBar
       )
     }
   }, [])
@@ -369,8 +369,8 @@ export default function Head({
                     {user?.email
                       ? `${user?.email}`
                       : isLoggedInUser
-                        ? `${session?.user?.email}`
-                        : `Login`}
+                      ? `${session?.user?.email}`
+                      : `Login`}
                   </p>
                 </div>
               </div>
@@ -490,7 +490,7 @@ export default function Head({
                 handleSuggestion(e.target.value)
               }}
               onKeyDown={(
-                e: React.KeyboardEvent<HTMLInputElement>,
+                e: React.KeyboardEvent<HTMLInputElement>
               ) => {
                 if (e.key === 'Enter') {
                   setShowSuggestions(false)
@@ -550,8 +550,8 @@ export default function Head({
                         setSearchText(suggestion)
                         router.push(
                           `/search/maths/${getFormattedTopicName(
-                            suggestion,
-                          )}`,
+                            suggestion
+                          )}`
                         )
                         setShowSuggestions(false)
                       }}
@@ -595,26 +595,26 @@ export default function Head({
       </div>
 
       {/* Header Bottom UI > nav links */}
-      <div
-        className="hidden lg:h-10 lg:w-full lg:flex lg:pl-20
-            "
+      <nav
+        className="hidden lg:h-10 lg:w-full lg:flex lg:pl-20 
+      "
       >
         {/* nav links */}
         <ul
           className="h-full flex
-s                    items-center gap-3 w-full mr-7 border-r 
-                    border-r-slate-400 justify-between pr-5
-                "
+            items-center gap-3 w-full mr-7 border-r 
+          border-r-slate-400 justify-between pr-5
+          "
         >
           {bottom_navbar_items.map((item, ind) => {
             return (
               <li
                 key={`${ind}`}
                 className="h-full flex items-center
-                                    hover:bg-[--button-primary]
-                                    px-[15px] transition-all duration-300
-                                    rounded-full relative
-                                "
+                  hover:bg-[--button-primary]
+                  px-[15px] transition-all duration-300
+                  rounded-full relative
+                "
                 onMouseEnter={() => {
                   if (item !== 'Browse by topic') {
                     setShowMinimizedLinkDropdown(item)
@@ -761,17 +761,17 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         onClick={() => {
                                           handleNavigation(
                                             item,
-                                            number_item,
+                                            number_item
                                           )
                                           setShowMinimizedLinkDropdown(
-                                            '',
+                                            ''
                                           )
                                         }}
                                       >
                                         {number_item}
                                       </li>
                                     )
-                                  },
+                                  }
                                 )}
                               </ul>
                             </div>
@@ -783,7 +783,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 {operations.map(
                                   (
                                     operations_item,
-                                    operations_ind,
+                                    operations_ind
                                   ) => {
                                     return (
                                       <li
@@ -793,17 +793,17 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         onClick={() => {
                                           handleNavigation(
                                             item,
-                                            operations_item,
+                                            operations_item
                                           )
                                           setShowMinimizedLinkDropdown(
-                                            '',
+                                            ''
                                           )
                                         }}
                                       >
                                         {operations_item}
                                       </li>
                                     )
-                                  },
+                                  }
                                 )}
                               </ul>
                             </div>
@@ -823,17 +823,17 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         onClick={() => {
                                           handleNavigation(
                                             item,
-                                            advanced_item,
+                                            advanced_item
                                           )
                                           setShowMinimizedLinkDropdown(
-                                            '',
+                                            ''
                                           )
                                         }}
                                       >
                                         {advanced_item}
                                       </li>
                                     )
-                                  },
+                                  }
                                 )}
                               </ul>
                             </div>
@@ -853,17 +853,17 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         onClick={() => {
                                           handleNavigation(
                                             item,
-                                            fractions_item,
+                                            fractions_item
                                           )
                                           setShowMinimizedLinkDropdown(
-                                            '',
+                                            ''
                                           )
                                         }}
                                       >
                                         {fractions_item}
                                       </li>
                                     )
-                                  },
+                                  }
                                 )}
                               </ul>
                             </div>
@@ -876,7 +876,7 @@ s                    items-center gap-3 w-full mr-7 border-r
                                 {measurement.map(
                                   (
                                     measurement_item,
-                                    measurement_ind,
+                                    measurement_ind
                                   ) => {
                                     return (
                                       <li
@@ -887,17 +887,17 @@ s                    items-center gap-3 w-full mr-7 border-r
                                         onClick={() => {
                                           handleNavigation(
                                             item,
-                                            measurement_item,
+                                            measurement_item
                                           )
                                           setShowMinimizedLinkDropdown(
-                                            '',
+                                            ''
                                           )
                                         }}
                                       >
                                         {measurement_item}
                                       </li>
                                     )
-                                  },
+                                  }
                                 )}
                               </ul>
                             </div>
@@ -917,10 +917,10 @@ s                    items-center gap-3 w-full mr-7 border-r
                                       onClick={() => {
                                         handleNavigation(
                                           item,
-                                          more_item,
+                                          more_item
                                         )
                                         setShowMinimizedLinkDropdown(
-                                          '',
+                                          ''
                                         )
                                       }}
                                     >
@@ -994,8 +994,8 @@ s                    items-center gap-3 w-full mr-7 border-r
                     {isLoggedIn
                       ? `Logged in as, ${user?.email}`
                       : isLoggedInUser
-                        ? `Logged in as, ${session?.user?.email}`
-                        : '1. Already a Member'}
+                      ? `Logged in as, ${session?.user?.email}`
+                      : '1. Already a Member'}
                     <br />
                     <span
                       onClick={() => {
@@ -1055,7 +1055,7 @@ s                    items-center gap-3 w-full mr-7 border-r
             )}
           </div>
         </div>
-      </div>
+      </nav>
     </header>
   )
 }
