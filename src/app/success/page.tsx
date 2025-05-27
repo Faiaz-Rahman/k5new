@@ -20,7 +20,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '@/utils/firebase'
-import { Poltawski_Nowy } from 'next/font/google'
 
 export default function SuccessPage() {
   const searchParams = useSearchParams()
@@ -31,7 +30,7 @@ export default function SuccessPage() {
   const session_id = searchParams.get('session_id')
 
   const { subscription, user } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   )
   const dispatch = useDispatch()
 
@@ -65,7 +64,7 @@ export default function SuccessPage() {
           isSubscribed: false,
           plan_name: '',
           plan_price: '',
-        }),
+        })
       )
     }
   }

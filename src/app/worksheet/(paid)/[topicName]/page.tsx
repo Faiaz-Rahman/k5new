@@ -35,18 +35,21 @@ export default function PaidWorksheet() {
       </p>
 
       <div className="flex gap-x-3 mt-3 mb-5">
-        {worksheetDetails?.tags.map((worksheet_tags, _) => {
-          return (
-            <div
-              className="h-6 px-2 bg-yellow-200 flex items-center
+        {worksheetDetails?.tags.map(
+          (worksheet_tags, _worksheet_tag_ind) => {
+            return (
+              <div
+                key={`${worksheet_tags}_${_worksheet_tag_ind}`}
+                className="h-6 px-2 bg-yellow-200 flex items-center
               justify-center rounded-md"
-            >
-              <p className="text-xs font-extralight text-black">
-                {worksheet_tags}
-              </p>
-            </div>
-          )
-        })}
+              >
+                <p className="text-xs font-extralight text-black">
+                  {worksheet_tags}
+                </p>
+              </div>
+            )
+          }
+        )}
       </div>
 
       {worksheetDetails?.publicUrl && (

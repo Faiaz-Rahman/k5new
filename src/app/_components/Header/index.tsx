@@ -631,8 +631,8 @@ export default function Head({
                       : `#`
                   }
                   className="text-xs font-medium
-                                    h-full w-full flex items-center
-                                "
+                    h-full w-full flex items-center
+                  "
                 >
                   {item}
                 </Link>
@@ -664,10 +664,10 @@ export default function Head({
                           <div
                             key={`nav_menu_list${nav_ind}`}
                             className={`flex items-center h-12 w-full 
-                                                            pl-3 border-b border-b-slate-200 relative 
-                                                            cursor-pointer bg-white hover:bg-[--card]
-                                                            justify-between pr-3
-                                                        `}
+                              pl-3 border-b border-b-slate-200 relative 
+                              cursor-pointer bg-white hover:bg-[--card]
+                              justify-between pr-3
+                            `}
                             onClick={() => {
                               if (item !== 'Browse by topic') {
                                 if (nav_item !== 'See All') {
@@ -687,7 +687,7 @@ export default function Head({
                           >
                             <p
                               className="font-medium text-black text-xs
-                                                            "
+                              "
                             >
                               {nav_item}
                             </p>
@@ -707,19 +707,15 @@ export default function Head({
                       {/* menu side bar */}
                       {seeAll && (
                         <motion.div
-                          className={`
-                                                    absolute h-full w-[490px]
-                                                    bg-transparent top-0
-                                                    ${
-                                                      ind <
-                                                      bottom_navbar_items.length /
-                                                        2
-                                                        ? 'left-full pl-5'
-                                                        : 'right-full pr-5'
-                                                    }
-                                                    transition-all 
-                                                    pt-4
-                                                `}
+                          className={`absolute h-full w-[490px]
+                            bg-transparent top-0
+                            ${
+                              ind < bottom_navbar_items.length / 2
+                                ? 'left-full pl-5'
+                                : 'right-full pr-5'
+                            }
+                            transition-all pt-4
+                          `}
                           onMouseLeave={() => {
                             if (seeAll) {
                               setSeeAll(false)

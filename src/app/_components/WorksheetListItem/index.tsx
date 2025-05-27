@@ -18,7 +18,7 @@ export default function WorksheetList({
   const router = useRouter()
   const { topicName } = useParams()
   const { subscription, isLoggedIn } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   )
 
   const handleNav = () => {
@@ -31,7 +31,7 @@ export default function WorksheetList({
         if (subscription.isSubscribed) {
           localStorage.setItem(
             'worksheetDetails',
-            JSON.stringify(item),
+            JSON.stringify(item)
           )
 
           router.push(`/worksheet/${topicName}`)
@@ -71,11 +71,12 @@ export default function WorksheetList({
             {item.subtitle}
           </p>
 
-          {item.tags.map((worksheet_tags, _) => {
+          {item.tags.map((worksheet_tags, _ind) => {
             return (
               <div
+                key={`${worksheet_tags}_${_ind}`}
                 className="h-6 px-2 bg-yellow-200 flex items-center
-                                justify-center rounded-md"
+                  justify-center rounded-md"
               >
                 <p className="text-xs font-extralight text-black">
                   {worksheet_tags}
