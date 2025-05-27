@@ -15,16 +15,16 @@
 // }
 
 const nextConfig = {
-    images: {
-        formats: ['image/avif', 'image/webp'],
-        domains: ['www.mathworksheets4kids.com'],
-        remotePatterns: [
-            {
-                protocolL: 'https',
-                hostname: 'ficnupxsgxoxznfksnye.supabase.co',
-            },
-        ],
-    },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    domains: ['www.mathworksheets4kids.com'],
+    remotePatterns: [
+      {
+        protocolL: 'https',
+        hostname: 'ficnupxsgxoxznfksnye.supabase.co',
+      },
+    ],
+  },
 }
 
 export default nextConfig

@@ -1,6 +1,6 @@
 module.exports = {
   printWidth: 70, // max 120 chars in line, code is easy to read
-  tabWidth: 4, // "visual width" of of the "tab"
+  tabWidth: 2, // "visual width" of of the "tab"
   semi: false, // add ; when needed
   singleQuote: true, // '' for stings instead of ""
   bracketSpacing: true, // import { some } ... instead of import {some} ...
