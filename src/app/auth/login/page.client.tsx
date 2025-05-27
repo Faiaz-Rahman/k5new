@@ -48,12 +48,12 @@ export default function LoginClient() {
           isSubscribed: docData?.subscription ? true : false,
           plan_name: docData?.subscriptionDetails.plan_name ?? '',
           plan_price: docData?.subscriptionDetails.plan_price ?? '',
-        })
+        }),
       )
     } catch (error) {
       console.log(
         'caught error while fetching user data from firebase =>',
-        error
+        error,
       )
     }
   }
@@ -75,7 +75,7 @@ export default function LoginClient() {
               uid: userCredential.user.uid,
             },
             isLoggedIn: true,
-          })
+          }),
         )
 
         checkIfSubscribed(userCredential?.user?.uid as string)
@@ -86,7 +86,7 @@ export default function LoginClient() {
       .catch((error) => {
         console.log(
           'error from onPressLogin =>',
-          JSON.stringify(error)
+          JSON.stringify(error),
         )
         setLoading(false)
 
@@ -221,7 +221,7 @@ export default function LoginClient() {
                 'the email is =>',
                 email,
                 'the password is =>',
-                pass
+                pass,
               )
               toast('Wittyworkbooks', {
                 description: 'Please, fill all the fields first.',

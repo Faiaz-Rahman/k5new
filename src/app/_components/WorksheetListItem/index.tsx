@@ -18,7 +18,7 @@ export default function WorksheetList({
   const router = useRouter()
   const { topicName } = useParams()
   const { subscription, isLoggedIn } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   )
 
   const handleNav = () => {
@@ -31,7 +31,7 @@ export default function WorksheetList({
         if (subscription.isSubscribed) {
           localStorage.setItem(
             'worksheetDetails',
-            JSON.stringify(item)
+            JSON.stringify(item),
           )
 
           router.push(`/worksheet/${topicName}`)

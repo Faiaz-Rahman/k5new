@@ -9,7 +9,7 @@ export default function PaidWorksheet() {
     React.useState<worksheetDataType>()
 
   const getData = async () => {
-    const data = await localStorage.getItem('worksheetDetails')
+    const data = localStorage.getItem('worksheetDetails')
     if (data) {
       setWorksheetDetails(JSON.parse(data))
       console.log('the data is =>', data)
