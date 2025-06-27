@@ -684,6 +684,14 @@ export default function Head({
                                 setSeeAll(true)
                               }
                             }}
+                            onMouseLeave={() => {
+                              if (
+                                nav_ind ===
+                                nav_menu_list.length - 1
+                              ) {
+                                setSeeAll(false)
+                              }
+                            }}
                           >
                             <p
                               className="font-medium text-black text-xs
